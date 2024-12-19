@@ -8,7 +8,11 @@ import Grades from "./pages/Grades";
 import Student from "./pages/Student";
 import Settings from "./pages/Settings";
 import Works from "./pages/Works";
+<<<<<<< HEAD
 import LogIn from "./pages/LogIn";
+=======
+import Login from "./pages/Login";
+>>>>>>> master
 import Register from "./pages/Register";
 import Error from "./pages/Error";
 import { ThemeProvider } from "./theme/Theme";
@@ -29,7 +33,11 @@ function App() {
                   <Route path="/student" element={<Student />} />
                   <Route path="/works" element={<Works />} />
                   <Route path="/settings" element={<Settings />} />
+<<<<<<< HEAD
                   <Route path="/login" element={<LogIn />} />
+=======
+                  <Route path="/login" element={<Login />} />
+>>>>>>> master
                   <Route path="/register" element={<Register />} />
                   <Route path="*" element={<Error />} />
                 </Routes>
