@@ -1,0 +1,37 @@
+.theme {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: center;
+}
+  
+.theme .btn {
+    margin: 10px;
+    padding: 8px;
+    border-radius: 50px;
+    border: none;
+    background-color: #222;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+  
+.theme .btn:hover {
+    cursor: pointer;
+    filter: brightness(2);
+}
+
+i{
+    font-size: 16pt;
+}
+
+
+.theme .btn.light{
+    background-color: #222;
+    color: #fff;
+}
+
+.theme .btn.dark{
+    background-color: #fff;
+    color: #000;
+}
