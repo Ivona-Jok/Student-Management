@@ -1,8 +1,10 @@
+
+
 function Footer() {
   return (
-    <footer className="footer py-5 bg-dark mt-auto">
+    <footer className="footer py-5 bg-light mt-2 border-top">
       <div className="container text-center">
-        <span className="text-white">Student Management @ 2024.</span>
+        <span className="text-black">Student Management @ 2024.</span>
       </div>
     </footer>
   );

@@ -11,30 +11,35 @@ import Works from "./pages/Works";
 import LogIn from "./pages/LogIn";
 import Register from "./pages/Register";
 import Error from "./pages/Error";
+import { ThemeProvider } from "./theme/Theme";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Header />
-        <Sidebar />
-        <main>
+    <ThemeProvider>
+      <div className="App">
+        <Router>
           <div className="d-flex flex-column min-vh-100">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/grades" element={<Grades />} />
-              <Route path="/student" element={<Student />} />
-              <Route path="/works" element={<Works />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/login" element={<LogIn />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="*" element={<Error />} />
-            </Routes>
+            <Header />
+            <div className="d-flex flex-grow-1">
+              <Sidebar />
+              <main className="flex-grow-1 p-4">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/grades" element={<Grades />} />
+                  <Route path="/student" element={<Student />} />
+                  <Route path="/works" element={<Works />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/login" element={<LogIn />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="*" element={<Error />} />
+                </Routes>
+              </main>
+            </div>
+            <Footer />
           </div>
-        </main>
-        <Footer />
-      </Router>
-    </div>
+        </Router>
+      </div>
+    </ThemeProvider>
   );
 }
 
