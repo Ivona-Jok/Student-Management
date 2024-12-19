@@ -2,7 +2,7 @@
 function Register() {
     return (
       <div className="Register">
-          Register
+          Register page
       </div>
     );
   }
