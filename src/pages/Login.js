@@ -2,24 +2,28 @@ import { useState } from 'react';
 import '../styles/Login.css';
 import { login } from '../utils/api';
 
-const Login = (props) => {
+const Login = () => {
   const [enteredPassword, setEnteredPassword] = useState('');
-  const [enteredPasswordTouched, setEnteredPasswordTouched] = useState(false);
-
   const [enteredEmail, setEnteredEmail] = useState('');
-  const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
+  const [inputTouched, setInputTouched] = useState({
+    email: false,
+    password: false
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const enteredPasswordIsValid = enteredPassword.trim() !== '';
-  const passwordInputIsInvalid = !enteredPasswordIsValid && enteredPasswordTouched;
+  const enteredPasswordIsValid = 
+  enteredPassword.length >= 8 && // Minimalno 8 karaktera
+  enteredPassword.length <= 20 && // Maksimalno 20 karaktera
+  /[a-zA-Z]/.test(enteredPassword) && // Minimum jedno slovo
+  /\d/.test(enteredPassword) && // Minimum 1 broj
+  /[!@#$%^&*(),.?":{}|<>]/.test(enteredPassword); // Minimum 1 specijalni karakter
+  const passwordInputIsInvalid = !enteredPasswordIsValid && inputTouched.password;
 
   const enteredEmailIsValid = enteredEmail.includes('@');
-  const enteredEmailIsInvalid = !enteredEmailIsValid && enteredEmailTouched;
+  const enteredEmailIsInvalid = !enteredEmailIsValid && inputTouched.email;
 
-  let formIsValid = false;
-
-  if (enteredPasswordIsValid && enteredEmailIsValid) {
-    formIsValid = true;
-  }
+  const formIsValid = enteredPasswordIsValid && enteredEmailIsValid;
 
   const passwordInputChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
@@ -29,97 +33,102 @@ const Login = (props) => {
     setEnteredEmail(event.target.value);
   };
 
-  const passwordInputBlurHandler = (event) => {
-    setEnteredPasswordTouched(true);
+  const passwordInputBlurHandler = () => {
+    if (enteredPassword.length < 1) {
+      setError("");
+    } else if (enteredPassword.length < 8 || enteredPassword.length > 20) {
+      setError("Password must be 8 to 20 characters.");
+    } else if (!/[a-zA-Z]/.test(enteredPassword)) {
+      setError("Password must contain at least one letter.");
+    } else if (!/\d/.test(enteredPassword)) {
+      setError("Password must contain at least one number.");
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(enteredPassword)) {
+      setError("Password must contain at least one special character.");
+    } else if (/\s/.test(enteredPassword)) {
+      setError("Password should not contain spaces.");
+    } else {
+      setError(""); // Clear the error message if password is valid
+    }
+    setInputTouched((prev) => ({ ...prev, password: true }));
   };
 
-  const emailInputBlurHandler = (event) => {
-    setEnteredEmailTouched(true);
+  const emailInputBlurHandler = () => {
+    setInputTouched((prev) => ({ ...prev, email: true }));
+  };
+
+  const renderErrorMessage = (isInvalid, errorMessage) => {
+    return isInvalid && <p className="error-text">{errorMessage}</p>;
   };
 
   const formSubmissionHandler = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
-    setEnteredPasswordTouched(true);
-    setEnteredEmailTouched(true);
-  
     if (!enteredPasswordIsValid || !enteredEmailIsValid) {
+      setIsLoading(false);
       return;
     }
-    
+
     try {
       const userData = await login(enteredEmail, enteredPassword);
       console.log('Login successful:', userData);
       
-      // Kod za preusmjeravanje na neku stranicu ili za čuvanje login podataka
-
-      // Nakon uspješnog logovanja praznimo input polja
+      // Clear fields after successful login
       setEnteredPassword('');
-      setEnteredPasswordTouched(false);
-
       setEnteredEmail('');
-      setEnteredEmailTouched(false);
+      setInputTouched({ email: false, password: false });
     } catch (error) {
       console.error('Login failed:', error.message);
-      alert('Login failed. Please check your credentials.');
+      alert(error.message || 'Login failed. Please check your credentials.');
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  const passwordInputClasses = passwordInputIsInvalid
-  ? 'form-control invalid'
-  : 'form-control';
-
-  const emailInputClasses = enteredEmailIsInvalid
-    ? 'form-control invalid'
-    : 'form-control';
 
   return (
     <div className="login-wrapper">
       <div className="login-form-container">
         <h2 className="login-title">Login</h2>
-        <br></br>
-          <form onSubmit={formSubmissionHandler}>
-            <div class="form-group" className={emailInputClasses}>
-              <label for="exampleInputEmail1" className='label-text'>Email address</label>
-              <input 
+        <form onSubmit={formSubmissionHandler}>
+          <div className={`form-group ${enteredEmailIsInvalid ? 'invalid' : ''}`}>
+            <label htmlFor="email" className="label-text">Email address</label>
+            <input 
               type="email" 
-              class="form-control" 
+              className="form-control" 
               id="email" 
-              aria-describedby="emailHelp" 
               placeholder="name@example.com"
               onChange={emailInputChangeHandler}
               onBlur={emailInputBlurHandler}
               value={enteredEmail}
-              />
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-              {enteredEmailIsInvalid && (
-                <p className='error-text'>Please enter a valid email address.</p>
-              )}
-            </div>
-            <br></br>
-            <div class="form-group" className={passwordInputClasses}>
-              <label for="exampleInputPassword1" className='label-text'>Password</label>
-              <input 
+            />
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            {renderErrorMessage(enteredEmailIsInvalid, 'Please enter a valid email address.')}
+          </div>
+          
+          <div className={`form-group ${passwordInputIsInvalid ? 'invalid' : ''}`}>
+            <label htmlFor="password" className="label-text">Password</label>
+            <input 
               type="password" 
-              class="form-control" 
+              className="form-control" 
               id="password" 
-              aria-describedby="passwordHelp" 
               placeholder="Enter password"
               onChange={passwordInputChangeHandler}
               onBlur={passwordInputBlurHandler}
               value={enteredPassword}
-              />
-              <small id="passwordHelp" class="form-text text-muted">Your password is safe with us.</small>
-              
-              {passwordInputIsInvalid && (
-                <p className='error-text'>Please enter a valid password.</p>
-              )}
-            </div>
-            <br></br><br></br>
+              maxLength={20}
+            />
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Must be 8-20 characters long, contain letters, numbers and special characters (not contain spaces or emoji).
+            </small>
+            {renderErrorMessage(passwordInputIsInvalid, `Please enter a valid password. ${error}`)}
             
-            <button disabled={!formIsValid} type="submit" className="login-button">Login</button>
-          </form>
-        </div>
+          </div>
+          
+          <button disabled={!formIsValid || isLoading} type="submit" className="login-button">
+            {isLoading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

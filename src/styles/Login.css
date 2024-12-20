@@ -20,6 +20,7 @@
   margin-bottom: 20px;
   color: rgb(5, 78, 246);
   font-weight: bold;
+  margin-bottom: 40px;
 }
 
 .login-form {
@@ -30,11 +31,17 @@
   width: 100%;
   background-color: #0f65f0;
   border-color: #0f65f0;
+  margin-top: 20px;
 }
 
 .label-text{
   float: left;
   color: rgb(0, 4, 12);
+}
+
+/* Rastojanje između input polja */
+.form-group {
+  margin-bottom: 40px;
 }
 
 .form-control {
