@@ -101,7 +101,7 @@ const Login = () => {
               onBlur={emailInputBlurHandler}
               value={enteredEmail}
             />
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             {renderErrorMessage(enteredEmailIsInvalid, 'Please enter a valid email address.')}
           </div>
           
@@ -117,7 +117,7 @@ const Login = () => {
               value={enteredPassword}
               maxLength={20}
             />
-            <small id="passwordHelpBlock" class="form-text text-muted">
+            <small id="passwordHelpBlock" className="form-text text-muted">
               Must be 8-20 characters long, contain letters, numbers and special characters (not contain spaces or emoji).
             </small>
             {renderErrorMessage(passwordInputIsInvalid, `Please enter a valid password. ${error}`)}
