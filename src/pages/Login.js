@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import '../styles/Login.css';
+import '../styles/Form.css';
 import { login } from '../utils/api';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [enteredPassword, setEnteredPassword] = useState('');
@@ -35,7 +36,7 @@ const Login = () => {
 
   const passwordInputBlurHandler = () => {
     if (enteredPassword.length < 1) {
-      setError("");
+      setError(""); // Ako nije unešen nijedan karakter ne prikazuje se error poruka
     } else if (enteredPassword.length < 8 || enteredPassword.length > 20) {
       setError("Password must be 8 to 20 characters.");
     } else if (!/[a-zA-Z]/.test(enteredPassword)) {
@@ -47,7 +48,7 @@ const Login = () => {
     } else if (/\s/.test(enteredPassword)) {
       setError("Password should not contain spaces.");
     } else {
-      setError(""); // Clear the error message if password is valid
+      setError(""); // Ako je šifra validna ne prikazuje se error poruka
     }
     setInputTouched((prev) => ({ ...prev, password: true }));
   };
@@ -73,7 +74,7 @@ const Login = () => {
       const userData = await login(enteredEmail, enteredPassword);
       console.log('Login successful:', userData);
       
-      // Clear fields after successful login
+      // Nakon uspješnoh Login-a prazne se input polja
       setEnteredPassword('');
       setEnteredEmail('');
       setInputTouched({ email: false, password: false });
@@ -86,9 +87,9 @@ const Login = () => {
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-form-container">
-        <h2 className="login-title">Login</h2>
+    <div className="wrapper">
+      <div className="form-container">
+        <h2 className="title">Login</h2>
         <form onSubmit={formSubmissionHandler}>
           <div className={`form-group ${enteredEmailIsInvalid ? 'invalid' : ''}`}>
             <label htmlFor="email" className="label-text">Email address</label>
@@ -124,9 +125,34 @@ const Login = () => {
             
           </div>
           
-          <button disabled={!formIsValid || isLoading} type="submit" className="login-button">
+          <button disabled={!formIsValid || isLoading} type="submit" className="submit-button form-group">
             {isLoading ? 'Logging in...' : 'Login'}
           </button>
+
+                 
+          <div className="text-center">
+            <p>Not a member?
+            <Link to="/register"> Register </Link>
+            </p>
+            <p>or sign up with:</p>
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+              <i className="fab fa-facebook-f"></i>
+            </button>
+
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+              <i className="fab fa-google"></i>
+            </button>
+
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+              <i className="fab fa-twitter"></i>
+            </button>
+
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+              <i className="fab fa-github"></i>
+            </button>
+          </div>
+
+
         </form>
       </div>
     </div>
