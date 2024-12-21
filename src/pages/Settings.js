@@ -1,11 +1,18 @@
+import { useContext } from "react";
+import "../styles/Main.css";
+import { ThemeContext } from "../theme/Theme";
+import { useTranslation } from "react-i18next";
 
 function Settings() {
-    return (
-      <div className="Settings">
-          Settings
-      </div>
-    );
-  }
+  const { theme } = useContext(ThemeContext);;
+  const { t } = useTranslation();
+
+  return (
+    <div className={`settings text-${theme === "light" ? "dark" : "light"}`}>
+        {t("settings")}
+    </div>
+  );
+}
   
   export default Settings;
   

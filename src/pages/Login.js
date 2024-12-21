@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import '../styles/Form.css';
 import { login } from '../utils/api';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../theme/Theme';
+import { useTranslation } from 'react-i18next';
 
-const Login = () => {
+const LogIn = () => {
+
+  const { theme } = useContext(ThemeContext);
+  const { t } = useTranslation();
+
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredEmail, setEnteredEmail] = useState('');
   const [inputTouched, setInputTouched] = useState({
@@ -14,11 +20,11 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const enteredPasswordIsValid = 
-  enteredPassword.length >= 8 && // Minimalno 8 karaktera
-  enteredPassword.length <= 20 && // Maksimalno 20 karaktera
-  /[a-zA-Z]/.test(enteredPassword) && // Minimum jedno slovo
-  /\d/.test(enteredPassword) && // Minimum 1 broj
-  /[!@#$%^&*(),.?":{}|<>]/.test(enteredPassword); // Minimum 1 specijalni karakter
+  enteredPassword.length >= 8 && 
+  enteredPassword.length <= 20 && 
+  /[a-zA-Z]/.test(enteredPassword) && 
+  /\d/.test(enteredPassword) && 
+  /[!@#$%^&*(),.?":{}|<>]/.test(enteredPassword); 
   const passwordInputIsInvalid = !enteredPasswordIsValid && inputTouched.password;
 
   const enteredEmailIsValid = enteredEmail.includes('@');
@@ -36,7 +42,7 @@ const Login = () => {
 
   const passwordInputBlurHandler = () => {
     if (enteredPassword.length < 1) {
-      setError(""); // Ako nije unešen nijedan karakter ne prikazuje se error poruka
+      setError(""); 
     } else if (enteredPassword.length < 8 || enteredPassword.length > 20) {
       setError("Password must be 8 to 20 characters.");
     } else if (!/[a-zA-Z]/.test(enteredPassword)) {
@@ -48,7 +54,7 @@ const Login = () => {
     } else if (/\s/.test(enteredPassword)) {
       setError("Password should not contain spaces.");
     } else {
-      setError(""); // Ako je šifra validna ne prikazuje se error poruka
+      setError(""); 
     }
     setInputTouched((prev) => ({ ...prev, password: true }));
   };
@@ -74,7 +80,6 @@ const Login = () => {
       const userData = await login(enteredEmail, enteredPassword);
       console.log('Login successful:', userData);
       
-      // Nakon uspješnoh Login-a prazne se input polja
       setEnteredPassword('');
       setEnteredEmail('');
       setInputTouched({ email: false, password: false });
@@ -88,38 +93,38 @@ const Login = () => {
 
   return (
     <div className="wrapper">
-      <div className="form-container">
-        <h2 className="title">Login</h2>
+      <div className={`form-container ${theme}`}>
+        <h2 className={`title ${theme}`}> {t("login")} </h2>
         <form onSubmit={formSubmissionHandler}>
-          <div className={`form-group ${enteredEmailIsInvalid ? 'invalid' : ''}`}>
-            <label htmlFor="email" className="label-text">Email address</label>
+          <div className={`form-group ${theme} ${enteredEmailIsInvalid ? 'invalid' : ''}`}>
+            <label htmlFor="email" className="label-text"> {t("email")} </label>
             <input 
               type="email" 
-              className="form-control" 
+              className={`form-control ${theme}`} 
               id="email" 
-              placeholder="name@example.com"
+              placeholder={t("email_placeholder")}
               onChange={emailInputChangeHandler}
               onBlur={emailInputBlurHandler}
               value={enteredEmail}
             />
-            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            <small id="emailHelp" className="form-text text-muted"> {t("email_desc")} </small>
             {renderErrorMessage(enteredEmailIsInvalid, 'Please enter a valid email address.')}
           </div>
           
-          <div className={`form-group ${passwordInputIsInvalid ? 'invalid' : ''}`}>
-            <label htmlFor="password" className="label-text">Password</label>
+          <div className={`form-group ${theme} ${passwordInputIsInvalid ? 'invalid' : ''}`}>
+            <label htmlFor="password" className="label-text"> {t("pass")} </label>
             <input 
               type="password" 
-              className="form-control" 
+              className={`form-control ${theme}`}
               id="password" 
-              placeholder="Enter password"
+              placeholder={t("pass_placeholder")}
               onChange={passwordInputChangeHandler}
               onBlur={passwordInputBlurHandler}
               value={enteredPassword}
               maxLength={20}
             />
-            <small id="passwordHelpBlock" className="form-text text-muted">
-              Must be 8-20 characters long, contain letters, numbers and special characters (not contain spaces or emoji).
+            <small id="passwordHelpBlock" className={`form-text text-muted ${theme === "light" ? "dark" : "light"}`}>
+              {t("pass_desc")}
             </small>
             {renderErrorMessage(passwordInputIsInvalid, `Please enter a valid password. ${error}`)}
             
@@ -130,24 +135,24 @@ const Login = () => {
           </button>
 
                  
-          <div className="text-center">
-            <p>Not a member?
-            <Link to="/register"> Register </Link>
+          <div className={`text-center icons ${theme}`}>
+            <p>{t("reg_txt1")}
+              <Link to="/register">{t("register")} </Link><br/>
+              {t("reg_txt2")}
             </p>
-            <p>or sign up with:</p>
-            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1 small-btn">
               <i className="fab fa-facebook-f"></i>
             </button>
 
-            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1 small-btn">
               <i className="fab fa-google"></i>
             </button>
 
-            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1 small-btn">
               <i className="fab fa-twitter"></i>
             </button>
 
-            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1 small-btn">
               <i className="fab fa-github"></i>
             </button>
           </div>
@@ -159,4 +164,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LogIn;

@@ -1,0 +1,28 @@
+
+.header.text-light{
+    color: #222;
+}
+
+.header.text-dark{
+    color: #fff;
+}
+
+.form-control{
+    margin: 10px 15px 10px 0;
+}
+
+.link-light{
+    color: #222;
+}
+
+.link-dark{
+    color: #fff;
+}
+
+.nav-link i{
+    text-align: center;
+    font-size: 12pt;
+    height: 25px;
+    width: 25px;
+    padding: 5px;
+}

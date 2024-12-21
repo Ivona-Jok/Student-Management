@@ -2,3 +2,10 @@
   text-align: center;
 }
 
+.App.bg-dark{
+  background-color: #222;
+}
+
+.App.bg-light{
+  background-color: #fff;
+}
