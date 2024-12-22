@@ -87,15 +87,17 @@ const Login = () => {
     }
 
     try {
-      const userData = await login(enteredEmail, enteredPassword);
-      console.log('Login successful:', userData);
+       // Poziva se login API funkcija
+       const { user:loggedInUser, token:jwtToken } = await login(enteredEmail, enteredPassword);
       // Prosleđivanje podataka o korisniku context login funkciji
-      contextLogin(userData);
+      contextLogin(loggedInUser, jwtToken);
+
+      console.log('Logged in user:', loggedInUser);
+      console.log('JWT Token:', jwtToken);
+
       setEnteredPassword('');
       setEnteredEmail('');
       setInputTouched({ email: false, password: false });
-      // Nakon uspješnog logovanja otvara se stranica Dashboard
-      navigate('/');
     } catch (error) {
       console.error('Login failed:', error.message);
       alert(error.message || 'Login failed. Please check your credentials.');

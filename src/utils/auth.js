@@ -1,19 +1,17 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    // Provjera podataka o korisniku u local storage
-    const storedUser = localStorage.getItem('user');
-    
-    if (!storedUser) {
-      return null;  // Nema korisnika u local storage
-    }
-    
     try {
-      return JSON.parse(storedUser);
+      const storedUser = localStorage.getItem('user');
+      const storedToken = localStorage.getItem('token');
+
+      if (!storedUser || !storedToken) return null;
+
+      return { ...JSON.parse(storedUser), token: storedToken };
     } catch (error) {
       console.error('Error parsing user data from localStorage:', error);
       return null;
@@ -22,32 +20,34 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  // Registruj korisnika i sačuvaj podatke u local storage
-  const register = (userData) => {
-    setUser(userData);
-    if (userData) {
-      localStorage.setItem('user', JSON.stringify(userData));
-      navigate('/');  // Nakon uspješne registracije otvori stranicu Dashboard
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', user.token);
+    }
+  }, [user]);
+
+  const register = (userData, token) => {
+    if (userData && token) {
+      setUser({ ...userData, token });
+      navigate('/login'); // Preusmjerava se na login stranicu
     }
   };
 
-  // Provjera podataka o korisniku u local storage-u, ako nema korisnika otvori stranicu Register 
-  const login = (userData) => {
-    if (!userData) {
-      navigate('/register');  // Ako ne postoje podaci o korisniku otvori stranicu Register
+  const login = (userData, token) => {
+    if (!userData || !token) {
+      navigate('/register');  // Ako podaci nisu validni preusmjerava se na register stranicu
       return;
     }
-
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    navigate('/');  // Na uspješni login otvori stranicu Dashboard
+    setUser({ ...userData, token });
+    navigate('/'); // Preusmjerava se na dashboard stranicu
   };
 
-  // Logout korisnika i uklanjanje podataka iz local storage-a
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
-    navigate('/login');  // Nakon logout-a prikaži Login stranicu
+    localStorage.removeItem('token');
+    navigate('/login'); // Preusmjerava se na login stranicu
   };
 
   return (

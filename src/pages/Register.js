@@ -1,7 +1,7 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import '../styles/Form.css';
 import { register } from '../utils/api';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from '../theme/Theme';
 import { useAuth } from '../utils/auth';
@@ -9,7 +9,6 @@ import { useAuth } from '../utils/auth';
 const Register = () => {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { user, register: contextRegister } = useAuth(); 
 
   const [enteredFirstName, setEnteredFirstName] = useState('');
@@ -26,13 +25,6 @@ const Register = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // Ako korisnik postoji u local storage otvori stranicu Dashboard
-    useEffect(() => {
-      if (user) {
-        navigate('/');  // Korisnik je već ulogovan pa se preusmjerava na Dashboard stranicu
-      }
-    }, [user, navigate]);
   
   const enteredFirstNameIsValid = enteredFirstName.trim() !== '';
   const firstNameInputIsInvalid = !enteredFirstNameIsValid && inputTouched.firstName;
@@ -54,7 +46,7 @@ const Register = () => {
   const enteredEmailIsValid = enteredEmail.includes('@');
   const enteredEmailIsInvalid = !enteredEmailIsValid && inputTouched.email;
 
-  const formIsValid = enteredPasswordIsValid && enteredEmailIsValid;
+  const formIsValid = enteredEmailIsValid && enteredPasswordIsValid && enteredRepeatedPasswordIsValid;
   
   const firstNameInputChangeHandler = (event) => {
     setEnteredFirstName(event.target.value);
@@ -129,16 +121,18 @@ const Register = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!enteredPasswordIsValid || !enteredEmailIsValid) {
+    if (!enteredEmailIsValid || !enteredPasswordIsValid || !enteredRepeatedPasswordIsValid) {
       setIsLoading(false);
       return;
     }
 
     try {
-      const userData = await register(enteredFirstName, enteredLastName, enteredEmail, enteredPassword, enteredRepeatedPassword);
-      console.log('Registration successful:', userData);
+      // Poziva se register API funkcija
+      const { user:userData, token } = await register(enteredFirstName, enteredLastName, enteredEmail, enteredPassword, enteredRepeatedPassword);
+      console.log('Registered user:', user);
+      console.log('JWT token:', token);
       // Prosleđivanje podataka o korisniku context login funkciji
-      contextRegister(userData);
+      contextRegister(userData, token);
       
       setEnteredFirstName('');
       setEnteredLastName('');
@@ -146,8 +140,7 @@ const Register = () => {
       setEnteredRepeatedPassword('');
       setEnteredEmail('');
       setInputTouched({ firstName: false, lastName: false, email: false, password: false, repeatedPassword: false });
-      // Nakon uspješne registracije otvara se stranica Dashboard
-      navigate('/');
+      
     } catch (error) {
       console.error('Registration failed:', error.message);
       alert(error.message || 'Registration failed. Please check your credentials.');

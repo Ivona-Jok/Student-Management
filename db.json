@@ -1,0 +1,105 @@
+{
+  "users": [
+    {
+      "id": "ef98",
+      "firstName": "milica",
+      "lastName": "milic",
+      "email": "milica.cica@gmail.com",
+      "password": "123456.c"
+    },
+    {
+      "id": "dd23",
+      "firstName": "ana",
+      "lastName": "markovic",
+      "email": "ana.markovic@gmail.com",
+      "password": "123456.a",
+      "token": "fake-jwt-token-for-dd23"
+    },
+    {
+      "id": "77c3",
+      "firstName": "ivana",
+      "lastName": "milenkovic",
+      "email": "ivana@gmail.com",
+      "password": "123456.i"
+    },
+    {
+      "id": "baa1",
+      "firstName": "marija",
+      "lastName": "marinkovic",
+      "email": "marija@gmail.com",
+      "password": "123456.mm",
+      "token": "fake-jwt-token-for-baa1"
+    },
+    {
+      "id": "5fd1",
+      "firstName": "bili",
+      "lastName": "biiccc",
+      "email": "bili@gmail.com",
+      "password": "123456.b",
+      "token": "fake-jwt-token-for-5fd1"
+    },
+    {
+      "id": "2aa6",
+      "firstName": "jijh",
+      "lastName": "sdsdsd",
+      "email": "sddsdsd@gmail.com",
+      "password": "123123.x"
+    },
+    {
+      "id": "2989",
+      "firstName": "sdsdsd",
+      "lastName": "sdsddsd",
+      "email": "sdsdsdsd@sdsdsd.com",
+      "password": "123123.c",
+      "token": "fake-jwt-token-for-2989"
+    },
+    {
+      "id": "8c39",
+      "firstName": "dfdfdfdffdfdf",
+      "lastName": "fddfdfdfdfd",
+      "email": "ffdfdfd@dfdfdfdfdf.com",
+      "password": "123456y.",
+      "token": "fake-jwt-token-for-8c39"
+    },
+    {
+      "id": "05e0",
+      "firstName": "sdsdsdsd",
+      "lastName": "sdsddsds",
+      "email": "sdsdd@sdsdsd.com",
+      "password": "123123.m",
+      "token": "fake-jwt-token-for-05e0"
+    },
+    {
+      "id": "9991",
+      "firstName": "sdsdsdd",
+      "lastName": "sdsddsdsd",
+      "email": "sdsdsdsd@sdsdsd.com",
+      "password": "11111111.m",
+      "token": "fake-jwt-token-for-9991"
+    },
+    {
+      "id": "6a26",
+      "firstName": "qwwqwq",
+      "lastName": "qwqwqwqwq",
+      "email": "wqwqwq@dfdfd.com",
+      "password": "111111m1.",
+      "token": "fake-jwt-token-for-6a26"
+    },
+    {
+      "id": "2533",
+      "firstName": "nikola",
+      "lastName": "nikolic",
+      "email": "nikola-jovanovic@hotmail.com",
+      "password": "111111m.",
+      "token": "fake-jwt-token-for-2533"
+    },
+    {
+      "id": "d14c",
+      "firstName": "nina",
+      "lastName": "ninic",
+      "email": "nina@ninic.com",
+      "password": "123123.n",
+      "token": "fake-jwt-token-for-d14c"
+    }
+  ]
+}

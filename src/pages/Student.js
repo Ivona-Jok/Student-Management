@@ -12,10 +12,10 @@ function Student() {
   return (
     <div className={`student text-${theme === "light" ? "dark" : "light"}`}>
         {t("student")}
-        <p>Welcome, {user.email}!</p>
+        <p>Welcome, {user.email }!</p>
     </div>
   );
 }
   
-  export default Student;
+export default Student;
   
