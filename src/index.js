@@ -6,17 +6,26 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ThemeProvider } from './theme/Theme';
 import LanguageProvider from './languages/LanguageProvider';
+import { AuthProvider } from './utils/auth';
+import { BrowserRouter as Router } from 'react-router-dom'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <React.StrictMode>
-    <LanguageProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </LanguageProvider>
-  </React.StrictMode>
+  
+    <React.StrictMode>
+      <LanguageProvider>
+        <ThemeProvider>
+          <Router>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </Router>
+        </ThemeProvider>
+      </LanguageProvider>
+    </React.StrictMode>
+
+  
 );
 
 // If you want to start measuring performance in your app, pass a function
