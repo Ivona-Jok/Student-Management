@@ -1,14 +1,17 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import '../styles/Form.css';
 import { login } from '../utils/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { ThemeContext } from '../theme/Theme';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../utils/auth';
 
-const LogIn = () => {
+const Login = () => {
 
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { user, login: contextLogin } = useAuth(); 
 
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -18,6 +21,13 @@ const LogIn = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Ako korisnik postoji u local storage otvori stranicu Dashboard
+  useEffect(() => {
+    if (user) {
+      navigate('/');  // Korisnik je već ulogovan pa se preusmjerava na Dashboard stranicu
+    }
+  }, [user, navigate]);
 
   const enteredPasswordIsValid = 
   enteredPassword.length >= 8 && 
@@ -77,9 +87,14 @@ const LogIn = () => {
     }
 
     try {
-      const userData = await login(enteredEmail, enteredPassword);
-      console.log('Login successful:', userData);
-      
+       // Poziva se login API funkcija
+       const { user:loggedInUser, token:jwtToken } = await login(enteredEmail, enteredPassword);
+      // Prosleđivanje podataka o korisniku context login funkciji
+      contextLogin(loggedInUser, jwtToken);
+
+      console.log('Logged in user:', loggedInUser);
+      console.log('JWT Token:', jwtToken);
+
       setEnteredPassword('');
       setEnteredEmail('');
       setInputTouched({ email: false, password: false });
@@ -132,6 +147,7 @@ const LogIn = () => {
           
           <button disabled={!formIsValid || isLoading} type="submit" className="submit-button form-group">
             {isLoading ? 'Logging in...' : 'Login'}
+            
           </button>
 
                  
@@ -164,4 +180,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Login;

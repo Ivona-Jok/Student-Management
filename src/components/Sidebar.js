@@ -3,15 +3,26 @@ import "../styles/Components.css";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../theme/Theme";
 import { useTranslation } from "react-i18next";
+import { useAuth } from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function Sidebar() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState("/");
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login"); // Nakon logouta otvara se login stranica
   };
 
   return (
@@ -52,9 +63,11 @@ function Sidebar() {
       <ul className="nav nav-pills flex-column mt-auto">
         <hr className={`link-${theme === "light" ? "dark" : "light"}`} />
         <li>
+          {user ? <button className={`nav-link link-${theme === "light" ? "dark" : "light"} ${activeTab === "/logout" ? "active" : ""} d-flex align-items-center`} onClick={handleLogout}>{t("logout")}</button>
+          : 
           <Link to="/login" className={`nav-link link-${theme === "light" ? "dark" : "light"} ${activeTab === "/login" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/login")} >
           {t("login")}
-          </Link>
+          </Link>}
         </li>
         <li>
           <Link to="/register" className={`nav-link link-${theme === "light" ? "dark" : "light"} ${activeTab === "/register" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/register")} >

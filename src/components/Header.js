@@ -5,6 +5,7 @@ import LanguageSwitcher from "../languages/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../theme/Theme";
 
+
 function Header() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
