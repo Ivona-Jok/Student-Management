@@ -17,29 +17,35 @@ import { useAuth } from './utils/auth';
 
 function App() {
   const { theme } = useContext(ThemeContext);
+  const { user } = useAuth();
+
+  const PrivateRoute = ({ element }) => {
+    return user ? element : <Navigate to="/login" />;
+  };
 
   return (
     <div className={`App bg-${theme}`}>
-      <Router>
-        <div className="d-flex flex-column min-vh-100">
-          <Header />
-          <div className="d-flex flex-grow-1">
-            <Sidebar />
-            <main className="flex-grow-1 p-4">
-              <Routes>
-                <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-                <Route path="/grades" element={user ? <Grades /> : <Navigate to="/login" />} />
-                <Route path="/student" element={user ? <Student /> : <Navigate to="/login" />} />
-                <Route path="/works" element={user ? <Works /> : <Navigate to="/login" />} />
-                <Route path="/settings" element={user ? <Settings /> : <Navigate to="/login" />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="*" element={<Error />} />
-              </Routes>
-            </main>
-          </div>
-          <Footer />
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
+        <div className="d-flex flex-grow-1">
+          <Sidebar />
+          <main className="flex-grow-1 p-4">
+            <Routes>
+              <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
+              <Route path="/grades" element={<PrivateRoute element={<Grades />} />} />
+              <Route path="/student" element={<PrivateRoute element={<Student />} />} />
+              <Route path="/works" element={<PrivateRoute element={<Works />} />} />
+              <Route path="/settings" element={<PrivateRoute element={<Settings />} />} />
+
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+
+              <Route path="*" element={<Error />} />
+            </Routes>
+          </main>
         </div>
+        <Footer />
+      </div>
     </div>
   );
 }
