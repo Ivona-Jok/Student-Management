@@ -63,7 +63,7 @@ const generateJWT = (user) => {
 
 
 // Registracija korisnika
-export const register = async (firstName, lastName, email, password, repeatedPassword) => {
+export const register = async (firstName, lastName, email, password, role) => {
   try {
     // Slanje POST upita za kreiranje korisnika
     const response = await fetch(`${API_URL}/users`, {
@@ -76,12 +76,15 @@ export const register = async (firstName, lastName, email, password, repeatedPas
         lastName,
         email,
         password,
+        role: "student", // Difoltna uloga za novog korisnika, uloge može mijenjati admin na stranici Settings.
       }),
     });
 
     // Provjera je li upit u redu
     if (!response.ok) {
-      throw new Error('Registration failed');
+      const errorData = await response.json();
+      console.error('Error creating user:', errorData);
+      throw new Error('Failed to register.');
     }
 
     const newUser = await response.json();
