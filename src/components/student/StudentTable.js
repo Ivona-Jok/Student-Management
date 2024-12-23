@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../styles/Components.css";
 import "../../styles/Table.css";
 import { ThemeContext } from "../../theme/Theme";
@@ -10,39 +10,64 @@ function StudentTable() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetch("/db.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const studentUsers = data.users.filter((user) => user.role === "student");
+      setStudents(
+        studentUsers.map((user, index) => ({
+          id: index + 1,
+          first: user.firstName,
+          last: user.lastName,
+          email: user.email,
+          index: user.index,
+        }))
+      );
+    })
+    .catch((error) => console.error("Error fetching students: ", error))
+  }, []);
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
-  const students = [
-    { id: 1, first: "Mark", last: "Otto", index: "53/22", year: 1, gpa: 7.8, assignments: 2 },
-    { id: 2, first: "Jacob", last: "Thornton", index: "119/23", year: 2, gpa: 9, assignments: 5 },
-    { id: 3, first: "Larry", last: "the Bird", index: "12/20", year: 3, gpa: 6.5, assignments: 6 },
-    { id: 4, first: "Anna", last: "Smith", index: "22/21", year: 4, gpa: 8.2, assignments: 4 },
-    { id: 5, first: "Mike", last: "Ross", index: "45/19", year: 5, gpa: 9.1, assignments: 3 },
-  ];
+  const parseIndex = (index) => {
+    const [num, year] = index.split("/").map(Number); 
+    return { num, year };
+  };
 
   const filteredStudents = students.filter((student) =>
-    Object.keys(student).some((key) => {
-      const value = student[key];
-      if (key === 'index') {
-        return String(value).toLowerCase().includes(searchTerm.toLowerCase());
-      }
-      return String(value).toLowerCase().includes(searchTerm.toLowerCase());
-    })
-  );
+    Object.keys(student).some((key) =>
+      String(student[key]).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  ); 
   
 
   const sortedStudents = [...filteredStudents].sort((a,b) => {
     if (!sortConfig.key) return 0;
-    const valueA = a[sortConfig.key];
-    const valueB = b[sortConfig.key];
+    const aIndex = parseIndex(a[sortConfig.key]);
+    const bIndex = parseIndex(b[sortConfig.key]);
 
-    if (valueA < valueB) {
+    if (aIndex.num < bIndex.num) {
       return sortConfig.direction === "asc" ? -1 : 1;
     }
-    if (valueA > valueB) {
+    if (aIndex.num > bIndex.num) {
       return sortConfig.direction === "asc" ? 1 : -1;
     }
+
+    if (aIndex.year < bIndex.year) {
+      return sortConfig.direction === "asc" ? -1 : 1;
+    }
+    if (aIndex.year > bIndex.year) {
+      return sortConfig.direction === "asc" ? 1 : -1;
+    }
+
     return 0;
   });
 
@@ -116,6 +141,7 @@ function StudentTable() {
               >
                 Index {sortConfig.key === "index" && (sortConfig.direction === "asc" ? "" : "")}
               </th>
+              <th scope="col">{t("email")}</th>
               <th scope="col">{t("year")}</th>
               <th scope="col">GPA</th>
               <th scope="col">{t("works")}</th>
@@ -129,6 +155,7 @@ function StudentTable() {
                   <td>{student.first}</td>
                   <td>{student.last}</td>
                   <td>{student.index}</td>
+                  <td>{student.email}</td>
                   <td>{student.year}</td>
                   <td>{student.gpa}</td>
                   <td>{student.assignments}</td>

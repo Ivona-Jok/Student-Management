@@ -26,15 +26,21 @@
     margin: 0 auto;
     max-width: 100%;
     table-layout: auto;
+    text-align: left;
 }
   
 .table thead th {
     position: sticky;
-    padding: 12px 15px;
+    padding: 12px 20px;
     top: 0;
 }
 
-  
+
+.table tbody th{
+    padding: 8px 20px;
+    white-space: nowrap;
+}
+
 
 .filter-search-container {
     display: flex;

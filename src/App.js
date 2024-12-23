@@ -38,8 +38,7 @@ function App() {
               <Route path="/settings" element={<PrivateRoute element={<Settings />} />} />
 
               <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-
+              { !user && <Route path="/register" element={<Register />} /> }              
               <Route path="*" element={<Error />} />
             </Routes>
           </main>
