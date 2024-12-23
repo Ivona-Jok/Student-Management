@@ -25,10 +25,12 @@
     position: relative;
     margin: 0 auto;
     max-width: 100%;
+    table-layout: auto;
 }
   
 .table thead th {
     position: sticky;
+    padding: 12px 15px;
     top: 0;
 }
 

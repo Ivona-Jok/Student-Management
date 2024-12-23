@@ -9,6 +9,7 @@ function StudentTable() {
   const { t } = useTranslation();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
@@ -21,18 +22,66 @@ function StudentTable() {
   ];
 
   const filteredStudents = students.filter((student) =>
-    Object.values(student).some((value) => 
-      String(value).toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    Object.keys(student).some((key) => {
+      const value = student[key];
+      if (key === 'index') {
+        return String(value).toLowerCase().includes(searchTerm.toLowerCase());
+      }
+      return String(value).toLowerCase().includes(searchTerm.toLowerCase());
+    })
   );
+  
+
+  const sortedStudents = [...filteredStudents].sort((a,b) => {
+    if (!sortConfig.key) return 0;
+    const valueA = a[sortConfig.key];
+    const valueB = b[sortConfig.key];
+
+    if (valueA < valueB) {
+      return sortConfig.direction === "asc" ? -1 : 1;
+    }
+    if (valueA > valueB) {
+      return sortConfig.direction === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
+
+  const handleSort = (key, direction = "asc") => {
+    setSortConfig({ key, direction });
+  };
+
+  const toggleSortDirection = (key) => {
+    if (sortConfig.key === key) {
+      const newDirection = sortConfig.direction === "asc" ? "desc" : "asc";
+      handleSort(key, newDirection);
+    } else {
+      handleSort(key, "asc");
+    }
+  };
 
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
       <div className="table-container">
         <div className="filter-search-container">
-          <div className="filter">Filter</div>
+          <div className="filter">
+            <select
+              onChange={(e) => {
+                const [key, direction] = e.target.value.split("-");
+                handleSort(key, direction);
+              }}
+              className={`form-select ${theme}`}
+            >
+              <option value="">Sort by</option>
+              <option value="first-asc"> {t("f_name")} (A-Z)</option>
+              <option value="first-desc"> {t("f_name")} (Z-A)</option>
+              <option value="last-asc"> {t("l_name")} (A-Z)</option>
+              <option value="last-desc"> {t("l_name")} (Z-A)</option>
+              <option value="index-asc">Index (Ascending)</option>
+              <option value="index-desc">Index (Descending)</option>
+            </select>
+          </div>
           <div className={`search ${theme}`}>
-            <input 
+            <input
               type="search"
               placeholder={t("search")}
               value={searchTerm}
@@ -46,17 +95,35 @@ function StudentTable() {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Index</th>
-              <th scope="col">Year</th>
+              <th
+                scope="col"
+                onClick={() => toggleSortDirection("first")}
+                style={{ cursor: "pointer" }}
+              >
+                {t("f_name")} {sortConfig.key === "first" && (sortConfig.direction === "asc" ? "" : "")}
+              </th>
+              <th
+                scope="col"
+                onClick={() => toggleSortDirection("last")}
+                style={{ cursor: "pointer" }}
+              >
+                {t("l_name")} {sortConfig.key === "last" && (sortConfig.direction === "asc" ? "" : "")}
+              </th>
+              <th
+                scope="col"
+                onClick={() => toggleSortDirection("index")}
+                style={{ cursor: "pointer" }}
+              >
+                Index {sortConfig.key === "index" && (sortConfig.direction === "asc" ? "" : "")}
+              </th>
+              <th scope="col">{t("year")}</th>
               <th scope="col">GPA</th>
-              <th scope="col">Assignments</th>
+              <th scope="col">{t("works")}</th>
             </tr>
           </thead>
           <tbody>
-          {filteredStudents.length > 0 ? (
-              filteredStudents.map((student) => (
+            {sortedStudents.length > 0 ? (
+              sortedStudents.map((student) => (
                 <tr key={student.id}>
                   <th scope="row">{student.id}</th>
                   <td>{student.first}</td>

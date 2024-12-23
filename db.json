@@ -5,7 +5,8 @@
       "firstName": "milica",
       "lastName": "milic",
       "email": "milica.cica@gmail.com",
-      "password": "123456.c"
+      "password": "123456.c",
+      "token": "fake-jwt-token-for-ef98"
     },
     {
       "id": "dd23",
