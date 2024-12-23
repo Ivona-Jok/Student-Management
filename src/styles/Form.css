@@ -192,11 +192,10 @@
     color: #fff;
   }
 
-  .text-light{
+  .form-text.light{
     color: #222;
   }
 
-  .text-dark{
+  .form-text.dark{
     color: #bbb;
   }
-

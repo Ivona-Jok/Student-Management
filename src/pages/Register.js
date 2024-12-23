@@ -114,7 +114,7 @@ const Register = () => {
   };
 
   const renderErrorMessage = (isInvalid, errorMessage) => {
-    return isInvalid && <p className="error-text">{errorMessage}</p>;
+    return isInvalid && <p className="error-text" >{errorMessage}</p>;
   };
   
   const formSubmissionHandler = async (event) => {
@@ -206,7 +206,7 @@ const Register = () => {
                   value={enteredEmail}
                 />
               </div>
-              <small id="emailHelp" className="form-text text-muted">{t("email_desc")} </small>
+              <small id="emailHelp" className={`form-text ${theme}`}>{t("email_desc")}</small>
               {renderErrorMessage(enteredEmailIsInvalid, 'Please enter a valid email address.')}
             </div>
 
@@ -243,12 +243,10 @@ const Register = () => {
                 maxLength={20}
                 />
               </div>
-              <small id="passwordHelpBlock" className={`form-text ${theme === "light" ? "dark" : "light"} text-muted`}>
-              {t("pass_desc")}
-              </small>
+              <small id="passwordHelpBlock" className={`form-text ${theme}`}>{t("pass_desc")}</small>
               {renderErrorMessage(passwordInputIsInvalid, `Please enter a valid password. ${error}`)}
               {!passwordInputIsInvalid && repeatedPasswordInputIsInvalid && renderErrorMessage(repeatedPasswordInputIsInvalid, `${error}`)}
-
+            
             </div>
 
 

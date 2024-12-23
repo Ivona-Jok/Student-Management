@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import "../styles/Components.css";
-import { ThemeContext } from "../theme/Theme";
+import "../../styles/Components.css";
+import { ThemeContext } from "../../theme/Theme";
 import { useTranslation } from "react-i18next";
 
 function WorkForm() {

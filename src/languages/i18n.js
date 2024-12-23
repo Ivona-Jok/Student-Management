@@ -32,12 +32,20 @@ i18n
           pass: "Password",
           pass_placeholder: "Enter password",
           pass_placeholder_rp: "Confirm password",
-          pass_desc: " Must be 8-20 characters long, contain letters, numbers and special characters (not contain spaces or emoji).",
+          pass_desc: "Must be 8-20 characters long, contain letters, numbers and special characters (without spaces or emoji).",
           register: "Register",
           reg_txt1: "Not a member? ",
           reg_txt2: "or joint with:",
           reg_txt3: "Already a member? ",
           footer_txt: "Student Management",
+          grade: "Grade",
+          date: "Date",
+          teacher: "Teacher",
+          title: "Title",
+          author: "Author",
+          description: "Description",
+          link: "Link",
+          sort_by: "Sort by"
         }
       },
       sr: {
@@ -70,6 +78,15 @@ i18n
           reg_txt2: "ili putem:",
           reg_txt3: "Imate nalog? ",
           footer_txt: "Upravljanje studentima",
+          gade: "Ocjena",
+          date: "Datum",
+          teacher: "Profesor",
+          title: "Naslov",
+          author: "Autor",
+          description: "Opis",
+          link: "Putanja",
+          grade: "Ocjena",
+          sort_by: "Sortiraj po"
         }
       }
     },

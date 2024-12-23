@@ -134,11 +134,22 @@
       "id": "5355",
       "firstName": "Nikola",
       "lastName": "Jovanovic",
-      "index": "65/23",
       "email": "nikola-jovanovic@hotmail.com",
       "password": "12345678.n",
       "token": "fake-jwt-token-for-5355",
-      "role": "admin"
+      "role": [
+        "teacher",
+        "admin"
+      ]
+    },
+    {
+      "id": "1212",
+      "firstName": "Ivona",
+      "lastName": "Jokic",
+      "email": "ivona.jokic@gmail.com",
+      "password": "12345678.i",
+      "token": "fake-jwt-token-for-1212",
+      "role": "teacher"
     },
     {
       "id": "481f",
@@ -149,6 +160,148 @@
       "password": "123456.h",
       "role": "student",
       "token": "fake-jwt-token-for-481f"
+    }
+  ],
+  "works": [
+    {
+      "id": "1",
+      "grade": "",
+      "studentId": "ef98",
+      "teacherId": "1212",
+      "date": "01.01.2024.",
+      "title": "Creativity in Computer Science and Fiction Writing",
+      "description": "This paper compares the creative processes of computer scientists and fiction writers. It examines how each field uses creativity, with fiction writing offering more freedom and computer science relying on logic. While the two fields differ, both involve creativity, though fiction writers have fewer constraints.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+    },
+    {
+      "id": "2",
+      "grade": "10",
+      "studentId": "481f",
+      "teacherId": "5355",
+      "date": "23.01.2024.",
+      "title": "Effective Manipulation Through Music",
+      "description": "The paper discusses how music effectively manipulates others in various contexts such as the workplace, advertising, and torture, while also offering counter-arguments for a balanced view.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000"
+    },
+    {
+      "id": "3",
+      "grade": "7",
+      "studentId": "77c3",
+      "teacherId": "5355",
+      "date": "13.05.2024.",
+      "title": "The Ethical and Social Consequences of Direct-to-Consumer Genetic Testing",
+      "description": "This paper explores the ethical and social consequences of Direct-to-Consumer (DTC) genetic testing, highlighting concerns about medical principles such as autonomy, beneficence, and justice.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=134&Itemid=1000000000000"
+    },
+    {
+      "id": "4",
+      "grade": "10",
+      "studentId": "d14c",
+      "teacherId": "1212",
+      "date": "18.06.2024.",
+      "title": "The Nano Revolution Mirrors the Industrial Revolution: Who Will Benefit From the Nano Revolution?",
+      "description": "This paper compares the Nano Revolution to the Industrial Revolution, exploring how nanotechnology will redefine robots and impact various fields, including biotechnology.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=135&Itemid=1000000000000"
+    },
+    {
+      "id": "5",
+      "grade": "6",
+      "studentId": "2533",
+      "teacherId": "5355",
+      "date": "09.09.2024.",
+      "title": "The Ethics of Accountability in Factory Farming",
+      "description": "This paper explores the ethical responsibility of corporations, farmers, consumers, and government officials in factory farming, advocating for greater awareness of their roles in animal welfare and meat production.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=142&Itemid=1000000000000"
+    },
+    {
+      "id": "6",
+      "grade": "",
+      "studentId": "6a26",
+      "teacherId": "1212",
+      "date": "19.11.2024.",
+      "title": "Vintage: Wearing the Present in the Past",
+      "description": "This paper explores how vintage clothing in modern fashion enables individuality, nostalgia, and creative expression, while allowing for innovative yet familiar styles.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=128&Itemid=1000000000000"
+    },
+    {
+      "id": "7",
+      "grade": "9",
+      "studentId": "9991",
+      "teacherId": "5355",
+      "date": "05.08.2024.",
+      "title": "What's So Funny? The Real World Impact of Sitcom Depictions of Class",
+      "description": "This paper critiques situational comedies that satirize working-class families, highlighting their reinforcement of negative stereotypes and the undermining of upward mobility.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=66&id=123&Itemid=1000000000000"
+    },
+    {
+      "id": "8",
+      "grade": "9",
+      "studentId": "05e0",
+      "teacherId": "5355",
+      "date": "07.05.2024.",
+      "title": "Taboo the Taboos: The Ethics of Food Waste",
+      "description": "This paper examines the origins of food waste, focusing on food taboos, dumpster diving ethics, and the need to challenge societal norms to reduce waste and address food insecurity.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=141&Itemid=1000000000000"
+    },
+    {
+      "id": "9",
+      "grade": "10",
+      "studentId": "8c39",
+      "teacherId": "5355",
+      "date": "10.04.2024.",
+      "title": "The Fast Food Industry's Role in the Rising Rate of Obesity Among People of Low Socioeconomic Status",
+      "description": "This paper explores the fast food industry's role in rising obesity rates among low-income individuals, emphasizing the impact of economic and environmental factors.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=143&Itemid=1000000000000"
+    },
+    {
+      "id": "10",
+      "grade": "6",
+      "studentId": "2989",
+      "teacherId": "1212",
+      "date": "12.03.2024.",
+      "title": "Hip Hop's Masked Authenticity",
+      "description": "This paper explores the complex concept of authenticity in hip hop, examining how race, gender, and cultural ties influence the perception of 'realness' in rap music.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=138&Itemid=1000000000000"
+    },
+    {
+      "id": "11",
+      "grade": "5",
+      "studentId": "2aa6",
+      "teacherId": "5355",
+      "date": "04.06.2024.",
+      "title": "The Impact of Shiftwork on the Everyday Worker",
+      "description": "This paper examines the negative impacts of night shift work on individual health, well-being, and work-life balance, as well as its effects on companies.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=126&Itemid=1000000000000"
+    },
+    {
+      "id": "12",
+      "grade": "5",
+      "studentId": "5fd1",
+      "teacherId": "5355",
+      "date": "01.07.2024.",
+      "title": "The Narrative Power of Photography: Two Paragraphs and “The Limits of Forgiveness”",
+      "description": "This paper explores the power of photography to shape narratives, particularly in historical contexts, and examines how past images of injustice can have a stronger emotional impact than modern staged photos.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=139&Itemid=1000000000000"
+    },
+    {
+      "id": "13",
+      "grade": "7",
+      "studentId": "baa1",
+      "teacherId": "1212",
+      "date": "31.12.2024.",
+      "title": "Pediatric Cadmium Toxicity in America: Exploring Everyday Exposure Risk for Cavities and Decreased Neurodevelopment",
+      "description": "This paper examines the health risks of cadmium in children's products, focusing on its presence in toys and jewelry, and the lack of regulation despite public outcry.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=132&Itemid=1000000000000"
+    },
+    {
+      "id": "14",
+      "grade": "",
+      "studentId": "dd23",
+      "teacherId": "5355",
+      "date": "17.03.2024.",
+      "title": "The Autism Epidemic",
+      "description": "This paper challenges the use of the term 'epidemic' to describe the rise in autism spectrum disorder cases, attributing the increase to better diagnosis, awareness, and expanded criteria.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000"
     }
   ]
 }
