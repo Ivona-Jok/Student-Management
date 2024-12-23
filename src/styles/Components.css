@@ -8,6 +8,8 @@
 }
 
 .form-control{
+    position: relative;
+    top: 3px;
     margin: 10px 15px 10px 0;
 }
 
@@ -19,6 +21,10 @@
     color: #fff;
 }
 
+.nav li{
+    margin: 2px;
+}
+
 .nav-link i{
     text-align: center;
     font-size: 12pt;
@@ -26,3 +32,24 @@
     width: 25px;
     padding: 5px;
 }
+
+.nav-link:hover{
+    background-color: #d6e5ff;
+}
+
+p{
+    font-size: 10pt;
+}
+
+
+.component.dark{
+    background-color: #fff;
+    color: #222;
+}
+
+.component.light{
+    background-color: transparent;
+    color: #fff;
+}
+
+

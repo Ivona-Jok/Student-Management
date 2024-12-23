@@ -8,7 +8,7 @@ function Dashboard() {
   const { t } = useTranslation();
 
   return (
-    <div className={`dashboard text-${theme === "light" ? "dark" : "light"}`}>
+    <div className={`main-container ${theme} dashboard text-${theme === "light" ? "dark" : "light"}`}>
         {t("dashboard")}
     </div>
   );

@@ -18,8 +18,16 @@ import './styles/App.css';
 function App() {
   const { theme } = useContext(ThemeContext);
 
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') {
+      document.title = "Student Management";
+    } else {
+      document.title = "Please come back \u2665";
+    }
+  });
+
   return (
-    <div className={`App bg-${theme}`}>
+    <div className={`App bg-${theme === "light" ? "dark" : "light"}`}>
       <Router>
         <div className="d-flex flex-column min-vh-100">
           <Header />

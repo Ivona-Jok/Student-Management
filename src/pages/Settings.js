@@ -8,7 +8,7 @@ function Settings() {
   const { t } = useTranslation();
 
   return (
-    <div className={`settings text-${theme === "light" ? "dark" : "light"}`}>
+    <div className={`main-container ${theme} settings text-${theme === "light" ? "dark" : "light"}`}>
         {t("settings")}
     </div>
   );

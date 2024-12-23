@@ -7,3 +7,21 @@
 .dashboard.text-dark, .student.text-dark, .grades.text-dark, .works.text-dark, .settings.text-dark, .login.text-dark, .register.text-dark, .error.text-dark{
     color: #fff;
 }
+
+.main-container{
+    position: relative;
+    padding: 10px;
+    padding-top: 30px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 15pt;
+    font-weight: 600;
+}
+
+.main-container.dark{
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    background-color: #222;
+}

@@ -8,7 +8,7 @@ function Error() {
   const { t } = useTranslation();
 
   return (
-    <div className={`error text-${theme === "light" ? "dark" : "light"}`}>
+    <div className={`main-container error text-${theme === "light" ? "dark" : "light"}`}>
         {t("error")}
     </div>
   );

@@ -11,7 +11,8 @@ function Footer() {
   return (
     <footer className={`footer py-5 bg-${theme} mt-2 border-top`}>
       <div className="container text-center">
-        <span className={`text text-${theme === "light" ? "dark" : "light"}`}> {t("footer_txt")}  @ 2024.</span>
+        <span className={`text text-${theme === "light" ? "dark" : "light"}`}> 
+          {t("footer_txt")} @ 2024.</span>
       </div>
     </footer>
   );
