@@ -106,10 +106,6 @@ function WorkTable() {
     );
   };
 
-  const handleSort = (key, direction = "asc") => {
-    setSortConfig({ key, direction });
-  };
-
   const toggleSortDirection = (key) => {
     setSortConfig((prev) => ({
       key,
@@ -180,14 +176,30 @@ function WorkTable() {
                 <td>{work.id}</td>
                 <td>{work.title}</td>
                 <td>{work.author}</td>
-                <td onClick={() => toggleExpand(work.id)} className="cell-content">{work.description}</td>
-                <td><a href={work.link}>{t("view")}</a></td>
+                <td>
+                    <div
+                      className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`}
+                      onClick={() => toggleExpand(work.id)}
+                    >
+                      {work.description}
+                    </div>
+                  </td>
+                <td><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
                 <td>{work.date}</td>
                 <td>
-                  <button onClick={() => handleGradeEdit(work.id)} className="grade-view">{work.grade || '-'}</button>
+                  <button onClick={() => handleGradeEdit(work.id)} className="grade-button">{work.grade || '-'}</button>
+                  {editGradeId === work.id && (
+                      <select
+                        value={work.grade || ''}
+                        onChange={(e) => handleGradeChange(e, work.id)}
+                      >
+                        <option value="">-</option>
+                        {[...Array(6).keys()].map(i => <option key={i+5} value={i+5}>{i+5}</option>)}
+                      </select>)}
                 </td>
                 <td>{work.teacher}</td>
               </tr>
+              
             ))}
           </tbody>
         </table>

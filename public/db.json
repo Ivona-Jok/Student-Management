@@ -162,11 +162,10 @@
       "token": "fake-jwt-token-for-481f"
     }
   ],
-
   "works": [
     {
       "id": "1",
-      "grade": "",
+      "grade": "5",
       "studentId": "ef98",
       "teacherId": "1212",
       "date": "01.01.2024.",

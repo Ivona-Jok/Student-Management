@@ -48,7 +48,8 @@ i18n
           link: "Link",
           sort_by: "Sort by",
           changeTheme: "Change site theme",
-          changeLanguage: "Change site language"
+          changeLanguage: "Change site language",
+          view: "View"
         }
       },
       sr: {
@@ -92,7 +93,8 @@ i18n
           grade: "Ocjena",
           sort_by: "Sortiraj po",
           changeTheme: "Promijeni temu sajta",
-          changeLanguage: "Promijeni jezik sajta"
+          changeLanguage: "Promijeni jezik sajta",
+          view: "Pogledaj"
         }
       }
     },
