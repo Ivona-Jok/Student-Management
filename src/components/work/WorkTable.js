@@ -109,7 +109,6 @@ const handleGradeChange = (e, workId) => {
     );
   };
 
-
   const toggleSortDirection = (key) => {
     setSortConfig((prev) => ({
       key,
@@ -180,9 +179,10 @@ const handleGradeChange = (e, workId) => {
                     <button onClick={() => handleGradeEdit(work.id)} className="grade-view">{work.grade || '-'}</button>
                     {editGradeId === work.id && (
                       <select
-                        value={work.grade || ''}
+                        value={work.grade || '-'}
                         onChange={(e) => handleGradeChange(e, work.id)}
                       >
+                        <option value="">-</option>
                         {[...Array(6).keys()].map(i => <option key={i+5} value={i+5}>{i+5}</option>)}
                       </select>
                     )}
