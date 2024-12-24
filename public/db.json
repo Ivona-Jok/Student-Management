@@ -137,10 +137,7 @@
       "email": "nikola-jovanovic@hotmail.com",
       "password": "12345678.n",
       "token": "fake-jwt-token-for-5355",
-      "role": [
-        "teacher",
-        "admin"
-      ]
+      "role": "teacher, admin"
     },
     {
       "id": "1212",
@@ -165,7 +162,7 @@
   "works": [
     {
       "id": "1",
-      "grade": "5",
+      "grade": "",
       "studentId": "ef98",
       "teacherId": "1212",
       "date": "01.01.2024.",
@@ -265,7 +262,7 @@
     },
     {
       "id": "11",
-      "grade": "5",
+      "grade": "6",
       "studentId": "2aa6",
       "teacherId": "5355",
       "date": "04.06.2024.",
@@ -275,7 +272,7 @@
     },
     {
       "id": "12",
-      "grade": "5",
+      "grade": "7",
       "studentId": "5fd1",
       "teacherId": "5355",
       "date": "01.07.2024.",
@@ -302,6 +299,16 @@
       "title": "The Autism Epidemic",
       "description": "This paper challenges the use of the term 'epidemic' to describe the rise in autism spectrum disorder cases, attributing the increase to better diagnosis, awareness, and expanded criteria.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000"
+    },
+    {
+      "id": "15",
+      "grade": "7",
+      "studentId": "77c3",
+      "teacherId": "5355",
+      "date": "13.05.2024.",
+      "title": "The Ethical and Social Consequences",
+      "description": "This paper explores the ethical and social consequences of Direct-to-Consumer (DTC) genetic testing, highlighting concerns about medical principles such as autonomy, beneficence, and justice.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=134&Itemid=1000000000000"
     }
   ]
 }

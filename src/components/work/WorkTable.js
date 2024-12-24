@@ -8,15 +8,15 @@ import { useAuth } from "../../utils/auth";
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
-  const { user } = useAuth();  // Get user from auth context
+  const { user } = useAuth(); 
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [works, setWorks] = useState([]);
   const [expandedRows, setExpandedRows] = useState([]);
-  const [editGradeId, setEditGradeId] = useState(null);  // Initialize state for editGradeId
-  const [currentPage, setCurrentPage] = useState(1);  // Initialize state for currentPage
-  const [worksPerPage, setWorksPerPage] = useState(10);  // Initialize state for worksPerPage
+  const [editGradeId, setEditGradeId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [worksPerPage, setWorksPerPage] = useState(10); 
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
@@ -62,10 +62,11 @@ function WorkTable() {
     }
 
     const newGrade = e.target.value;
+    const teacherId = user.id;
 
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === workId ? { ...work, grade: newGrade } : work
+        work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
       )
     );
 
@@ -75,7 +76,7 @@ function WorkTable() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`, 
       },
-      body: JSON.stringify({ grade: newGrade }),
+      body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -173,28 +174,26 @@ function WorkTable() {
           <tbody>
             {currentStudents.map((work) => (
               <tr key={work.id}>
-                <td>{work.id}</td>
-                <td>{work.title}</td>
+                <td className="center">{work.id}</td>
+                <td>
+                  <div className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`} onClick={() => toggleExpand(work.id)} >
+                    {work.title}
+                  </div>
+                </td>
                 <td>{work.author}</td>
                 <td>
-                    <div
-                      className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`}
-                      onClick={() => toggleExpand(work.id)}
-                    >
-                      {work.description}
-                    </div>
-                  </td>
-                <td><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
-                <td>{work.date}</td>
-                <td>
+                  <div className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`} onClick={() => toggleExpand(work.id)} >
+                    {work.description}
+                  </div>
+                </td>
+                <td className="center"><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
+                <td className="center">{work.date}</td>
+                <td className="grade-button-container center">
                   <button onClick={() => handleGradeEdit(work.id)} className="grade-button">{work.grade || '-'}</button>
                   {editGradeId === work.id && (
-                      <select
-                        value={work.grade || ''}
-                        onChange={(e) => handleGradeChange(e, work.id)}
-                      >
+                      <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)} >
                         <option value="">-</option>
-                        {[...Array(6).keys()].map(i => <option key={i+5} value={i+5}>{i+5}</option>)}
+                        {[...Array(6).keys()].map(i => <option key={i+6} value={i+6}>{i+6}</option>)}
                       </select>)}
                 </td>
                 <td>{work.teacher}</td>
