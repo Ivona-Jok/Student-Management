@@ -39,6 +39,7 @@ function App() {
 
               <Route path="/login" element={<Login />} />
               { !user && <Route path="/register" element={<Register />} /> }              
+              
               <Route path="*" element={<Error />} />
             </Routes>
           </main>

@@ -10,6 +10,7 @@
 
 .main-container{
     position: relative;
+    min-height: 700px;
     padding: 10px;
     padding-top: 30px;
     text-align: center;
