@@ -22,10 +22,9 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Ako korisnik postoji u local storage otvori stranicu Dashboard
   useEffect(() => {
     if (user) {
-      navigate('/');  // Korisnik je već ulogovan pa se preusmjerava na Dashboard stranicu
+      navigate('/');  
     }
   }, [user, navigate]);
 
@@ -87,9 +86,7 @@ const Login = () => {
     }
 
     try {
-       // Poziva se login API funkcija
-       const { user:loggedInUser, token:jwtToken } = await login(enteredEmail, enteredPassword);
-      // Prosleđivanje podataka o korisniku context login funkciji
+      const { user:loggedInUser, token:jwtToken } = await login(enteredEmail, enteredPassword);
       contextLogin(loggedInUser, jwtToken);
 
       console.log('Logged in user:', loggedInUser);
@@ -99,11 +96,11 @@ const Login = () => {
       setEnteredEmail('');
       setInputTouched({ email: false, password: false });
     } catch (error) {
-      console.error('Login failed:', error.message);
-      alert(error.message || 'Login failed. Please check your credentials.');
-    } finally {
-      setIsLoading(false);
-    }
+        console.error('Login failed:', error.message);
+        alert(error.message || 'Login failed. Please check your credentials.');
+      } finally {
+        setIsLoading(false);
+      }
   };
 
   return (

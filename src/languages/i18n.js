@@ -1,4 +1,4 @@
-import i18n from "i18next";
+import i18n, { changeLanguage } from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
@@ -46,7 +46,9 @@ i18n
           author: "Author",
           description: "Description",
           link: "Link",
-          sort_by: "Sort by"
+          sort_by: "Sort by",
+          changeTheme: "Change site theme",
+          changeLanguage: "Change site language"
         }
       },
       sr: {
@@ -88,7 +90,9 @@ i18n
           description: "Opis",
           link: "Putanja",
           grade: "Ocjena",
-          sort_by: "Sortiraj po"
+          sort_by: "Sortiraj po",
+          changeTheme: "Promijeni temu sajta",
+          changeLanguage: "Promijeni jezik sajta"
         }
       }
     },

@@ -22,7 +22,7 @@ function Sidebar() {
 
   const handleLogout = () => {
     logout();
-    navigate("/login"); // Nakon logouta otvara se login stranica
+    navigate("/login"); 
   };
 
   return (
@@ -69,11 +69,13 @@ function Sidebar() {
           {t("login")}
           </Link>}
         </li>
-        <li>
-          <Link to="/register" className={`nav-link link-${theme === "light" ? "dark" : "light"} ${activeTab === "/register" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/register")} >
-          {t("register")}
-          </Link>
-        </li>
+        {!user && (
+          <li>
+            <Link to="/register" className={`nav-link link-${theme === "light" ? "dark" : "light"} ${activeTab === "/register" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/register")}>
+              {t("register")}
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

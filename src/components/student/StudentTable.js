@@ -119,7 +119,7 @@ function StudentTable() {
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
       <div className="table-container">
         <div className="filter-search-container">
-          <div className={`search ${theme}`}>
+          <div className={`search ${theme} `}>
             <input
               type="search"
               placeholder={t("search")}
@@ -137,7 +137,7 @@ function StudentTable() {
               }}
               className={`form-select ${theme}`}
             >
-              <option value="">Sort by</option>
+              <option value=""> {t("sort_by")} </option>
               <option value="first-asc">{t("f_name")} (A-Z)</option>
               <option value="first-desc">{t("f_name")} (Z-A)</option>
               <option value="last-asc">{t("l_name")} (A-Z)</option>
