@@ -63,11 +63,9 @@ function WorkTable() {
 
     const newGrade = e.target.value;
     const teacherId = user.id;
-    const teacherId = user.id;
 
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
         work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
       )
     );
@@ -169,7 +167,7 @@ function WorkTable() {
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
-              {['id', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
+              {['ID', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
                 <th key={col} onClick={() => toggleSortDirection(col)}>{t(col)}</th>
               ))}
             </tr>

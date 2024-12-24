@@ -150,7 +150,7 @@ function StudentTable() {
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
-              <th scope="col" className="center">#</th>
+              <th scope="col" className="center">ID</th>
               <th scope="col" onClick={() => toggleSortDirection("first")}>
                 {t("f_name")} {renderSortArrow("first")}
               </th>
