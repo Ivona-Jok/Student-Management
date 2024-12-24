@@ -63,9 +63,11 @@ function WorkTable() {
 
     const newGrade = e.target.value;
     const teacherId = user.id;
+    const teacherId = user.id;
 
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
+        work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
         work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
       )
     );
@@ -76,6 +78,7 @@ function WorkTable() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`, 
       },
+      body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
       .then((response) => response.json())

@@ -137,7 +137,7 @@
 }
 
 .grade-button-container{
-    text-align: center;  
+    text-align: center;  /* Centers inline-block and inline elements */
   }
 
 .grade-button {
