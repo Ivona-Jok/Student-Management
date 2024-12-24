@@ -152,4 +152,29 @@
     color: #aaa; 
     cursor: not-allowed; 
   }
+
+  
+  .cell-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px; 
+  }
+  
+  .cell-content.expanded {
+    white-space: normal;
+    max-width: none;
+  }
+  
+.grade-view {
+  background-color: #0f65f0;
+  max-width: 60px;
+  max-height: 60px;
+  padding: 10px 12px;
+  font-size: 10pt;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+}
+
   

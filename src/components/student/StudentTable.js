@@ -33,7 +33,7 @@ function StudentTable() {
             index: user.index,
             year: user.year,
             gpa: user.gpa,
-            assignments: user.assignments, // Assuming assignments are available
+            assignments: user.assignments,
           }))
         );
       })
@@ -43,7 +43,7 @@ function StudentTable() {
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
   const parseIndex = (index) => {
-    const [num, year] = index.split("/").map(Number); // Splitting and parsing the index
+    const [num, year] = index.split("/").map(Number);
     return { num, year };
   };
 
@@ -63,18 +63,15 @@ function StudentTable() {
     let bValue = b[sortConfig.key];
 
     if (sortConfig.key === "index") {
-      // Parsing the index to handle the number/year correctly
       const aIndex = parseIndex(aValue);
       const bIndex = parseIndex(bValue);
 
-      // Compare by num first, then by year
       if (aIndex.num !== bIndex.num) {
         return sortConfig.direction === "asc" ? aIndex.num - bIndex.num : bIndex.num - aIndex.num;
       }
       return sortConfig.direction === "asc" ? aIndex.year - bIndex.year : bIndex.year - aIndex.year;
     }
 
-    // Alphabetical sorting for first name and last name
     if (aValue < bValue) {
       return sortConfig.direction === "asc" ? -1 : 1;
     }
@@ -105,21 +102,17 @@ function StudentTable() {
     return "";
   };
 
-  // Pagination Logic
   const indexOfLastStudent = currentPage * studentsPerPage;
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
   const currentStudents = sortedStudents.slice(indexOfFirstStudent, indexOfLastStudent);
 
-  // Calculate total number of pages
   const totalPages = Math.ceil(sortedStudents.length / studentsPerPage);
 
-  // Handle page change
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Handle students per page change
   const handleStudentsPerPageChange = (e) => {
     setStudentsPerPage(Number(e.target.value));
-    setCurrentPage(1); // Reset to first page when the per page value changes
+    setCurrentPage(1); 
   };
 
   return (
