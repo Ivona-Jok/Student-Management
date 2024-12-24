@@ -62,10 +62,11 @@ function WorkTable() {
     }
 
     const newGrade = e.target.value;
+    const teacherId = user.id;
 
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === workId ? { ...work, grade: newGrade } : work
+        work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
       )
     );
 
@@ -75,7 +76,7 @@ function WorkTable() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`, 
       },
-      body: JSON.stringify({ grade: newGrade }),
+      body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -186,7 +187,7 @@ function WorkTable() {
                   </td>
                 <td><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
                 <td>{work.date}</td>
-                <td>
+                <td className="grade-button-container">
                   <button onClick={() => handleGradeEdit(work.id)} className="grade-button">{work.grade || '-'}</button>
                   {editGradeId === work.id && (
                       <select
