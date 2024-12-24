@@ -3,6 +3,7 @@ import "../../styles/Components.css";
 import "../../styles/Table.css";
 import { ThemeContext } from "../../theme/Theme";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../../utils/auth";
 
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
@@ -12,6 +13,7 @@ function WorkTable() {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [works, setWorks] = useState([]);
   const [editGradeId, setEditGradeId] = useState(null);  // Pratimo koji rad je editovan ocjenom
+  const { user } = useAuth();
  
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
@@ -59,6 +61,11 @@ function WorkTable() {
 
 // Funkcija za ažuriranje ocjene
 const handleGradeChange = (e, workId) => {
+  if (!user?.role.includes("teacher")) {
+    console.log('Access denied: Only teachers can update grades.');
+    return; // Prevent grade update if the user is not a teacher
+  }
+
   const newGrade = e.target.value;
 
   // Ažuriraj ocjenu lokalno
@@ -73,6 +80,7 @@ const handleGradeChange = (e, workId) => {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${user.token}`, // Send token for authentication
     },
     body: JSON.stringify({ grade: newGrade }), // Šalje se korigovana ocjena u bazu podataka
   })
@@ -93,7 +101,11 @@ const handleGradeChange = (e, workId) => {
 };
 
   const handleGradeEdit = (workId) => {
-    setEditGradeId(workId); 
+    if (!user?.role.includes("teacher")) {
+      console.log('Access denied: Only teachers can edit grades.');
+      return; // Prevent grade editing if the user is not a teacher
+    }
+    setEditGradeId(workId);
   };
 
   const filteredWorks = works.filter((work) =>
