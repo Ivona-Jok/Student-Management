@@ -3,6 +3,7 @@ import "../../styles/Components.css";
 import "../../styles/Table.css";
 import { ThemeContext } from "../../theme/Theme";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../../utils/auth";
 
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
@@ -11,10 +12,7 @@ function WorkTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [works, setWorks] = useState([]);
-  const [editGradeId, setEditGradeId] = useState(null);
   const [expandedRows, setExpandedRows] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [worksPerPage, setWorksPerPage] = useState(10);
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
@@ -53,29 +51,52 @@ function WorkTable() {
       .catch((error) => console.error("Error fetching student research papers: ", error));
   }, []);
 
-  const handleGradeChange = (e, workId) => {
-    const newGrade = e.target.value;
+// Funkcija za ažuriranje ocjene
+const handleGradeChange = (e, workId) => {
+  if (!user?.role.includes("teacher")) {
+    console.log('Access denied: Only teachers can update grades.');
+    return; // Prevent grade update if the user is not a teacher
+  }
+
+  const newGrade = e.target.value;
+
+  // Ažuriraj ocjenu lokalno
+  setWorks((prevWorks) =>
+    prevWorks.map((work) =>
+      work.id === workId ? { ...work, grade: newGrade } : work
+    )
+  );
+
+  // Ažuriraj ocjenu u bazu podataka
+  fetch(`http://localhost:5000/works/${workId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${user.token}`, // Send token for authentication
+    },
+    body: JSON.stringify({ grade: newGrade }), // Šalje se korigovana ocjena u bazu podataka
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('Grade updated successfully:', data);
+    setEditGradeId(null); // Zatvori padajući meni nakon odabira ocjene
+  })
+  .catch((error) => {
+    console.error('Error updating grade:', error);
+    // Ako ne uspije ažuriranje vrati ocjenu koja je bila prije ovog pokušaja ažuriranja
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === workId ? { ...work, grade: newGrade } : work
+        work.id === workId ? { ...work, grade: null } : work
       )
     );
-
-    fetch(`http://localhost:5000/works/${workId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ grade: newGrade }),
-    })
-      .then((response) => response.json())
-      .then(() => setEditGradeId(null))
-      .catch((error) => {
-        console.error('Error updating grade:', error);
-      });
-  };
+  });
+};
 
   const handleGradeEdit = (workId) => {
+    if (!user?.role.includes("teacher")) {
+      console.log('Access denied: Only teachers can edit grades.');
+      return; // Prevent grade editing if the user is not a teacher
+    }
     setEditGradeId(workId);
   };
 
@@ -83,6 +104,10 @@ function WorkTable() {
     setExpandedRows((prev) =>
       prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]
     );
+  };
+
+  const handleSort = (key, direction = "asc") => {
+    setSortConfig({ key, direction });
   };
 
   const toggleSortDirection = (key) => {
