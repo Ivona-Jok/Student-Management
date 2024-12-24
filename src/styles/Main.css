@@ -26,3 +26,20 @@
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
     background-color: #222;
 }
+
+.page-title{
+    margin-bottom: 20px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    gap: 10px;
+}
+  
+.setting-item label {
+    font-weight: 500;
+    font-size: 15pt;
+}

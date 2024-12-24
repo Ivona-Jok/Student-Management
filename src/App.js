@@ -23,6 +23,10 @@ function App() {
     return user ? element : <Navigate to="/login" />;
   };
 
+  const PublicRoute = ({ element }) => {
+    return user ? <Navigate to="/" /> : element;
+  };
+
   return (
     <div className={`App bg-${theme}`}>
       <div className="d-flex flex-column min-vh-100">
@@ -37,8 +41,10 @@ function App() {
               <Route path="/works" element={<PrivateRoute element={<Works />} />} />
               <Route path="/settings" element={<PrivateRoute element={<Settings />} />} />
 
-              <Route path="/login" element={<Login />} />
-              { !user && <Route path="/register" element={<Register />} /> }              
+              <Route path="/login" element={<PublicRoute element={<Login />} />} />
+              {!user && (
+                <Route path="/register" element={<Register />} />
+              )}
               
               <Route path="*" element={<Error />} />
             </Routes>

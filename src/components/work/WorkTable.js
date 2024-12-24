@@ -13,6 +13,8 @@ function WorkTable() {
   const [works, setWorks] = useState([]);
   const [editGradeId, setEditGradeId] = useState(null);
   const [expandedRows, setExpandedRows] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [worksPerPage, setWorksPerPage] = useState(10);
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
@@ -83,10 +85,6 @@ function WorkTable() {
     );
   };
 
-  const handleSort = (key, direction = "asc") => {
-    setSortConfig({ key, direction });
-  };
-
   const toggleSortDirection = (key) => {
     setSortConfig((prev) => ({
       key,
@@ -109,69 +107,82 @@ function WorkTable() {
       : String(valueB).localeCompare(String(valueA));
   });
 
+  const indexOfLastStudent = currentPage * worksPerPage;
+  const indexOfFirstStudent = indexOfLastStudent - worksPerPage;
+  const currentStudents = sortedWorks.slice(indexOfFirstStudent, indexOfLastStudent);
+
+  const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
+
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
+  const handleStudentsPerPageChange = (e) => {
+    worksPerPage(Number(e.target.value));
+    setCurrentPage(1); 
+  };
   return (
-    <div className={`component ${theme === "light" ? "dark" : "light"}`}> 
+    <div className={`component ${theme === "light" ? "dark" : "light"}`}>
       <div className="table-container">
         <div className="filter-search-container">
-          <input
-            type="search"
-            placeholder={t("search")}
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className={`form-control ${theme}`}
-          />
+          <div className="search">
+            <input
+              type="search"
+              placeholder={t("search")}
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className={`form-control ${theme}`}
+            />
+          </div>
+          <div className="filter">
+            <select onChange={(e) => toggleSortDirection(e.target.value)} className={`form-select ${theme}`}>
+              <option value="">{t("sort_by")}</option>
+              {['title', 'author', 'date', 'grade'].map((col) => (
+                <option key={col} value={col}>{t(col)}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
-              <th>#</th>
-              {['title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
-                <th
-                  key={col}
-                  onClick={() => toggleSortDirection(col)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {t(col)} {sortConfig.key === col && (sortConfig.direction === "asc" ? " ↑" : " ↓")}
-                </th>
+              {['id', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
+                <th key={col} onClick={() => toggleSortDirection(col)}>{t(col)}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {sortedWorks.length > 0 ? (
-              sortedWorks.map((work) => (
-                <tr key={work.id}>
-                  <td>{work.id}</td>
-                  <td>{work.title}</td>
-                  <td>{work.author}</td>
-                  <td>
-                    <div
-                      className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`}
-                      onClick={() => toggleExpand(work.id)}
-                    >
-                      {work.description}
-                    </div>
-                  </td>
-                  <td><a href={work.link}>View</a></td>
-                  <td>{work.date}</td>
-                  <td className="center">
-                    <button onClick={() => handleGradeEdit(work.id)} className="grade-view">{work.grade || '-'}</button>
-                    {editGradeId === work.id && (
-                      <select
-                        value={work.grade || ''}
-                        onChange={(e) => handleGradeChange(e, work.id)}
-                      >
-                        {[...Array(6).keys()].map(i => <option key={i+5} value={i+5}>{i+5}</option>)}
-                      </select>
-                    )}
-                  </td>
-                  <td>{work.teacher}</td>
-                </tr>
-              ))
-            ) : (
-              <tr><td colSpan="8">No results found</td></tr>
-            )}
+            {currentStudents.map((work) => (
+              <tr key={work.id}>
+                <td>{work.id}</td>
+                <td>{work.title}</td>
+                <td>{work.author}</td>
+                <td onClick={() => toggleExpand(work.id)} className="cell-content">{work.description}</td>
+                <td><a href={work.link}>{t("view")}</a></td>
+                <td>{work.date}</td>
+                <td>
+                  <button onClick={() => handleGradeEdit(work.id)} className="grade-view">{work.grade || '-'}</button>
+                </td>
+                <td>{work.teacher}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
+        <div className="pagination-container">
+          <div className="students-per-page">
+            <label>{t("display")}:</label>
+            <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme}`} >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+            </select>
+          </div>
+          <div className="pagination">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button key={index + 1} onClick={() => handlePageChange(index + 1)} className={`page-btn ${currentPage === index + 1 ? "active" : ""}`} >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
