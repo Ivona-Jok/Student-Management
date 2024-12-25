@@ -28,7 +28,7 @@
       "email": "ivana.mit@gmail.com",
       "password": "123456.i",
       "token": "fake-jwt-token-for-77c3",
-      "role": "student"
+      "role": "teacher"
     },
     {
       "id": 4,
@@ -58,7 +58,7 @@
       "email": "petar.petrovic@gmail.com",
       "password": "123123.x",
       "token": "fake-jwt-token-for-2aa6",
-      "role": "teacher"
+      "role": "student"
     },
     {
       "id": 7,
@@ -88,7 +88,7 @@
       "email": "aleksandar.bojanic@yahoo.com",
       "password": "123123.m",
       "token": "fake-jwt-token-for-05e0",
-      "role": "teacher"
+      "role": "student"
     },
     {
       "id": 10,
@@ -98,7 +98,7 @@
       "email": "jelena.jeca@t-com.me",
       "password": "11111111.m",
       "token": "fake-jwt-token-for-9991",
-      "role": "teacher"
+      "role": "student"
     },
     {
       "id": 11,
@@ -159,7 +159,7 @@
       "index": "145/22",
       "email": "henry.tom@gmail.com",
       "password": "123456.h",
-      "role": "teacher",
+      "role": "student",
       "token": "fake-jwt-token-for-16"
     },
     {

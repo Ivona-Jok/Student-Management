@@ -13,6 +13,7 @@ const SettingsRole = () => {
     const { t } = useTranslation();
     const [roleChanged, setRoleChanged] = useState(false); // Prati se da li je uloga promijenjena
     const [successMessage, setSuccessMessage] = useState(''); // Za prikazivanje popup poruke kada je akcija uspješna
+    
 
     const API_URL = 'http://localhost:5000';
     // Fečujemo podatke o korisnicima na nivou cijele komponente
@@ -24,6 +25,12 @@ const SettingsRole = () => {
         };
         
         fetchUserData();
+
+        // Poruka o uspješnoj promjeni se javlja nakon 1 sekunde nakon što se refrešuje stranica
+        setTimeout(() => {
+            setSuccessMessage("Uloga je uspješno promijenjena!");
+        }, 1000);
+        
     }, []);
     
     // Funkcija koja se pokreće kada se koristi input search polje
@@ -78,10 +85,6 @@ const SettingsRole = () => {
                 ));
                 setSelectedUser(updatedUser); // Ažuriraj ulogu za izabranog korisnika
                 console.log('User role updated:', updatedUser);
-                
-                // Prikaži poruku o uspješnoj akciji
-                setSuccessMessage(t("roleUpdatedSuccessfully"));
-                
             } else {
                 console.error('Error updating role:', response.statusText);
             }
@@ -145,7 +148,7 @@ return (
         )}
 
         {/* Prikaz poruke kada je akcija promjene uloge uspješna */}
-        <Popup message={successMessage} />
+        {successMessage && <Popup message={successMessage} />}
 
     </div>
 );

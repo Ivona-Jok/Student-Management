@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
-import '../../styles/Popup.css';
 
-const Popup = ({ message }) => {
-  const [isVisible, setIsVisible] = useState(true);
+const Popup = ({ message, duration = 3000 }) => {
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (message) {
-      // Automatically fade out the message after 5 seconds
+      setIsVisible(true);
+
       const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, 5000);
-      
-      // Clean up the timer when component unmounts or message changes
+        setIsVisible(false); // Ukloni popup nakon isteka trajanja
+      }, duration);
+
       return () => clearTimeout(timer);
     }
-  }, [message]);
+  }, [message, duration]);
 
-  // Return null if no message or it's fading out
   if (!message || !isVisible) return null;
 
   return (
-    <div className={`success-message ${!isVisible ? 'fade-out' : ''}`}>
+    <div className="success-message fade-in" role="alert">
       {message}
     </div>
   );
