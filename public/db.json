@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "ef98",
+      "id": 1,
       "firstName": "Milica",
       "lastName": "Milic",
       "index": "14/24",
@@ -11,7 +11,7 @@
       "role": "student"
     },
     {
-      "id": "dd23",
+      "id": 2,
       "firstName": "Ana",
       "lastName": "Ivanovic",
       "index": "41/24",
@@ -21,7 +21,7 @@
       "role": "student"
     },
     {
-      "id": "77c3",
+      "id": 3,
       "firstName": "Ivana",
       "lastName": "Mitrovic",
       "index": "59/24",
@@ -31,7 +31,7 @@
       "role": "student"
     },
     {
-      "id": "baa1",
+      "id": 4,
       "firstName": "Marko",
       "lastName": "Markovic",
       "index": "8/24",
@@ -41,7 +41,7 @@
       "role": "student"
     },
     {
-      "id": "5fd1",
+      "id": 5,
       "firstName": "Ivan",
       "lastName": "Ivanovic",
       "index": "114/23",
@@ -51,17 +51,17 @@
       "role": "student"
     },
     {
-      "id": "2aa6",
+      "id": 6,
       "firstName": "Petar",
       "lastName": "Petrovic",
       "index": "43/24",
       "email": "petar.petrovic@gmail.com",
       "password": "123123.x",
       "token": "fake-jwt-token-for-2aa6",
-      "role": "student"
+      "role": "teacher"
     },
     {
-      "id": "2989",
+      "id": 7,
       "firstName": "Nikola",
       "lastName": "Nikolic",
       "index": "82/24",
@@ -71,7 +71,7 @@
       "role": "student"
     },
     {
-      "id": "8c39",
+      "id": 8,
       "firstName": "Jovan",
       "lastName": "Jovanovic",
       "index": "1/24",
@@ -81,7 +81,7 @@
       "role": "student"
     },
     {
-      "id": "05e0",
+      "id": 9,
       "firstName": "Aleksandar",
       "lastName": "Bojanic",
       "index": "14/23",
@@ -91,17 +91,17 @@
       "role": "student"
     },
     {
-      "id": "9991",
+      "id": 10,
       "firstName": "Jelena",
       "lastName": "Ninkovic",
       "index": "79/24",
       "email": "jelena.jeca@t-com.me",
       "password": "11111111.m",
       "token": "fake-jwt-token-for-9991",
-      "role": "student"
+      "role": "teacher"
     },
     {
-      "id": "6a26",
+      "id": 11,
       "firstName": "Oliver",
       "lastName": "Smith",
       "index": "55/24",
@@ -111,7 +111,7 @@
       "role": "student"
     },
     {
-      "id": "2533",
+      "id": 12,
       "firstName": "Bojana",
       "lastName": "Bojanic",
       "index": "78/21",
@@ -121,7 +121,7 @@
       "role": "student"
     },
     {
-      "id": "d14c",
+      "id": 13,
       "firstName": "Tom",
       "lastName": "Adams",
       "index": "27/23",
@@ -131,19 +131,20 @@
       "role": "student"
     },
     {
-      "id": "5355",
+      "id": 14,
       "firstName": "Nikola",
       "lastName": "Jovanovic",
       "email": "nikola-jovanovic@hotmail.com",
       "password": "12345678.n",
-      "token": "fake-jwt-token-for-5355",
+      "token": "fake-jwt-token-for-14",
       "role": [
+        "admin",
         "teacher",
-        "admin"
+        "student"
       ]
     },
     {
-      "id": "1212",
+      "id": 15,
       "firstName": "Ivona",
       "lastName": "Jokic",
       "email": "ivona.jokic@gmail.com",
@@ -152,156 +153,185 @@
       "role": "teacher"
     },
     {
-      "id": "481f",
+      "id": 16,
       "firstName": "Henry",
       "lastName": "Tompson",
       "index": "145/22",
       "email": "henry.tom@gmail.com",
       "password": "123456.h",
+      "role": "teacher",
+      "token": "fake-jwt-token-for-16"
+    },
+    {
+      "firstName": "miljan",
+      "lastName": "miljanic",
+      "email": "miljan@gmail.com",
+      "password": "123456.mm",
       "role": "student",
-      "token": "fake-jwt-token-for-481f"
+      "id": 17,
+      "token": "fake-jwt-token-for-17"
     }
   ],
   "works": [
     {
-      "id": "1",
-      "grade": "10",
-      "studentId": "ef98",
-      "teacherId": "1212",
+      "id": 1,
+      "grade": "8",
+      "studentId": 1,
+      "teacherId": 15,
       "date": "01.01.2024.",
       "title": "Creativity in Computer Science and Fiction Writing",
       "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
     },
     {
-      "id": "2",
+      "id": 2,
       "grade": "9",
-      "studentId": "481f",
-      "teacherId": "5355",
+      "studentId": 2,
+      "teacherId": 14,
       "date": "23.01.2024.",
       "title": "Effective Manipulation Through Music",
       "description": "The paper discusses how music effectively manipulates others in various contexts such as the workplace, advertising, and torture, while also offering counter-arguments for a balanced view.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000"
     },
     {
-      "id": "3",
-      "grade": "7",
-      "studentId": "77c3",
-      "teacherId": "5355",
+      "id": 3,
+      "grade": "8",
+      "studentId": 3,
+      "teacherId": 14,
       "date": "13.05.2024.",
       "title": "The Ethical and Social Consequences of Direct-to-Consumer Genetic Testing",
       "description": "This paper explores the ethical and social consequences of Direct-to-Consumer (DTC) genetic testing, highlighting concerns about medical principles such as autonomy, beneficence, and justice.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=134&Itemid=1000000000000"
     },
     {
-      "id": "4",
+      "id": 4,
       "grade": "10",
-      "studentId": "d14c",
-      "teacherId": "1212",
+      "studentId": 4,
+      "teacherId": 15,
       "date": "18.06.2024.",
       "title": "The Nano Revolution Mirrors the Industrial Revolution: Who Will Benefit From the Nano Revolution?",
       "description": "This paper compares the Nano Revolution to the Industrial Revolution, exploring how nanotechnology will redefine robots and impact various fields, including biotechnology.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=135&Itemid=1000000000000"
     },
     {
-      "id": "5",
+      "id": 5,
       "grade": "6",
-      "studentId": "2533",
-      "teacherId": "5355",
+      "studentId": 5,
+      "teacherId": 14,
       "date": "09.09.2024.",
       "title": "The Ethics of Accountability in Factory Farming",
       "description": "This paper explores the ethical responsibility of corporations, farmers, consumers, and government officials in factory farming, advocating for greater awareness of their roles in animal welfare and meat production.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=142&Itemid=1000000000000"
     },
     {
-      "id": "6",
+      "id": 6,
       "grade": "",
-      "studentId": "6a26",
-      "teacherId": "1212",
+      "studentId": 6,
+      "teacherId": 15,
       "date": "19.11.2024.",
       "title": "Vintage: Wearing the Present in the Past",
       "description": "This paper explores how vintage clothing in modern fashion enables individuality, nostalgia, and creative expression, while allowing for innovative yet familiar styles.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=128&Itemid=1000000000000"
     },
     {
-      "id": "7",
+      "id": 7,
       "grade": "9",
-      "studentId": "9991",
-      "teacherId": "5355",
+      "studentId": 7,
+      "teacherId": 14,
       "date": "05.08.2024.",
       "title": "What's So Funny? The Real World Impact of Sitcom Depictions of Class",
       "description": "This paper critiques situational comedies that satirize working-class families, highlighting their reinforcement of negative stereotypes and the undermining of upward mobility.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=66&id=123&Itemid=1000000000000"
     },
     {
-      "id": "8",
+      "id": 8,
       "grade": "9",
-      "studentId": "05e0",
-      "teacherId": "5355",
+      "studentId": 8,
+      "teacherId": 15,
       "date": "07.05.2024.",
       "title": "Taboo the Taboos: The Ethics of Food Waste",
       "description": "This paper examines the origins of food waste, focusing on food taboos, dumpster diving ethics, and the need to challenge societal norms to reduce waste and address food insecurity.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=141&Itemid=1000000000000"
     },
     {
-      "id": "9",
+      "id": 9,
       "grade": "10",
-      "studentId": "8c39",
-      "teacherId": "5355",
+      "studentId": 9,
+      "teacherId": 15,
       "date": "10.04.2024.",
       "title": "The Fast Food Industry's Role in the Rising Rate of Obesity Among People of Low Socioeconomic Status",
       "description": "This paper explores the fast food industry's role in rising obesity rates among low-income individuals, emphasizing the impact of economic and environmental factors.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=143&Itemid=1000000000000"
     },
     {
-      "id": "10",
+      "id": 10,
       "grade": "6",
-      "studentId": "2989",
-      "teacherId": "1212",
+      "studentId": 10,
+      "teacherId": 14,
       "date": "12.03.2024.",
       "title": "Hip Hop's Masked Authenticity",
       "description": "This paper explores the complex concept of authenticity in hip hop, examining how race, gender, and cultural ties influence the perception of 'realness' in rap music.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=138&Itemid=1000000000000"
     },
     {
-      "id": "11",
+      "id": 11,
       "grade": "5",
-      "studentId": "2aa6",
-      "teacherId": "5355",
+      "studentId": 11,
+      "teacherId": 14,
       "date": "04.06.2024.",
       "title": "The Impact of Shiftwork on the Everyday Worker",
       "description": "This paper examines the negative impacts of night shift work on individual health, well-being, and work-life balance, as well as its effects on companies.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=126&Itemid=1000000000000"
     },
     {
-      "id": "12",
+      "id": 12,
       "grade": "5",
-      "studentId": "5fd1",
-      "teacherId": "5355",
+      "studentId": 12,
+      "teacherId": 15,
       "date": "01.07.2024.",
       "title": "The Narrative Power of Photography: Two Paragraphs and “The Limits of Forgiveness”",
       "description": "This paper explores the power of photography to shape narratives, particularly in historical contexts, and examines how past images of injustice can have a stronger emotional impact than modern staged photos.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=139&Itemid=1000000000000"
     },
     {
-      "id": "13",
+      "id": 13,
       "grade": "7",
-      "studentId": "baa1",
-      "teacherId": "1212",
+      "studentId": 13,
+      "teacherId": 15,
       "date": "31.12.2024.",
       "title": "Pediatric Cadmium Toxicity in America: Exploring Everyday Exposure Risk for Cavities and Decreased Neurodevelopment",
       "description": "This paper examines the health risks of cadmium in children's products, focusing on its presence in toys and jewelry, and the lack of regulation despite public outcry.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=132&Itemid=1000000000000"
     },
     {
-      "id": "14",
-      "grade": "",
-      "studentId": "dd23",
-      "teacherId": "5355",
+      "id": 14,
+      "grade": "5",
+      "studentId": 12,
+      "teacherId": 14,
       "date": "17.03.2024.",
       "title": "The Autism Epidemic",
       "description": "This paper challenges the use of the term 'epidemic' to describe the rise in autism spectrum disorder cases, attributing the increase to better diagnosis, awareness, and expanded criteria.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000"
+    },
+    {
+      "title": "naslov 7",
+      "description": "opis 7",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=129&Itemid=1000000000000",
+      "studentId": 14,
+      "date": "24.12.2024.",
+      "grade": "7",
+      "teacherId": 14,
+      "id": 20
+    },
+    {
+      "title": "naslov 8",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=129&Itemid=1000000000000",
+      "studentId": 16,
+      "date": "24.12.2024.",
+      "grade": "",
+      "teacherId": "",
+      "id": 21
     }
   ]
 }

@@ -4,6 +4,7 @@ import "../../styles/Table.css";
 import { ThemeContext } from "../../theme/Theme";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../utils/auth";
+import WorkForm from "./WorkForm";
 
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
@@ -14,9 +15,15 @@ function WorkTable() {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [works, setWorks] = useState([]);
   const [expandedRows, setExpandedRows] = useState([]);
-  const [editGradeId, setEditGradeId] = useState(null);  // Initialize state for editGradeId
-  const [currentPage, setCurrentPage] = useState(1);  // Initialize state for currentPage
-  const [worksPerPage, setWorksPerPage] = useState(10);  // Initialize state for worksPerPage
+  const [editGradeId, setEditGradeId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);  
+  const [worksPerPage, setWorksPerPage] = useState(10);  
+  const [showForm, setShowForm] = useState(false);
+
+  // Step 2: Function to toggle the visibility of the WorkForm
+  const toggleForm = () => {
+    setShowForm(prevState => !prevState);
+  };
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
@@ -29,6 +36,8 @@ function WorkTable() {
         return response.json();
       })
       .then((data) => {
+        console.log("Fetched works:", data);
+        console.log(typeof "2f2d"); 
         const studentWorks = data.works;
         const authors = data.users.filter((user) => user.role === "student");
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
@@ -56,6 +65,7 @@ function WorkTable() {
   }, []);
 
   const handleGradeChange = (e, workId) => {
+    console.log('workId:', workId);  // Check if this is the expected ID
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can update grades.');
       return;
@@ -78,7 +88,12 @@ function WorkTable() {
       },
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
-      .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
       .then((data) => {
         console.log('Grade updated successfully:', data);
         setEditGradeId(null); 
@@ -141,6 +156,8 @@ function WorkTable() {
     setWorksPerPage(Number(e.target.value));
     setCurrentPage(1);
   };
+
+
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
       <div className="table-container">
@@ -163,6 +180,8 @@ function WorkTable() {
             </select>
           </div>
         </div>
+        <button className="button-link" onClick={toggleForm}>{showForm ? 'Close Form' : 'Add work'}</button>
+          {showForm && <WorkForm />}
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
@@ -173,6 +192,7 @@ function WorkTable() {
           </thead>
           <tbody>
             {currentStudents.map((work) => (
+              console.log('work.id', work.id),
               <tr key={work.id}>
                 <td>{work.id}</td>
                 <td>{work.title}</td>

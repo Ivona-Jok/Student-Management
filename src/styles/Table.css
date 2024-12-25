@@ -208,6 +208,7 @@
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
     font-size: 0.9rem;
+    margin: 10px;
   }
   
   .button-link:hover,

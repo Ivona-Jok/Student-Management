@@ -54,6 +54,7 @@ export const register = async (firstName, lastName, email, password, repeatedPas
 };
  */
 
+
 const API_URL = 'http://localhost:5000'; // Lokalna json-server URL
 
 // Kreiranje vještačkog tokena (U realnim projektima token se dobija od strane backend-a)
@@ -164,6 +165,62 @@ export const login = async (email, password) => {
 
     // Dobijaju se user i token koji su odvojeni
     return { user, token };
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Funkcija za formatiranje datuma
+function formatDate(date) {
+  const day = date.getDate();       // Dobijamo dan (1-31)
+  const month = date.getMonth() + 1; // Dobijamo mjesec (0-11), i dodajemo 1 jer mjeseci pocinju indeksom 0
+  const year = date.getFullYear();  // Dobijamo godinu
+
+  // Dodajemo nule jednocifrenim brojevima
+  const dayFormatted = day < 10 ? `0${day}` : day;
+  const monthFormatted = month < 10 ? `0${month}` : month;
+
+  // Vraćamo formatiran datum
+  return `${dayFormatted}.${monthFormatted}.${year}.`;
+}
+
+// Dodavanje rada
+export const addWork = async (title, description, link, studentId, date, grade, teacherId) => {
+  // Pozivamo funkciju za formatiranje datuma da formatira trenutni datum
+  const formattedDate = formatDate(new Date());
+
+  try {
+    // Slanje POST upita za kreiranje korisnika
+    const response = await fetch(`${API_URL}/works`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        link,
+        studentId: studentId,
+        date: formattedDate,
+        grade: "",
+        teacherId: "",
+      }),
+    });
+
+    // Provjera je li upit u redu
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error creating work:', errorData);
+      throw new Error('Failed to add work.');
+    }
+
+    const newWork = await response.json();
+
+    // Čuvanje podataka o korisniku i tokenu u lokac storage, podaci se čuvaju odvojeno
+    localStorage.setItem('work', JSON.stringify(newWork));  
+
+    // Dobijaju se user i token koji su odvojeni
+    return { work: newWork };
   } catch (error) {
     throw error;
   }

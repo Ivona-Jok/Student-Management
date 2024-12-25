@@ -130,12 +130,14 @@
     margin-left: 1rem;
   }
   
-  .invalid input {
+  .invalid input,
+  .invalid textarea {
     border: 1px solid #b40e0e;
     background-color: #fddddd;
   }
   
-  .invalid input:focus {
+  .invalid input:focus,
+  .invalid textarea:focus {
     border-color: #ff8800;
     background-color: #fbe8d2;
   }

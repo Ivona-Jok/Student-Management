@@ -49,7 +49,13 @@ i18n
           sort_by: "Sort by",
           changeTheme: "Change site theme",
           changeLanguage: "Change site language",
-          view: "View"
+          view: "View",
+          changeRole: "Change user role",
+          searchUser: "Search and select user:",
+          noUsersFound: "No users found",
+          selectRole: "Select Role:",
+          currentRole: "Current role for",
+          is: "is"
         }
       },
       sr: {
@@ -94,7 +100,13 @@ i18n
           sort_by: "Sortiraj po",
           changeTheme: "Promijeni temu sajta",
           changeLanguage: "Promijeni jezik sajta",
-          view: "Pogledaj"
+          view: "Pogledaj",
+          changeRole: "Promijeni ulogu korisnika",
+          searchUser: "Pretraži i izaberi korisnika:",
+          noUsersFound: "Nije pronađen korisnik",
+          selectRole: "Izaberi ulogu:",
+          currentRole: "Trenutna uloga za",
+          is: "je"
         }
       }
     },
