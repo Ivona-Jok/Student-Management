@@ -9,7 +9,7 @@ import WorkForm from "./WorkForm";
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
-  const { user } = useAuth();  // Get user from auth context
+  const { user } = useAuth(); 
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
@@ -86,6 +86,7 @@ function WorkTable() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`, 
       },
+      body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
     .then((response) => {
@@ -185,7 +186,7 @@ function WorkTable() {
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
-              {['id', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
+              {['ID', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
                 <th key={col} onClick={() => toggleSortDirection(col)}>{t(col)}</th>
               ))}
             </tr>
@@ -194,28 +195,26 @@ function WorkTable() {
             {currentStudents.map((work) => (
               console.log('work.id', work.id),
               <tr key={work.id}>
-                <td>{work.id}</td>
-                <td>{work.title}</td>
+                <td className="center">{work.id}</td>
+                <td>
+                  <div className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`} onClick={() => toggleExpand(work.id)} >
+                    {work.title}
+                  </div>
+                </td>
                 <td>{work.author}</td>
                 <td>
-                    <div
-                      className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`}
-                      onClick={() => toggleExpand(work.id)}
-                    >
-                      {work.description}
-                    </div>
-                  </td>
-                <td><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
-                <td>{work.date}</td>
-                <td className="grade-button-container">
+                  <div className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`} onClick={() => toggleExpand(work.id)} >
+                    {work.description}
+                  </div>
+                </td>
+                <td className="center"><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
+                <td className="center">{work.date}</td>
+                <td className="grade-button-container center">
                   <button onClick={() => handleGradeEdit(work.id)} className="grade-button">{work.grade || '-'}</button>
                   {editGradeId === work.id && (
-                      <select
-                        value={work.grade || ''}
-                        onChange={(e) => handleGradeChange(e, work.id)}
-                      >
+                      <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)} >
                         <option value="">-</option>
-                        {[...Array(6).keys()].map(i => <option key={i+5} value={i+5}>{i+5}</option>)}
+                        {[...Array(6).keys()].map(i => <option key={i+6} value={i+6}>{i+6}</option>)}
                       </select>)}
                 </td>
                 <td>{work.teacher}</td>
