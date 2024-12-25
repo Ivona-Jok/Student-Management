@@ -57,7 +57,17 @@ i18n
           noUsersFound: "No users found",
           selectRole: "Select Role:",
           currentRole: "Current role for",
-          is: "is"
+          is: "is",
+          enterTitle: "Please enter a title.",
+          enterDescription: "Please enter description.",
+          enterLink: "Enter link to your work.",
+          addWork: "Add work",
+          placeholderTitle: "Enter title here...",
+          placeholderDescription: "Enter description here...",
+          placeholderLink: "Start with http:// or with https://",
+          add: "Add",
+          closeForm: "Close form",
+          addForm: "Add new work"
         }
       },
       sr: {
@@ -110,7 +120,17 @@ i18n
           noUsersFound: "Nije pronađen korisnik",
           selectRole: "Izaberi ulogu:",
           currentRole: "Trenutna uloga za",
-          is: "je"
+          is: "je",
+          enterTitle: "Unesite naslov rada.",
+          enterDescription: "Unesite opis rada.",
+          enterLink: "Unesite putanju do rada.",
+          addWork: "Dodaj rad",
+          placeholderTitle: "Unesi naslov ovdje..",
+          placeholderDescription: "Unesi opis ovdje...",
+          placeholderLink: "Počni sa http:// ili sa https://",
+          add: "Dodaj",
+          closeForm: "Zatvori",
+          addForm: "Dodaj novi rad"
         }
       }
     },

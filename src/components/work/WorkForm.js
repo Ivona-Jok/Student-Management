@@ -22,8 +22,12 @@ const WorkForm = () => {
     description: false,
     link: false
   });
+  const [errorMessages, setErrorMessages] = useState({
+    title: "",
+    description: "",
+    link: ""
+  });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const enteredTitleIsValid = enteredTitle.length > 1; 
   const enteredTitleIsInvalid = !enteredTitleIsValid && inputTouched.title;
@@ -50,20 +54,44 @@ const WorkForm = () => {
   };
 
   const titleInputBlurHandler = () => {
-    if (enteredTitle.length < 1) {
-      setError("Morate popuniti polje za naslov."); 
-    } else {
-      setError(""); 
-    }
     setInputTouched((prev) => ({ ...prev, title: true }));
+    if (enteredTitle.length < 1) {
+      setErrorMessages((prev) => ({
+        ...prev,
+        title: "Polje za naslov mora biti popunjeno."
+      }));
+    } else {
+      setErrorMessages((prev) => ({ ...prev, title: "" }));
+    }
   };
 
   const descriptionInputBlurHandler = () => {
     setInputTouched((prev) => ({ ...prev, description: true }));
+    if (enteredDescription.length < 1) {
+      setErrorMessages((prev) => ({
+        ...prev,
+        description: "Polje za opis mora biti popunjeno."
+      }));
+    } else {
+      setErrorMessages((prev) => ({ ...prev, description: "" }));
+    }
   };
 
   const linkInputBlurHandler = () => {
     setInputTouched((prev) => ({ ...prev, link: true }));
+    if (enteredLink.length < 1) {
+      setErrorMessages((prev) => ({
+        ...prev,
+        link: "Polje za putanju do rada mora biti popunjeno."
+      }));
+    } else if (!enteredLinkIsUrl.test(enteredLink)) {
+      setErrorMessages((prev) => ({
+        ...prev,
+        link: "URL mora da počinje sa http:// ili sa https://."
+      }));
+    } else {
+      setErrorMessages((prev) => ({ ...prev, link: "" }));
+    }
   };
 
   const renderErrorMessage = (isInvalid, errorMessage) => {
@@ -95,6 +123,7 @@ const WorkForm = () => {
       
       setEnteredTitle('');
       setEnteredDescription('');
+      setEnteredLink('');
       setInputTouched({ title: false, description: false, link: false });
     } catch (error) {
         console.error('Adding new work failed:', error.message);
@@ -107,30 +136,34 @@ const WorkForm = () => {
   return (
     <div className="wrapper">
       <div className={`form-container ${theme}`}>
-        <h2 className={`title ${theme}`}> {t("add work")} </h2>
+        <h2 className={`title ${theme}`}> {t("addWork")} </h2>
         <form onSubmit={formSubmissionHandler}>
+
           <div className={`form-group ${theme} ${enteredTitleIsInvalid ? 'invalid' : ''}`}>
+
             <label htmlFor="title" className="label-text"> {t("title")} </label>
             <input 
               type="text" 
               className={`form-control ${theme}`} 
               id="title" 
-             
+              placeholder={t("placeholderTitle")}
               onChange={titleInputChangeHandler}
               onBlur={titleInputBlurHandler}
               value={enteredTitle}
             />
-            <small id="emailHelp" className="form-text text-muted"> {t("title_desc")} </small>
-            {renderErrorMessage(enteredTitleIsInvalid, 'Please enter a title.')}
+            
+            {renderErrorMessage(enteredTitleIsInvalid, `${t("enterTitle")} ${errorMessages.title}`)}
+
           </div>
           
           <div className={`form-group ${theme} ${enteredDescriptionIsInvalid ? 'invalid' : ''}`}>
+
             <label htmlFor="description" className="label-text"> {t("description")} </label>
             <textarea 
-              name="message" 
+              name="description" 
               rows="4" 
               cols="50" 
-              placeholder="Enter description here..."
+              placeholder={t("placeholderDescription")}
               className={`form-control ${theme}`}
               onChange={descriptionInputChangeHandler}
               onBlur={descriptionInputBlurHandler}
@@ -138,31 +171,30 @@ const WorkForm = () => {
               id="description" 
               >
             </textarea>
-            <small id="passwordHelpBlock" className={`form-text text-muted ${theme === "light" ? "dark" : "light"}`}>
-              {t("desc_desc")}
-            </small>
-            {renderErrorMessage(enteredDescriptionIsInvalid, `Please enter description. ${error}`)}
+            
+            {renderErrorMessage(enteredDescriptionIsInvalid, `${t("enterDescription")} ${errorMessages.description}`)}
+
           </div>
 
           <div className={`form-group ${theme} ${enteredLinkIsInvalid ? 'invalid' : ''}`}>
+
             <label htmlFor="link" className="label-text"> {t("link")} </label>
             <input 
               type="link" 
+              placeholder={t("placeholderLink")}
               className={`form-control ${theme}`}
               id="link" 
               onChange={linkInputChangeHandler}
               onBlur={linkInputBlurHandler}
               value={enteredLink}
             />
-            <small id="passwordHelpBlock" className={`form-text text-muted ${theme === "light" ? "dark" : "light"}`}>
-              {t("link_desc")}
-            </small>
-            {renderErrorMessage(enteredLinkIsInvalid, `Please enter link to your paper. ${error}`)}
+            
+            {renderErrorMessage(enteredLinkIsInvalid, `${t("enterLink")} ${errorMessages.link}`)}
+
           </div>
           
           <button disabled={!formIsValid || isLoading} type="submit" className="submit-button form-group">
-            {isLoading ? 'Adding in...' : 'Add'}
-            
+            {isLoading ? "Adding in..." : `${t("add")}`}
           </button>
 
         </form>

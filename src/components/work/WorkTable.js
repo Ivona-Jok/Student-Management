@@ -181,7 +181,7 @@ function WorkTable() {
             </select>
           </div>
         </div>
-        <button className="button-link" onClick={toggleForm}>{showForm ? 'Close Form' : 'Add work'}</button>
+        <button className="button-link" onClick={toggleForm}>{showForm ? `${t("closeForm")}` : `${t("addForm")}`}</button>
           {showForm && <WorkForm />}
         <table className={`table table-${theme} table-striped`}>
           <thead>
