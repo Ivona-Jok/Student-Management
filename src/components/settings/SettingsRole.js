@@ -88,7 +88,7 @@ const SettingsRole = () => {
 
     // Poruka za loading kada podaci još uvijek nisu učitani
     if (!users.length) {
-        return <div>Loading users...</div>;
+        return <div>{t("loadingUsers")} </div>;
     }
 
 return (
@@ -96,13 +96,13 @@ return (
 
         {/* Input polje za pretragu */}
         <div className="select-user-role">
-            <label htmlFor="userSelect">{t("searchUser")}</label>
+            <label htmlFor="userSelect">{t("searchAndChooseUser")}</label>
             <input
                 type="text"
                 id="userSelect"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                placeholder="Search for a user..."
+                placeholder={t("searchUser")} 
             />
 
             {/* Prikazuje korisnike samo kada se pretraga poklopi sa traženim terminom */}
@@ -130,9 +130,9 @@ return (
                 {/* Padajući medi za uloge */}
                 <label htmlFor="roleSelect">{t("selectRole")}</label>
                 <select id="roleSelect" value={role} onChange={handleRoleChange}>
-                    <option value="student">Student</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="admin">Admin</option>
+                    <option value="student">{t("student")} </option>
+                    <option value="teacher">{t("teacher")} </option>
+                    <option value="admin">{t("admin")} </option>
                 </select>
             </div>
         )}

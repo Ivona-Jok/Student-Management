@@ -17,6 +17,7 @@ i18n
           search: "Search...",
           dashboard: "Dashboard",
           student: "Student",
+          admin: "Admin",
           grades: "Grades",
           works: "Works",
           settings: "Settings",
@@ -53,7 +54,7 @@ i18n
           changeLanguage: "Change site language",
           view: "View",
           changeRole: "Change user role",
-          searchUser: "Search and select user:",
+          searchAndChooseUser: "Search and select user:",
           noUsersFound: "No users found",
           selectRole: "Select Role:",
           currentRole: "Current role for",
@@ -67,7 +68,9 @@ i18n
           placeholderLink: "Start with http:// or with https://",
           add: "Add",
           closeForm: "Close form",
-          addForm: "Add new work"
+          addForm: "Add new work",
+          searchUser: "Search for a user...",
+          LoadingUsers: "Loading users..."
         }
       },
       sr: {
@@ -79,6 +82,7 @@ i18n
           search: "Pretraga...",
           dashboard: "Kontrolna tabla",
           student: "Student",
+          admin: "Administrator",
           grades: "Ocjene",
           grade_ascending: "Rastuce ocjene",
           grade_descending: "Opadajuce ocjene",
@@ -116,7 +120,7 @@ i18n
           changeLanguage: "Promijeni jezik sajta",
           view: "Pogledaj",
           changeRole: "Promijeni ulogu korisnika",
-          searchUser: "Pretraži i izaberi korisnika:",
+          searchAndChooseUser: "Pretraži i izaberi korisnika:",
           noUsersFound: "Nije pronađen korisnik",
           selectRole: "Izaberi ulogu:",
           currentRole: "Trenutna uloga za",
@@ -130,7 +134,9 @@ i18n
           placeholderLink: "Počni sa http:// ili sa https://",
           add: "Dodaj",
           closeForm: "Zatvori",
-          addForm: "Dodaj novi rad"
+          addForm: "Dodaj novi rad",
+          searchUser: "Pretraži korisnika...",
+          LoadingUsers: "Učitavanje korisnika..."
         }
       }
     },
