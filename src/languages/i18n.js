@@ -70,7 +70,8 @@ i18n
           closeForm: "Close form",
           addForm: "Add new work",
           searchUser: "Search for a user...",
-          LoadingUsers: "Loading users..."
+          LoadingUsers: "Loading users...",
+          roleUpdatedSuccessfully: "Role successfully changed!"
         }
       },
       sr: {
@@ -136,7 +137,8 @@ i18n
           closeForm: "Zatvori",
           addForm: "Dodaj novi rad",
           searchUser: "Pretraži korisnika...",
-          LoadingUsers: "Učitavanje korisnika..."
+          LoadingUsers: "Učitavanje korisnika...",
+          roleUpdatedSuccessfully: "Uloga je uspješno promijenjena."
         }
       }
     },

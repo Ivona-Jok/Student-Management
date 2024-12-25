@@ -8,7 +8,7 @@
       "email": "milica.milic@gmail.com",
       "password": "123456.c",
       "token": "fake-jwt-token-for-ef98",
-      "role": "teacher"
+      "role": "student"
     },
     {
       "id": 2,
@@ -88,7 +88,7 @@
       "email": "aleksandar.bojanic@yahoo.com",
       "password": "123123.m",
       "token": "fake-jwt-token-for-05e0",
-      "role": "student"
+      "role": "teacher"
     },
     {
       "id": 10,

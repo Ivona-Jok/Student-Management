@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import "../../styles/Components.css";
+import "../../styles/Popup.css";
+import Popup from "../settings/Popup"
 
 const SettingsRole = () => {
     const [role, setRole] = useState(''); // Uloga za odabranog korisnika
@@ -10,6 +12,7 @@ const SettingsRole = () => {
     const [filteredUsers, setFilteredUsers] = useState([]);
     const { t } = useTranslation();
     const [roleChanged, setRoleChanged] = useState(false); // Prati se da li je uloga promijenjena
+    const [successMessage, setSuccessMessage] = useState(''); // Za prikazivanje popup poruke kada je akcija uspješna
 
     const API_URL = 'http://localhost:5000';
     // Fečujemo podatke o korisnicima na nivou cijele komponente
@@ -75,6 +78,10 @@ const SettingsRole = () => {
                 ));
                 setSelectedUser(updatedUser); // Ažuriraj ulogu za izabranog korisnika
                 console.log('User role updated:', updatedUser);
+                
+                // Prikaži poruku o uspješnoj akciji
+                setSuccessMessage(t("roleUpdatedSuccessfully"));
+                
             } else {
                 console.error('Error updating role:', response.statusText);
             }
@@ -91,9 +98,9 @@ const SettingsRole = () => {
         return <div>{t("loadingUsers")} </div>;
     }
 
+
 return (
     <div>
-
         {/* Input polje za pretragu */}
         <div className="select-user-role">
             <label htmlFor="userSelect">{t("searchAndChooseUser")}</label>
@@ -136,6 +143,10 @@ return (
                 </select>
             </div>
         )}
+
+        {/* Prikaz poruke kada je akcija promjene uloge uspješna */}
+        <Popup message={successMessage} />
+
     </div>
 );
 };

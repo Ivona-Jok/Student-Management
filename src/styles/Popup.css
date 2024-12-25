@@ -1,0 +1,14 @@
+.success-message {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  .success-message.fade-out {
+    opacity: 0;
+  }
