@@ -20,7 +20,6 @@ function WorkTable() {
   const [worksPerPage, setWorksPerPage] = useState(10);  
   const [showForm, setShowForm] = useState(false);
 
-  // Step 2: Function to toggle the visibility of the WorkForm
   const toggleForm = () => {
     setShowForm(prevState => !prevState);
   };
@@ -65,7 +64,7 @@ function WorkTable() {
   }, []);
 
   const handleGradeChange = (e, workId) => {
-    console.log('workId:', workId);  // Check if this is the expected ID
+    console.log('workId:', workId);  
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can update grades.');
       return;
@@ -86,7 +85,6 @@ function WorkTable() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`, 
       },
-      body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
     .then((response) => {
@@ -158,6 +156,16 @@ function WorkTable() {
     setCurrentPage(1);
   };
 
+  if (showForm) {
+    return (
+      <div className={`component ${theme === "light" ? "dark" : "light"}`}>
+        <WorkForm />
+        <button className="button-link" onClick={toggleForm}>
+          {t("closeForm")} 
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
@@ -181,13 +189,11 @@ function WorkTable() {
             </select>
           </div>
         </div>
-        <button className="button-link" onClick={toggleForm}>{showForm ? `${t("closeForm")}` : `${t("addForm")}`}</button>
-          {showForm && <WorkForm />}
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
               {['ID', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
-                <th key={col} onClick={() => toggleSortDirection(col)}>{t(col)}</th>
+                <th key={col} onClick={() => toggleSortDirection(col)} >{t(col)}</th>
               ))}
             </tr>
           </thead>
@@ -238,6 +244,11 @@ function WorkTable() {
                 {index + 1}
               </button>
             ))}
+          </div>
+          <div>
+            <button className="button-link" onClick={toggleForm}>
+              {t("addForm")}  
+            </button>
           </div>
         </div>
       </div>

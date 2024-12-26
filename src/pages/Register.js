@@ -127,11 +127,9 @@ const Register = () => {
     }
 
     try {
-      // Poziva se register API funkcija
       const { user:userData, token } = await register(enteredFirstName, enteredLastName, enteredEmail, enteredPassword, enteredRepeatedPassword);
       console.log('Registered user:', user);
       console.log('JWT token:', token);
-      // Prosleđivanje podataka o korisniku context login funkciji
       contextRegister(userData, token);
       
       setEnteredFirstName('');

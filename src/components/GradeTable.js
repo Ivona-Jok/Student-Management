@@ -18,39 +18,49 @@ function GradeTable() {
   const [gradeSortDirection, setGradeSortDirection] = useState("asc");
 
   useEffect(() => {
-    const fetchWorks = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/works");
-        if (!response.ok) throw new Error("Failed to fetch works");
-        const data = await response.json();
-        setWorks(data);
-      } catch (error) {
-        console.error("Error fetching works:", error);
-      }
-    };
+    fetch("/db.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Fetched data:", data);
+        const studentWorks = data.works;
+        const authors = data.users.filter((user) => user.role === "student");
+        const teachers = data.users.filter((user) => user.role.includes("teacher"));
 
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/users");
-        if (!response.ok) throw new Error("Failed to fetch users");
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
+        const worksWithAuthors = studentWorks.map((work, index) => {
+          const author = authors.find((author) => author.id === work.studentId);
+          const teacher = teachers.find((teacher) => teacher.id === work.teacherId);
 
-    fetchWorks();
-    fetchUsers();
+          return {
+            id: index + 1,
+            title: work.title,
+            description: work.description,
+            link: work.link,
+            studentId: work.studentId,
+            author: author ? `${author.firstName} ${author.lastName}` : "Unknown",
+            grade: work.grade,
+            teacher: teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown",
+            date: work.date,
+          };
+        });
+
+        setWorks(worksWithAuthors);
+        setUsers(data.users);  // Set users data as well
+      })
+      .catch((error) => console.error("Error fetching data: ", error));
   }, []);
 
   const getStudentName = (studentId) => {
-    const student = users.find((user) => user.id === studentId);
+    const student = users.find((user) => user.id === studentId && (user.role === "student" || (Array.isArray(user.role) && user.role.includes("student"))));
     return student ? `${student.firstName} ${student.lastName}` : "Unknown Student";
   };
 
   const getTeacherName = (teacherId) => {
-    const teacher = users.find((user) => user.id === teacherId);
+    const teacher = users.find((user) => user.id === teacherId && (user.role === "teacher" || (Array.isArray(user.role) && user.role.includes("teacher"))));
     return teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown Teacher";
   };
 
@@ -94,12 +104,12 @@ function GradeTable() {
       setGradeSortDirection("desc");
     }
   };
-  
+
   const sortedWorks = filteredWorks.sort((a, b) => {
     if (selectedFilter === "student") {
       return getStudentName(a.studentId).localeCompare(getStudentName(b.studentId));
     } else if (selectedFilter === "grade ascending" || selectedFilter === "grade descending") {
-      const gradeA = a.grade ? Number(a.grade) : -1; // Convert to number or use -1 for undefined grades
+      const gradeA = a.grade ? Number(a.grade) : -1;
       const gradeB = b.grade ? Number(b.grade) : -1;
       if (gradeA === gradeB) return 0;
       return gradeSortDirection === "asc" ? gradeA - gradeB : gradeB - gradeA;
@@ -108,7 +118,6 @@ function GradeTable() {
     }
     return 0;
   });
-  
 
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
 
@@ -162,7 +171,7 @@ function GradeTable() {
               <tr>
                 <th>{t("ID")}</th>
                 <th>{t("student")}</th>
-                <th>{t("Assigments")}</th>
+                <th>{t("assignments")}</th>
                 <th>{t("grade")}</th>
                 <th>{t("teacher")}</th>
               </tr>
@@ -170,8 +179,8 @@ function GradeTable() {
             <tbody>
               {currentWorks.map((work) => (
                 <tr key={work.id}>
-                  <td className="center">{work.id}</td>
-                  <td>{getStudentName(work.studentId)}</td>
+                  <td className="center" scope="row">{work.id}</td>
+                  <td>{work.author}</td>
                   <td>
                     <div
                       className={`cell-content ${expandedRows.includes(work.id) ? "expanded" : "collapsed"}`}
@@ -200,7 +209,7 @@ function GradeTable() {
                       </select>
                     )}
                   </td>
-                  <td>{getTeacherName(work.teacherId)}</td>
+                  <td>{work.teacher}</td>
                 </tr>
               ))}
             </tbody>

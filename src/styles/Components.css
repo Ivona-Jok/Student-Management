@@ -41,6 +41,10 @@ p{
     font-size: 10pt;
 }
 
+.component{
+    padding: 20px;
+}
+
 
 .component.dark{
     background-color: #fff;

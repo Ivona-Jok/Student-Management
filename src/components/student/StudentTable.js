@@ -3,6 +3,7 @@ import "../../styles/Components.css";
 import "../../styles/Table.css";
 import { ThemeContext } from "../../theme/Theme";
 import { useTranslation } from "react-i18next";
+import StudentForm from "./StudentForm";
 
 function StudentTable() {
   const { theme } = useContext(ThemeContext);
@@ -13,6 +14,11 @@ function StudentTable() {
   const [students, setStudents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [studentsPerPage, setStudentsPerPage] = useState(10);
+  const [showForm, setShowForm] = useState(false); // Initializing state for showing/hiding the form
+
+  const toggleForm = () => {
+    setShowForm((prevState) => !prevState); // Toggle visibility of the form
+  };
 
   useEffect(() => {
     fetch("/db.json")
@@ -115,6 +121,17 @@ function StudentTable() {
     setCurrentPage(1); 
   };
 
+  if (showForm) {
+    return (
+      <div className={`component ${theme === "light" ? "dark" : "light"}`}>
+        <StudentForm />
+        <button className="button-link" onClick={toggleForm}>
+          {t("closeForm")} 
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
       <div className="table-container">
@@ -204,6 +221,11 @@ function StudentTable() {
                 {index + 1}
               </button>
             ))}
+          </div>
+          <div>
+            <button className="button-link" onClick={toggleForm}>
+              Add Student 
+            </button>
           </div>
         </div>
       </div>

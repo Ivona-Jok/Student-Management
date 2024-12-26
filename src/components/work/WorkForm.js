@@ -107,7 +107,6 @@ const WorkForm = () => {
     }
 
     try {
-        // Dodaj trenutni datum
         const currentDate = new Date().toISOString();
         const { work: newWork } = await addWork(
           enteredTitle,
