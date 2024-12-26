@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Popup = ({ message, duration = 3000 }) => {
+const Popup = ({ message, duration = 10000 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

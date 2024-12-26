@@ -28,7 +28,7 @@
       "email": "ivana.mit@gmail.com",
       "password": "123456.i",
       "token": "fake-jwt-token-for-77c3",
-      "role": "teacher"
+      "role": "student"
     },
     {
       "id": 4,

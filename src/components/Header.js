@@ -4,6 +4,7 @@ import ThemeSwitcher from "../theme/ThemeSwitcher";
 import LanguageSwitcher from "../languages/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../theme/Theme";
+import { useAuth } from "../utils/auth"
 
 function Header() {
   const { theme } = useContext(ThemeContext);
@@ -12,6 +13,7 @@ function Header() {
   const [works, setWorks] = useState([]);
   const [filteredWorks, setFilteredWorks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const { user } = useAuth(); 
 
   useEffect(() => {
     fetch("/db.json")
@@ -32,6 +34,8 @@ function Header() {
     );
     setFilteredWorks(filtered);
   };
+
+
 
   return (
     <div id="header" className={`header text-${theme === "light" ? "dark" : "light"}`}>

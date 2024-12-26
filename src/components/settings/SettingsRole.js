@@ -5,6 +5,7 @@ import "../../styles/Popup.css";
 import Popup from "../settings/Popup"
 
 const SettingsRole = () => {
+    console.log("Component re-rendered");
     const [role, setRole] = useState(''); // Uloga za odabranog korisnika
     const [users, setUsers] = useState([]); // Niz za čuvanje podataka o svim korisnicima
     const [selectedUser, setSelectedUser] = useState(null); // Za potrebe editovanja jednog korisnika
@@ -13,7 +14,6 @@ const SettingsRole = () => {
     const { t } = useTranslation();
     const [roleChanged, setRoleChanged] = useState(false); // Prati se da li je uloga promijenjena
     const [successMessage, setSuccessMessage] = useState(''); // Za prikazivanje popup poruke kada je akcija uspješna
-    
 
     const API_URL = 'http://localhost:5000';
     // Fečujemo podatke o korisnicima na nivou cijele komponente
@@ -25,16 +25,12 @@ const SettingsRole = () => {
         };
         
         fetchUserData();
-
-        // Poruka o uspješnoj promjeni se javlja nakon 1 sekunde nakon što se refrešuje stranica
-        setTimeout(() => {
-            setSuccessMessage("Uloga je uspješno promijenjena!");
-        }, 1000);
         
     }, []);
     
     // Funkcija koja se pokreće kada se koristi input search polje
     const handleSearchChange = (event) => {
+        
         const value = event.target.value;
         setSearchTerm(value);
 
@@ -48,18 +44,19 @@ const SettingsRole = () => {
         setFilteredUsers(filtered);
     };
 
-   // Funkcija koja se pokreće pri odabiru korisnika u input search polju
-   const handleUserSelect = (user) => {
-    
-    setSelectedUser(user);
-    setRole(user.role);
-    setSearchTerm('');  // Briše se search polje pri odabiru korisnika
-    setFilteredUsers([]);  // Briše se lista pri odabiru korisnika
-    
-};
+    // Funkcija koja se pokreće pri odabiru korisnika u input search polju
+    const handleUserSelect = (user) => {
+        
+        setSelectedUser(user);
+        setRole(user.role);
+        setSearchTerm('');  // Briše se search polje pri odabiru korisnika
+        setFilteredUsers([]);  // Briše se lista pri odabiru korisnika
+        
+    };
 
     // Funkcija koja se pokreće pri odabiru nove uloge korisnika
     const handleRoleChange = async (event) => {
+
         const newRole = event.target.value;
         setRole(newRole);
         setRoleChanged(true);
@@ -85,6 +82,10 @@ const SettingsRole = () => {
                 ));
                 setSelectedUser(updatedUser); // Ažuriraj ulogu za izabranog korisnika
                 console.log('User role updated:', updatedUser);
+
+                // Set the success message after role change
+                setSuccessMessage("Uloga je uspješno promijenjena!");
+                
             } else {
                 console.error('Error updating role:', response.statusText);
             }
@@ -145,6 +146,7 @@ return (
                     <option value="admin">{t("admin")} </option>
                 </select>
             </div>
+            
         )}
 
         {/* Prikaz poruke kada je akcija promjene uloge uspješna */}

@@ -3,7 +3,6 @@ import '../../styles/Form.css';
 import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../../theme/Theme';
 import { useTranslation } from 'react-i18next';
-/* import { useAuth } from '../utils/auth'; */
 import { useAuth } from "../../utils/auth";
 import { addWork } from '../../utils/api';
 

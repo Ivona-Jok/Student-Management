@@ -12,20 +12,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  
     <React.StrictMode>
       <LanguageProvider>
         <ThemeProvider>
-          <Router>
-            <AuthProvider>
-              <App />
-            </AuthProvider>
-          </Router>
+        <Router>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </Router>
         </ThemeProvider>
       </LanguageProvider>
     </React.StrictMode>
-
-  
 );
 
 // If you want to start measuring performance in your app, pass a function
