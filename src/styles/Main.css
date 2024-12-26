@@ -31,10 +31,6 @@
     background-color: #222;
 }
 
-.page-title{
-    margin-bottom: 20px;
-}
-
 .setting-item {
     display: flex;
     justify-content: space-between;

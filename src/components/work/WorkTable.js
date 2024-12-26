@@ -36,15 +36,15 @@ function WorkTable() {
       })
       .then((data) => {
         console.log("Fetched works:", data);
-        console.log(typeof "2f2d"); 
+  
         const studentWorks = data.works;
         const authors = data.users.filter((user) => user.role === "student");
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
-
+  
         const worksWithAuthors = studentWorks.map((work, index) => {
-          const author = authors.find((author) => author.id === work.studentId);
-          const teacher = teachers.find((teacher) => teacher.id === work.teacherId);
-
+          const author = authors.find((author) => String(author.id) === String(work.studentId));
+          const teacher = teachers.find((teacher) => String(teacher.id) === String(work.teacherId));
+  
           return {
             id: index + 1,
             title: work.title,
@@ -57,7 +57,7 @@ function WorkTable() {
             date: work.date,
           };
         });
-
+  
         setWorks(worksWithAuthors);
       })
       .catch((error) => console.error("Error fetching student research papers: ", error));
@@ -201,7 +201,7 @@ function WorkTable() {
             {currentStudents.map((work) => (
               console.log('work.id', work.id),
               <tr key={work.id}>
-                <td className="center">{work.id}</td>
+                <th className="center" scope="row">{work.id}</th>
                 <td>
                   <div className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`} onClick={() => toggleExpand(work.id)} >
                     {work.title}

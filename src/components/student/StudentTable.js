@@ -14,10 +14,10 @@ function StudentTable() {
   const [students, setStudents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [studentsPerPage, setStudentsPerPage] = useState(10);
-  const [showForm, setShowForm] = useState(false); // Initializing state for showing/hiding the form
+  const [showForm, setShowForm] = useState(false); 
 
   const toggleForm = () => {
-    setShowForm((prevState) => !prevState); // Toggle visibility of the form
+    setShowForm((prevState) => !prevState); 
   };
 
   useEffect(() => {

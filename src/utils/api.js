@@ -225,3 +225,35 @@ export const addWork = async (title, description, link, studentId, date, grade, 
     throw error;
   }
 };
+
+
+export const addStudent = async (firstName, lastName, email, index, year, teacherId) => {
+  try {
+    const response = await fetch(`${API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        index,
+        year,
+        role: 'student', // Default role for new student
+        teacherId: teacherId, // Linking to the teacher who is adding the student
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error creating student:', errorData);
+      throw new Error('Failed to add new student.');
+    }
+
+    const newStudent = await response.json();
+    return newStudent;  // Return the created student data
+  } catch (error) {
+    throw error;
+  }
+};

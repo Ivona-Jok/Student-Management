@@ -17,6 +17,20 @@ function GradeTable() {
   const [worksPerPage, setWorksPerPage] = useState(10);
   const [gradeSortDirection, setGradeSortDirection] = useState("asc");
 
+  const getStudentName = (studentId) => {
+    const student = users.find((user) =>
+      user.id === studentId && user.role.includes("student")
+    );
+    return student ? `${student.firstName} ${student.lastName}` : "Unknown Student";
+  };
+
+  const getTeacherName = (teacherId) => {
+    const teacher = users.find((user) =>
+      user.id === teacherId && user.role.includes("teacher")
+    );
+    return teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown Teacher";
+  };
+
   useEffect(() => {
     fetch("/db.json")
       .then((response) => {
@@ -28,12 +42,12 @@ function GradeTable() {
       .then((data) => {
         console.log("Fetched data:", data);
         const studentWorks = data.works;
-        const authors = data.users.filter((user) => user.role === "student");
+        const authors = data.users.filter((user) => user.role.includes("student"));
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
 
         const worksWithAuthors = studentWorks.map((work, index) => {
-          const author = authors.find((author) => author.id === work.studentId);
-          const teacher = teachers.find((teacher) => teacher.id === work.teacherId);
+          const author = authors.find((author) => Number(author.id) === Number(work.studentId));
+          const teacher = teachers.find((teacher) => Number(teacher.id) === Number(work.teacherId));
 
           return {
             id: index + 1,
@@ -49,20 +63,10 @@ function GradeTable() {
         });
 
         setWorks(worksWithAuthors);
-        setUsers(data.users);  // Set users data as well
+        setUsers(data.users);
       })
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
-
-  const getStudentName = (studentId) => {
-    const student = users.find((user) => user.id === studentId && (user.role === "student" || (Array.isArray(user.role) && user.role.includes("student"))));
-    return student ? `${student.firstName} ${student.lastName}` : "Unknown Student";
-  };
-
-  const getTeacherName = (teacherId) => {
-    const teacher = users.find((user) => user.id === teacherId && (user.role === "teacher" || (Array.isArray(user.role) && user.role.includes("teacher"))));
-    return teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown Teacher";
-  };
 
   const toggleExpand = (id) => {
     setExpandedRows((prevExpandedRows) => {
@@ -91,7 +95,7 @@ function GradeTable() {
     const studentName = getStudentName(work.studentId).toLowerCase();
     const title = work.title.toLowerCase();
     return (
-      (work.grade && work.grade.trim() !== "") && 
+      (work.grade && work.grade.trim() !== "") &&
       (studentName.includes(searchTerm.toLowerCase()) || title.includes(searchTerm.toLowerCase()))
     );
   });
@@ -169,7 +173,7 @@ function GradeTable() {
           <table className={`table table-${theme} table-striped`}>
             <thead>
               <tr>
-                <th>{t("ID")}</th>
+                <th className="center">{t("ID")}</th>
                 <th>{t("student")}</th>
                 <th>{t("assignments")}</th>
                 <th>{t("grade")}</th>
@@ -179,7 +183,7 @@ function GradeTable() {
             <tbody>
               {currentWorks.map((work) => (
                 <tr key={work.id}>
-                  <td className="center" scope="row">{work.id}</td>
+                  <th className="center" scope="row">{work.id}</th>
                   <td>{work.author}</td>
                   <td>
                     <div

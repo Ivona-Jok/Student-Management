@@ -1,86 +1,130 @@
 import { useContext, useState } from 'react';
 import '../../styles/Form.css';
-import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../../theme/Theme';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "../../utils/auth";
-import { addWork } from '../../utils/api';
+import { addStudent } from '../../utils/api';  // Import addStudent instead of addUser
 
 const StudentForm = () => {
-
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
+  const { user } = useAuth();  // Assume user contains the authenticated teacher info
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    index: '',
+    year: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccessMessage('');
+
+    try {
+      const { firstName, lastName, email, index, year } = formData;
+
+      const newStudent = await addStudent(firstName, lastName, email, index, year );
+
+      setLoading(false);
+      setSuccessMessage('Student data successfully added!');
+      
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        index: '',
+        year: ''
+      });
+    } catch (error) {
+      setLoading(false);
+      setError('Failed to add student data. Please try again.');
+    }
+  };
 
   return (
     <div className="wrapper">
       <div className={`form-container ${theme}`}>
-        <h2 className={`title ${theme}`}> {t("student")} </h2>
+        <h2 className={`title ${theme}`}>{t("student")}</h2>
 
-          
-          <form >
+        <form onSubmit={handleSubmit}>
+          <div className={`form-group ${theme}`}>
+            <label htmlFor="firstName" className="label-text">{t("first_name")}</label>
+            <input
+              type="text"
+              className={`form-control ${theme}`}
+              id="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+            />
+          </div>
 
-            <div className={`form-group ${theme}`}>
-              <label htmlFor="f_name" className="label-text">First Name</label>
-              <input 
-                type="text" 
-                className={`form-control ${theme}`}
-                id="f_name" 
-                value=""
-              />
-            </div>
+          <div className={`form-group ${theme}`}>
+            <label htmlFor="lastName" className="label-text">{t("last_name")}</label>
+            <input
+              type="text"
+              className={`form-control ${theme}`}
+              id="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+            />
+          </div>
 
-            <div className={`form-group ${theme}`}>
-              <label htmlFor="l_name" className="label-text">Last Name</label>
-              <input 
-                type="text" 
-                className={`form-control ${theme}`}
-                id="l_name" 
-                value=""
-              />
-            </div>
+          <div className={`form-group ${theme}`}>
+            <label htmlFor="email" className="label-text">{t("email")}</label>
+            <input
+              type="email"
+              className={`form-control ${theme}`}
+              id="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
 
-            <div className={`form-group ${theme}`}>
-              <label htmlFor="index" className="label-text">Index</label>
-              <input 
-                type="text" 
-                className={`form-control ${theme}`}
-                id="index" 
-                value=""
-              />
-            </div>
+          <div className={`form-group ${theme}`}>
+            <label htmlFor="index" className="label-text">{t("index")}</label>
+            <input
+              type="text"
+              className={`form-control ${theme}`}
+              id="index"
+              value={formData.index}
+              onChange={handleInputChange}
+            />
+          </div>
 
-            <div className={`form-group ${theme}`}>
-              <label htmlFor="index" className="label-text">Email</label>
-              <input 
-                type="email" 
-                className={`form-control ${theme}`}
-                id="email" 
-                value=""
-              />
-            </div>
+          <div className={`form-group ${theme}`}>
+            <label htmlFor="year" className="label-text">{t("year")}</label>
+            <input
+              type="number"
+              className={`form-control ${theme}`}
+              id="year"
+              value={formData.year}
+              onChange={handleInputChange}
+            />
+          </div>
 
-            <div className={`form-group ${theme}`}>
-              <label htmlFor="index" className="label-text">Year</label>
-              <input 
-                type="number" 
-                className={`form-control ${theme}`}
-                id="works" 
-                value=""
-              />
-            </div>
+          <button type="submit" className="btn-submit" disabled={loading}>
+            {loading ? t("loading") : t("submit")}
+          </button>
+        </form>
 
-            <div className={`form-group ${theme}`}>
-              <label htmlFor="index" className="label-text">GPA</label>
-              <input 
-                type="number" 
-                className={`form-control ${theme}`}
-                id="gpa" 
-                value=""
-              />
-            </div>
-          </form>
-         
-
+        {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
       </div>
     </div>
   );
