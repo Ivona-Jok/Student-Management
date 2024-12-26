@@ -199,7 +199,6 @@ function WorkTable() {
           </thead>
           <tbody>
             {currentStudents.map((work) => (
-              console.log('work.id', work.id),
               <tr key={work.id}>
                 <th className="center" scope="row">{work.id}</th>
                 <td>
