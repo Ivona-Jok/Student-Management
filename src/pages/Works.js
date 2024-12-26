@@ -12,7 +12,7 @@ function Works() {
 
   return (
     <div className={`main-container ${theme} works text-${theme === "light" ? "dark" : "light"}`}>
-        {t("works")}
+        <h2>{t("works")}</h2>
         <WorkTable />
     </div>
   );

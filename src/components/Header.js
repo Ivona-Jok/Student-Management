@@ -50,13 +50,13 @@ function Header() {
               value={searchQuery}
               onChange={handleSearch}
               aria-label="Search"
-            />
+            />    
           </form>
           <LanguageSwitcher />
           <ThemeSwitcher />
         </div>
       </header>
-    </div>
+    </div> 
   );
 }
 

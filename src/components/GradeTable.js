@@ -4,7 +4,7 @@ import "../styles/Table.css";
 import { ThemeContext } from "../theme/Theme";
 import { useTranslation } from "react-i18next";
 
-function GradeTabel() {
+function GradeTable() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
   const [works, setWorks] = useState([]);
@@ -236,4 +236,4 @@ function GradeTabel() {
   );
 }
 
-export default GradeTabel;
+export default GradeTable;

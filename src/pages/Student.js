@@ -12,7 +12,7 @@ function Student() {
 
   return (
     <div className={`main-container ${theme} student text-${theme === "light" ? "dark" : "light"}`}>
-        {t("student")}
+        <h2>{t("students")}</h2>
         <StudentTable />
     </div>
   );
