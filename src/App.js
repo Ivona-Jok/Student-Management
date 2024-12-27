@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from './components/Sidebar';
 import Footer from "./components/Footer";
@@ -18,6 +18,10 @@ import { useAuth } from './utils/auth';
 function App() {
   const { theme } = useContext(ThemeContext);
   const { user } = useAuth();
+  const location = useLocation();
+
+  const isRegisterPage = location.pathname === "/register";
+  const isLoginPage = location.pathname === "/login";
 
   const PrivateRoute = ({ element }) => {
     return user ? element : <Navigate to="/login" />;
@@ -28,11 +32,11 @@ function App() {
   };
 
   return (
-    <div className={`App bg-${theme}`}>
+<div className={`App bg-${theme}`}>
       <div className="d-flex flex-column min-vh-100">
-        <Header />
+        {!isRegisterPage && !isLoginPage  && <Header />}
         <div className="d-flex flex-grow-1">
-          <Sidebar />
+        {!isRegisterPage && !isLoginPage  && <Sidebar />}
           <main className="flex-grow-1 p-4">
             <Routes>
               <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
@@ -40,7 +44,6 @@ function App() {
               <Route path="/student" element={<PrivateRoute element={<Student />} />} />
               <Route path="/works" element={<PrivateRoute element={<Works />} />} />
               <Route path="/settings" element={<PrivateRoute element={<Settings />} />} />
-
               <Route path="/login" element={<PublicRoute element={<Login />} />} />
               {!user && (
                 <Route path="/register" element={<Register />} />
@@ -50,10 +53,9 @@ function App() {
             </Routes>
           </main>
         </div>
-        <Footer />
+        {!isRegisterPage && !isLoginPage && <Footer />}
       </div>
     </div>
   );
 }
-
-export default App;
+export default App;       

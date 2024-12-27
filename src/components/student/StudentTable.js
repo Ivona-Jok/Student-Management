@@ -49,9 +49,14 @@ function StudentTable() {
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
   const parseIndex = (index) => {
+    if (!index || typeof index !== "string") {
+      return { num: 0, year: 0 }; // Default fallback
+    }
+  
     const [num, year] = index.split("/").map(Number);
-    return { num, year };
+    return { num: num || 0, year: year || 0 }; // Ensure both are valid numbers
   };
+  
 
   const filteredStudents = students.filter((student) => {
     const lowerSearchTerm = searchTerm.toLowerCase();

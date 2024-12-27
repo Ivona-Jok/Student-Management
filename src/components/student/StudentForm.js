@@ -3,12 +3,12 @@ import '../../styles/Form.css';
 import { ThemeContext } from '../../theme/Theme';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "../../utils/auth";
-import { addStudent } from '../../utils/api';  // Import addStudent instead of addUser
+import { addStudent } from '../../utils/api';
 
 const StudentForm = () => {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
-  const { user } = useAuth();  // Assume user contains the authenticated teacher info
+  const { user } = useAuth(); 
 
   const [formData, setFormData] = useState({
     firstName: '',

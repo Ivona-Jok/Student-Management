@@ -5,12 +5,14 @@ import { ThemeContext } from "../../theme/Theme";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../utils/auth";
 import WorkForm from "./WorkForm";
-
+import UpdateWorkForm from "./UpdateWorkForm";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';  // Importujemo samo ikonice koje nam trebaju
+import { deleteWork } from '../../utils/api';
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
   const { user } = useAuth(); 
-
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [works, setWorks] = useState([]);
@@ -19,13 +21,19 @@ function WorkTable() {
   const [currentPage, setCurrentPage] = useState(1);  
   const [worksPerPage, setWorksPerPage] = useState(10);  
   const [showForm, setShowForm] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [workToUpdate, setWorkToUpdate] = useState(null);
 
   const toggleForm = () => {
     setShowForm(prevState => !prevState);
   };
 
-  const handleSearchChange = (e) => setSearchTerm(e.target.value);
+  const toggleUpdateForm = (work = null) => {
+    setWorkToUpdate(work);
+    setShowUpdateForm(prevState => !prevState);
+  };
 
+  const handleSearchChange = (e) => setSearchTerm(e.target.value);
   useEffect(() => {
     fetch("/db.json")
       .then((response) => {
@@ -35,16 +43,12 @@ function WorkTable() {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched works:", data);
-  
         const studentWorks = data.works;
         const authors = data.users.filter((user) => user.role === "student");
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
-  
         const worksWithAuthors = studentWorks.map((work, index) => {
-          const author = authors.find((author) => String(author.id) === String(work.studentId));
-          const teacher = teachers.find((teacher) => String(teacher.id) === String(work.teacherId));
-  
+          const author = authors.find((author) => author.id === work.studentId);
+          const teacher = teachers.find((teacher) => teacher.id === work.teacherId);
           return {
             id: index + 1,
             title: work.title,
@@ -57,28 +61,22 @@ function WorkTable() {
             date: work.date,
           };
         });
-  
         setWorks(worksWithAuthors);
       })
       .catch((error) => console.error("Error fetching student research papers: ", error));
   }, []);
-
   const handleGradeChange = (e, workId) => {
-    console.log('workId:', workId);  
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can update grades.');
       return;
     }
-
     const newGrade = e.target.value;
     const teacherId = user.id;
-
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
         work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
       )
     );
-
     fetch(`http://localhost:5000/works/${workId}`, {
       method: 'PATCH',
       headers: {
@@ -106,7 +104,6 @@ function WorkTable() {
         );
       });
   };
-
   const handleGradeEdit = (workId) => {
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can edit grades.');
@@ -114,26 +111,37 @@ function WorkTable() {
     }
     setEditGradeId(workId);
   };
-
+  
+  const handleDeleteWork = async (workId) => {
+    try {
+      const response = await deleteWork(workId);
+      if (response.ok) {
+        setWorks((prevWorks) => prevWorks.filter((work) => work.id !== workId));
+        alert('Record deleted successfully.');
+      } else {
+        throw new Error('Failed to delete record');
+      }
+    } catch (error) {
+      console.error('Error deleting work:', error);
+      alert('Error deleting record.');
+    }
+  };
   const toggleExpand = (id) => {
     setExpandedRows((prev) =>
       prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]
     );
   };
-
   const toggleSortDirection = (key) => {
     setSortConfig((prev) => ({
       key,
       direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
     }));
   };
-
   const filteredWorks = works.filter((work) =>
     Object.keys(work).some((key) =>
       String(work[key]).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
   const sortedWorks = [...filteredWorks].sort((a, b) => {
     if (!sortConfig.key) return 0;
     const valueA = a[sortConfig.key];
@@ -142,15 +150,11 @@ function WorkTable() {
       ? String(valueA).localeCompare(String(valueB))
       : String(valueB).localeCompare(String(valueA));
   });
-
   const indexOfLastStudent = currentPage * worksPerPage;
   const indexOfFirstStudent = indexOfLastStudent - worksPerPage;
   const currentStudents = sortedWorks.slice(indexOfFirstStudent, indexOfLastStudent);
-
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
-
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
-
   const handleStudentsPerPageChange = (e) => {
     setWorksPerPage(Number(e.target.value));
     setCurrentPage(1);
@@ -161,6 +165,17 @@ function WorkTable() {
       <div className={`component ${theme === "light" ? "dark" : "light"}`}>
         <WorkForm />
         <button className="button-link" onClick={toggleForm}>
+          {t("closeForm")} 
+        </button>
+      </div>
+    );
+  }
+
+  if (showUpdateForm && workToUpdate) {
+    return (
+      <div className={`component ${theme === "light" ? "dark" : "light"}`}>
+        <UpdateWorkForm work={workToUpdate} />
+        <button className="button-link" onClick={toggleUpdateForm}>
           {t("closeForm")} 
         </button>
       </div>
@@ -193,14 +208,15 @@ function WorkTable() {
           <thead>
             <tr>
               {['ID', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
-                <th key={col} onClick={() => toggleSortDirection(col)} >{t(col)}</th>
+                <th key={col} onClick={() => toggleSortDirection(col)}>{t(col)}</th>
               ))}
+              <th colSpan="2">{t("action")}</th>
             </tr>
           </thead>
           <tbody>
             {currentStudents.map((work) => (
               <tr key={work.id}>
-                <th className="center" scope="row">{work.id}</th>
+                <td className="center">{work.id}</td>
                 <td>
                   <div className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`} onClick={() => toggleExpand(work.id)} >
                     {work.title}
@@ -223,8 +239,21 @@ function WorkTable() {
                       </select>)}
                 </td>
                 <td>{work.teacher}</td>
+                <td>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    onClick={toggleUpdateForm} 
+                    style={{ cursor: 'pointer', color: 'orange' }}
+                  />
+                </td>
+                <td>
+                  <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    onClick={() => handleDeleteWork(work.id)}
+                    style={{ cursor: 'pointer', color: 'red' }}
+                  />
+                </td>
               </tr>
-              
             ))}
           </tbody>
         </table>
@@ -246,7 +275,10 @@ function WorkTable() {
           </div>
           <div>
             <button className="button-link" onClick={toggleForm}>
-              {t("addForm")}  
+              Add Work
+            </button>
+            <button className="button-link" onClick={toggleUpdateForm}>
+              Update Work
             </button>
           </div>
         </div>
@@ -254,5 +286,4 @@ function WorkTable() {
     </div>
   );
 }
-
 export default WorkTable;

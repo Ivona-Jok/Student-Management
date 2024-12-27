@@ -100,28 +100,28 @@ function GradeTable() {
     );
   });
 
-  const toggleSortDirection = (value) => {
-    setSelectedFilter(value);
-    if (value === "grade ascending") {
-      setGradeSortDirection("asc");
-    } else if (value === "grade descending") {
-      setGradeSortDirection("desc");
-    }
-  };
-
-  const sortedWorks = filteredWorks.sort((a, b) => {
-    if (selectedFilter === "student") {
-      return getStudentName(a.studentId).localeCompare(getStudentName(b.studentId));
-    } else if (selectedFilter === "grade ascending" || selectedFilter === "grade descending") {
-      const gradeA = a.grade ? Number(a.grade) : -1;
-      const gradeB = b.grade ? Number(b.grade) : -1;
-      if (gradeA === gradeB) return 0;
-      return gradeSortDirection === "asc" ? gradeA - gradeB : gradeB - gradeA;
-    } else if (selectedFilter === "title") {
-      return a.title.localeCompare(b.title);
-    }
-    return 0;
-  });
+    const toggleSortDirection = (value) => {
+      setSelectedFilter(value);
+      if (value === "grade_ascending") {
+        setGradeSortDirection("asc");
+      } else if (value === "grade_descending") {
+        setGradeSortDirection("desc");
+      }
+    };
+    
+    const sortedWorks = filteredWorks.sort((a, b) => {
+      if (selectedFilter === "student") {
+        return a.author.localeCompare(b.author); 
+      } else if (selectedFilter === "grade_ascending" || selectedFilter === "grade_descending") {
+        const gradeA = a.grade ? Number(a.grade) : -1;
+        const gradeB = b.grade ? Number(b.grade) : -1;
+        return gradeSortDirection === "asc" ? gradeA - gradeB : gradeB - gradeA;
+      } else if (selectedFilter === "title") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+    
 
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
 

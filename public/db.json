@@ -172,16 +172,16 @@
       "token": "fake-jwt-token-for-17"
     },
     {
-      "id": "6bff",
+      "id": "c14f",
       "firstName": "John ",
       "lastName": "Doe",
       "email": "random.email@gmail.com",
       "index": "3/20",
-      "year": "2",
+      "year": "4",
       "role": "student"
     },
     {
-      "id": "85ee",
+      "id": "f76d",
       "firstName": "Joanna",
       "lastName": "Miller",
       "email": "jo.miller@gmail.com",
@@ -193,9 +193,9 @@
   "works": [
     {
       "id": "1",
-      "grade": "8",
+      "grade": "9",
       "studentId": 1,
-      "teacherId": 15,
+      "teacherId": 14,
       "date": "01.01.2024.",
       "title": "Creativity in Computer Science and Fiction Writing",
       "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
@@ -283,7 +283,7 @@
     },
     {
       "id": "10",
-      "grade": "6",
+      "grade": "7",
       "studentId": 10,
       "teacherId": 14,
       "date": "12.03.2024.",
@@ -303,9 +303,9 @@
     },
     {
       "id": "12",
-      "grade": "5",
+      "grade": "6",
       "studentId": 12,
-      "teacherId": 15,
+      "teacherId": 14,
       "date": "01.07.2024.",
       "title": "The Narrative Power of Photography: Two Paragraphs and “The Limits of Forgiveness”",
       "description": "This paper explores the power of photography to shape narratives, particularly in historical contexts, and examines how past images of injustice can have a stronger emotional impact than modern staged photos.",
@@ -339,17 +339,27 @@
       "date": "24.12.2024.",
       "grade": "7",
       "teacherId": 14,
-      "id": "20"
+      "id": "15"
     },
     {
-      "title": "naslov 8",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=129&Itemid=1000000000000",
-      "studentId": 16,
-      "date": "24.12.2024.",
+      "id": "4822",
+      "title": "title",
+      "description": "descpirjfn jdfnfjbojn jk jc nfj;infduibfdikn jc",
+      "link": "https://google.com/",
+      "studentId": "1212",
+      "date": "27.12.2024.",
       "grade": "",
-      "teacherId": "",
-      "id": "21"
+      "teacherId": ""
+    },
+    {
+      "id": "1374",
+      "title": "title sth sth",
+      "description": "vldssdn'jnbkj /lk;pjipfk alknfuirhjf m s.,ojiqnfj ",
+      "link": "https://google.com/",
+      "studentId": "1212",
+      "date": "27.12.2024.",
+      "grade": "",
+      "teacherId": ""
     }
   ]
 }
