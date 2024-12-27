@@ -5,6 +5,10 @@ import { ThemeContext } from "../../theme/Theme";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../utils/auth";
 import WorkForm from "./WorkForm";
+import UpdateWorkForm from "./UpdateWorkForm";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';  // Importujemo samo ikonice koje nam trebaju
+import { deleteWork } from '../../utils/api';
 
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
@@ -19,10 +23,16 @@ function WorkTable() {
   const [currentPage, setCurrentPage] = useState(1);  
   const [worksPerPage, setWorksPerPage] = useState(10);  
   const [showForm, setShowForm] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
 
-  // Step 2: Function to toggle the visibility of the WorkForm
+  // Funkcija koja formu za dodavanje rada cini vidljivom
   const toggleForm = () => {
     setShowForm(prevState => !prevState);
+  };
+
+  // Funkcija koja formu za azuriranje rada cini vidljivom
+  const toggleUpdateForm = () => {
+  setShowUpdateForm(prevState => !prevState);
   };
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
@@ -36,8 +46,7 @@ function WorkTable() {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched works:", data);
-        console.log(typeof "2f2d"); 
+
         const studentWorks = data.works;
         const authors = data.users.filter((user) => user.role === "student");
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
@@ -65,7 +74,7 @@ function WorkTable() {
   }, []);
 
   const handleGradeChange = (e, workId) => {
-    console.log('workId:', workId);  // Check if this is the expected ID
+    //console.log('workId:', workId);  // Provjera da li je ovo trazeni ID
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can update grades.');
       return;
@@ -86,7 +95,6 @@ function WorkTable() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`, 
       },
-      body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
     .then((response) => {
@@ -115,6 +123,24 @@ function WorkTable() {
       return;
     }
     setEditGradeId(workId);
+  };
+
+  const handleDeleteWork = async (workId) => {
+    
+    try {
+      // Briše se work preko api funkcije deleteWork
+      const response = await deleteWork(workId);
+      if (response.ok) {
+        // Na uspješno brisanje koriguje se state
+        setWorks((prevWorks) => prevWorks.filter((work) => work.id !== workId));
+        alert('Record deleted successfully.');
+      } else {
+        throw new Error('Failed to delete record');
+      }
+    } catch (error) {
+      console.error('Error deleting work:', error);
+      alert('Error deleting record.');
+    }
   };
 
   const toggleExpand = (id) => {
@@ -182,18 +208,19 @@ function WorkTable() {
           </div>
         </div>
         <button className="button-link" onClick={toggleForm}>{showForm ? `${t("closeForm")}` : `${t("addForm")}`}</button>
-          {showForm && <WorkForm />}
+          {showForm && <WorkForm/>}
+          {showUpdateForm && <UpdateWorkForm/>}
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
               {['ID', 'title', 'author', 'description', 'link', 'date', 'grade', 'teacher'].map((col) => (
                 <th key={col} onClick={() => toggleSortDirection(col)}>{t(col)}</th>
               ))}
+              <th colSpan="2">{t("action")}</th>
             </tr>
           </thead>
           <tbody>
             {currentStudents.map((work) => (
-              console.log('work.id', work.id),
               <tr key={work.id}>
                 <td className="center">{work.id}</td>
                 <td>
@@ -218,6 +245,20 @@ function WorkTable() {
                       </select>)}
                 </td>
                 <td>{work.teacher}</td>
+                <td>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    onClick={toggleUpdateForm} 
+                    style={{ cursor: 'pointer', color: 'orange' }}
+                  />
+                </td>
+                <td>
+                  <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    onClick={() => handleDeleteWork(work.id)}
+                    style={{ cursor: 'pointer', color: 'red' }}
+                  />
+                </td>
               </tr>
               
             ))}

@@ -225,3 +225,70 @@ export const addWork = async (title, description, link, studentId, date, grade, 
     throw error;
   }
 };
+
+// AŽURIRANJE RADA (NE RADI - OVO NAREDNO RADIM)
+export const updateWork = async (title, description, link, studentId, date, grade, teacherId) => {
+  // Pozivamo funkciju za formatiranje datuma da formatira trenutni datum
+  const formattedDate = formatDate(new Date());
+
+  try {
+    // Slanje POST upita za kreiranje korisnika
+    const response = await fetch(`${API_URL}/works`, {
+      method: '',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        link,
+        studentId: studentId,
+        date: formattedDate,
+        grade: "",
+        teacherId: "",
+      }),
+    });
+
+    // Provjera je li upit u redu
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error creating work:', errorData);
+      throw new Error('Failed to add work.');
+    }
+
+    const updatedWork = await response.json();
+
+    // Čuvanje podataka o korisniku i tokenu u lokac storage, podaci se čuvaju odvojeno
+    localStorage.setItem('work', JSON.stringify(updatedWork));  
+
+    // Dobijaju se user i token koji su odvojeni
+    return { work: updatedWork };
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+// BRISANJE RADA
+export const deleteWork = async (workId) => {
+  try {
+    
+    const response = await fetch(`${API_URL}/works/${workId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete work with ID: ${workId}`);
+    }
+
+    return response;
+  } catch (error) {
+    console.error('Error during delete:', error);
+    throw error;  
+  }
+};
+

@@ -151,6 +151,7 @@ const Register = () => {
 
   return (
     <div className="wrapper register">
+      
       <div className={`form-container ${theme}`}>
 
         <h2 className={`title ${theme}`}> {t("register")} </h2>
@@ -262,6 +263,7 @@ const Register = () => {
           </div>
         </form>
       </div>
+      
     </div>
   );
 };

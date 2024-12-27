@@ -71,7 +71,10 @@ i18n
           addForm: "Add new work",
           searchUser: "Search for a user...",
           LoadingUsers: "Loading users...",
-          roleUpdatedSuccessfully: "Role successfully changed!"
+          roleUpdatedSuccessfully: "Role successfully changed!",
+          update: "Update",
+          updateWork: "Update work",
+          action: "Action"
         }
       },
       sr: {
@@ -138,7 +141,10 @@ i18n
           addForm: "Dodaj novi rad",
           searchUser: "Pretraži korisnika...",
           LoadingUsers: "Učitavanje korisnika...",
-          roleUpdatedSuccessfully: "Uloga je uspješno promijenjena."
+          roleUpdatedSuccessfully: "Uloga je uspješno promijenjena.",
+          update: "Ažuriraj",
+          updateWork: "Ažuriraj rad",
+          action: "Akcija"
         }
       }
     },

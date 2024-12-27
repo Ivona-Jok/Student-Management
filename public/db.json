@@ -139,8 +139,7 @@
       "token": "fake-jwt-token-for-14",
       "role": [
         "admin",
-        "teacher",
-        "student"
+        "teacher"
       ]
     },
     {
@@ -175,9 +174,9 @@
   "works": [
     {
       "id": 1,
-      "grade": "8",
+      "grade": "10",
       "studentId": 1,
-      "teacherId": 15,
+      "teacherId": 14,
       "date": "01.01.2024.",
       "title": "Creativity in Computer Science and Fiction Writing",
       "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
@@ -265,7 +264,7 @@
     },
     {
       "id": 10,
-      "grade": "6",
+      "grade": "7",
       "studentId": 10,
       "teacherId": 14,
       "date": "12.03.2024.",
@@ -285,9 +284,9 @@
     },
     {
       "id": 12,
-      "grade": "5",
+      "grade": "6",
       "studentId": 12,
-      "teacherId": 15,
+      "teacherId": 14,
       "date": "01.07.2024.",
       "title": "The Narrative Power of Photography: Two Paragraphs and “The Limits of Forgiveness”",
       "description": "This paper explores the power of photography to shape narratives, particularly in historical contexts, and examines how past images of injustice can have a stronger emotional impact than modern staged photos.",
@@ -312,26 +311,6 @@
       "title": "The Autism Epidemic",
       "description": "This paper challenges the use of the term 'epidemic' to describe the rise in autism spectrum disorder cases, attributing the increase to better diagnosis, awareness, and expanded criteria.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000"
-    },
-    {
-      "title": "naslov 7",
-      "description": "opis 7",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=129&Itemid=1000000000000",
-      "studentId": 14,
-      "date": "24.12.2024.",
-      "grade": "7",
-      "teacherId": 14,
-      "id": 20
-    },
-    {
-      "title": "naslov 8",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=129&Itemid=1000000000000",
-      "studentId": 16,
-      "date": "24.12.2024.",
-      "grade": "",
-      "teacherId": "",
-      "id": 21
     }
   ]
 }
