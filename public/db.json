@@ -97,7 +97,7 @@
       "index": "79/24",
       "email": "jelena.jeca@t-com.me",
       "password": "11111111.m",
-      "token": "fake-jwt-token-for-9991",
+      "token": "fake-jwt-token-for-10",
       "role": "student"
     },
     {
@@ -148,8 +148,11 @@
       "lastName": "Jokic",
       "email": "ivona.jokic@gmail.com",
       "password": "12345678.i",
-      "token": "fake-jwt-token-for-1212",
-      "role": "teacher"
+      "token": "fake-jwt-token-for-15",
+      "role": [
+        "admin",
+        "teacher"
+      ]
     },
     {
       "id": 16,
@@ -162,13 +165,49 @@
       "token": "fake-jwt-token-for-16"
     },
     {
+      "id": 17,
       "firstName": "Miljan",
       "lastName": "Miljanic",
       "email": "miljan@gmail.com",
       "password": "123456.mm",
       "role": "student",
-      "id": 17,
       "token": "fake-jwt-token-for-17"
+    },
+    {
+      "id": 18,
+      "firstName": "John ",
+      "lastName": "Doe",
+      "email": "random.email@gmail.com",
+      "index": "3/20",
+      "year": "4",
+      "role": "student"
+    },
+    {
+      "id": 19,
+      "firstName": "Joanna",
+      "lastName": "Miller",
+      "email": "jo.miller@gmail.com",
+      "index": "55/24",
+      "year": "1",
+      "role": "student"
+    },
+    {
+      "firstName": "Derek",
+      "lastName": "Storm",
+      "email": "emailrandom@gmail.com",
+      "index": "65/23",
+      "year": "2",
+      "role": "student",
+      "id": 20
+    },
+    {
+      "firstName": "Suzan",
+      "lastName": "Young",
+      "email": "random.email@gmail.com",
+      "index": "12/20",
+      "year": "4",
+      "role": "student",
+      "id": 21
     }
   ],
   "works": [
@@ -224,7 +263,7 @@
     },
     {
       "id": 6,
-      "grade": "",
+      "grade": "6",
       "studentId": 6,
       "teacherId": 15,
       "date": "19.11.2024.",
@@ -280,7 +319,7 @@
       "date": "04.06.2024.",
       "title": "The Impact of Shiftwork on the Everyday Worker",
       "description": "This paper examines the negative impacts of night shift work on individual health, well-being, and work-life balance, as well as its effects on companies.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=126&Itemid=1000000000000"
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=133&Itemid=1000000000000"
     },
     {
       "id": 12,
@@ -294,23 +333,63 @@
     },
     {
       "id": 13,
-      "grade": "7",
+      "grade": "",
       "studentId": 13,
-      "teacherId": 15,
-      "date": "31.12.2024.",
-      "title": "Pediatric Cadmium Toxicity in America: Exploring Everyday Exposure Risk for Cavities and Decreased Neurodevelopment",
-      "description": "This paper examines the health risks of cadmium in children's products, focusing on its presence in toys and jewelry, and the lack of regulation despite public outcry.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=132&Itemid=1000000000000"
+      "teacherId": 14,
+      "date": "12.02.2024.",
+      "title": "AI and the Ethics of Machine Learning in Healthcare",
+      "description": "This paper explores how artificial intelligence could affect decision-making in healthcare, and the ethical considerations it raises about medical privacy, accuracy, and bias.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=130&Itemid=1000000000000"
     },
     {
       "id": 14,
-      "grade": "5",
-      "studentId": 12,
+      "grade": "8",
+      "studentId": 13,
       "teacherId": 14,
-      "date": "17.03.2024.",
+      "date": "03.03.2024.",
+      "title": "Exploring the Role of Teachers in Child Development",
+      "description": "This paper looks at how the role of a teacher impacts the development of children, both academically and socially, and the importance of early education.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=140&Itemid=1000000000000"
+    },
+    {
+      "studentId": 12,
+      "date": "27.12.2024.",
+      "grade": "6",
+      "teacherId": 14,
       "title": "The Autism Epidemic",
       "description": "This paper challenges the use of the term 'epidemic' to describe the rise in autism spectrum disorder cases, attributing the increase to better diagnosis, awareness, and expanded criteria.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000"
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000",
+      "id": 15
+    },
+    {
+      "title": "gvhgvhgg",
+      "description": "cn jfnl  jknjnkcj kjjj",
+      "link": "https://google.com/",
+      "studentId": 10,
+      "date": "27.12.2024.",
+      "grade": "7",
+      "teacherId": 15,
+      "id": 16
+    },
+    {
+      "title": "ggggggggggggggg",
+      "description": "gggggggggggggggggggggggggg",
+      "link": "https://google.com/",
+      "studentId": 14,
+      "date": "27.12.2024.",
+      "grade": "",
+      "teacherId": "",
+      "id": 17
+    },
+    {
+      "title": "hjbhhjbb",
+      "description": "bujvhvjvvgvv",
+      "link": "https://google.com/",
+      "studentId": 15,
+      "date": "27.12.2024.",
+      "grade": "",
+      "teacherId": "",
+      "id": 18
     }
   ]
 }

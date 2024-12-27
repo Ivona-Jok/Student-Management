@@ -2,7 +2,7 @@ import { useContext } from "react";
 import "../styles/Main.css";
 import { ThemeContext } from "../theme/Theme";
 import { useTranslation } from "react-i18next";
-import GradeTabel from "../components/GradeTable";
+import GradeTable from "../components/GradeTable";
 
 function Grades() {
   const { theme } = useContext(ThemeContext);;
@@ -10,8 +10,8 @@ function Grades() {
 
   return (
     <div className={`main-container grades text-${theme === "light" ? "dark" : "light"}`}>
-        {t("grades")}
-        <GradeTabel />
+        <h2>{t("grades")}</h2>
+        <GradeTable />
     </div>
   );
 }

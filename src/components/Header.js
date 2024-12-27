@@ -5,6 +5,7 @@ import LanguageSwitcher from "../languages/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../theme/Theme";
 import { useAuth } from "../utils/auth"
+import { useLocation, Link } from "react-router-dom";
 
 function Header() {
   const { theme } = useContext(ThemeContext);
@@ -14,6 +15,9 @@ function Header() {
   const [filteredWorks, setFilteredWorks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAuth(); 
+  const location = useLocation();
+
+  const pageName = location.pathname.split("/").pop();
 
   useEffect(() => {
     fetch("/db.json")
@@ -35,13 +39,11 @@ function Header() {
     setFilteredWorks(filtered);
   };
 
-
-
   return (
     <div id="header" className={`header text-${theme === "light" ? "dark" : "light"}`}>
       <header className={`py-3 mb-2 border-bottom bg-${theme}`}>
         <div className="container d-flex flex-wrap justify-content-between align-items-center">
-          <h2 className="me-4">{t("header_txt")}</h2>
+          <h2 className="me-4">{t(pageName || "dashboard")}</h2>
           <form className="flex-grow-1 me-3">
             <input
               type="search"
@@ -50,13 +52,21 @@ function Header() {
               value={searchQuery}
               onChange={handleSearch}
               aria-label="Search"
-            />
+            />    
           </form>
-          <LanguageSwitcher />
-          <ThemeSwitcher />
+          {user ? (
+            <div className={`user-info text-${theme === "light" ? "dark" : "light"}`}>
+              <i className="fa fa-user-circle me-2"></i>
+              <span>{`Hello, ${user.firstName}`}</span>
+            </div>
+          ) : (
+            <Link to="/login" className={`btn btn-${theme === "light" ? "dark" : "light"}`}>
+              {t("login")}
+            </Link>
+          )}
         </div>
       </header>
-    </div>
+    </div> 
   );
 }
 

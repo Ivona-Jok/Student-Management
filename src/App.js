@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate , useLocation} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from './components/Sidebar';
 import Footer from "./components/Footer";
@@ -35,7 +35,7 @@ function App() {
 
 
   return (
-    <div className={`App bg-${theme}`}>
+<div className={`App bg-${theme}`}>
       <div className="d-flex flex-column min-vh-100">
         {!isRegisterPage && !isLoginPage  && <Header />}
         <div className="d-flex flex-grow-1">
@@ -47,7 +47,6 @@ function App() {
               <Route path="/student" element={<PrivateRoute element={<Student />} />} />
               <Route path="/works" element={<PrivateRoute element={<Works />} />} />
               <Route path="/settings" element={<PrivateRoute element={<Settings />} />} />
-
               <Route path="/login" element={<PublicRoute element={<Login />} />} />
               {!user && (
                 <Route path="/register" element={<Register />} />
@@ -62,5 +61,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+export default App;       

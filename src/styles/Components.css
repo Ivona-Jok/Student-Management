@@ -41,6 +41,11 @@ p{
     font-size: 10pt;
 }
 
+.component{
+    padding: 20px;
+    padding-top: 0;
+}
+
 
 .component.dark{
     background-color: #fff;
@@ -158,3 +163,17 @@ p{
     font-size: 18px;
 }
 
+.user-info{
+    display: flex;
+    align-items: center;
+}
+
+.user-info i{
+    font-size: 18pt;
+}
+
+.btn{
+    background-color: #007bff;
+    border-radius: 8px;
+    border: none;
+}

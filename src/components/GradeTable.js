@@ -4,7 +4,7 @@ import "../styles/Table.css";
 import { ThemeContext } from "../theme/Theme";
 import { useTranslation } from "react-i18next";
 
-function GradeTabel() {
+function GradeTable() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
   const [works, setWorks] = useState([]);
@@ -17,42 +17,56 @@ function GradeTabel() {
   const [worksPerPage, setWorksPerPage] = useState(10);
   const [gradeSortDirection, setGradeSortDirection] = useState("asc");
 
-  useEffect(() => {
-    const fetchWorks = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/works");
-        if (!response.ok) throw new Error("Failed to fetch works");
-        const data = await response.json();
-        setWorks(data);
-      } catch (error) {
-        console.error("Error fetching works:", error);
-      }
-    };
-
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/users");
-        if (!response.ok) throw new Error("Failed to fetch users");
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-
-    fetchWorks();
-    fetchUsers();
-  }, []);
-
   const getStudentName = (studentId) => {
-    const student = users.find((user) => user.id === studentId);
+    const student = users.find((user) =>
+      user.id === studentId && user.role.includes("student")
+    );
     return student ? `${student.firstName} ${student.lastName}` : "Unknown Student";
   };
 
   const getTeacherName = (teacherId) => {
-    const teacher = users.find((user) => user.id === teacherId);
+    const teacher = users.find((user) =>
+      user.id === teacherId && user.role.includes("teacher")
+    );
     return teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown Teacher";
   };
+
+  useEffect(() => {
+    fetch("/db.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Fetched data:", data);
+        const studentWorks = data.works;
+        const authors = data.users.filter((user) => user.role.includes("student"));
+        const teachers = data.users.filter((user) => user.role.includes("teacher"));
+
+        const worksWithAuthors = studentWorks.map((work, index) => {
+          const author = authors.find((author) => Number(author.id) === Number(work.studentId));
+          const teacher = teachers.find((teacher) => Number(teacher.id) === Number(work.teacherId));
+
+          return {
+            id: index + 1,
+            title: work.title,
+            description: work.description,
+            link: work.link,
+            studentId: work.studentId,
+            author: author ? `${author.firstName} ${author.lastName}` : "Unknown",
+            grade: work.grade,
+            teacher: teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown",
+            date: work.date,
+          };
+        });
+
+        setWorks(worksWithAuthors);
+        setUsers(data.users);
+      })
+      .catch((error) => console.error("Error fetching data: ", error));
+  }, []);
 
   const toggleExpand = (id) => {
     setExpandedRows((prevExpandedRows) => {
@@ -81,34 +95,33 @@ function GradeTabel() {
     const studentName = getStudentName(work.studentId).toLowerCase();
     const title = work.title.toLowerCase();
     return (
-      (work.grade && work.grade.trim() !== "") && 
+      (work.grade && work.grade.trim() !== "") &&
       (studentName.includes(searchTerm.toLowerCase()) || title.includes(searchTerm.toLowerCase()))
     );
   });
 
-  const toggleSortDirection = (value) => {
-    setSelectedFilter(value);
-    if (value === "grade ascending") {
-      setGradeSortDirection("asc");
-    } else if (value === "grade descending") {
-      setGradeSortDirection("desc");
-    }
-  };
-  
-  const sortedWorks = filteredWorks.sort((a, b) => {
-    if (selectedFilter === "student") {
-      return getStudentName(a.studentId).localeCompare(getStudentName(b.studentId));
-    } else if (selectedFilter === "grade ascending" || selectedFilter === "grade descending") {
-      const gradeA = a.grade ? Number(a.grade) : -1; // Convert to number or use -1 for undefined grades
-      const gradeB = b.grade ? Number(b.grade) : -1;
-      if (gradeA === gradeB) return 0;
-      return gradeSortDirection === "asc" ? gradeA - gradeB : gradeB - gradeA;
-    } else if (selectedFilter === "title") {
-      return a.title.localeCompare(b.title);
-    }
-    return 0;
-  });
-  
+    const toggleSortDirection = (value) => {
+      setSelectedFilter(value);
+      if (value === "grade_ascending") {
+        setGradeSortDirection("asc");
+      } else if (value === "grade_descending") {
+        setGradeSortDirection("desc");
+      }
+    };
+    
+    const sortedWorks = filteredWorks.sort((a, b) => {
+      if (selectedFilter === "student") {
+        return a.author.localeCompare(b.author); 
+      } else if (selectedFilter === "grade_ascending" || selectedFilter === "grade_descending") {
+        const gradeA = a.grade ? Number(a.grade) : -1;
+        const gradeB = b.grade ? Number(b.grade) : -1;
+        return gradeSortDirection === "asc" ? gradeA - gradeB : gradeB - gradeA;
+      } else if (selectedFilter === "title") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+    
 
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
 
@@ -160,9 +173,9 @@ function GradeTabel() {
           <table className={`table table-${theme} table-striped`}>
             <thead>
               <tr>
-                <th>{t("ID")}</th>
+                <th className="center">{t("ID")}</th>
                 <th>{t("student")}</th>
-                <th>{t("Assigments")}</th>
+                <th>{t("assignments")}</th>
                 <th>{t("grade")}</th>
                 <th>{t("teacher")}</th>
               </tr>
@@ -170,8 +183,8 @@ function GradeTabel() {
             <tbody>
               {currentWorks.map((work) => (
                 <tr key={work.id}>
-                  <td className="center">{work.id}</td>
-                  <td>{getStudentName(work.studentId)}</td>
+                  <th className="center" scope="row">{work.id}</th>
+                  <td>{work.author}</td>
                   <td>
                     <div
                       className={`cell-content ${expandedRows.includes(work.id) ? "expanded" : "collapsed"}`}
@@ -200,7 +213,7 @@ function GradeTabel() {
                       </select>
                     )}
                   </td>
-                  <td>{getTeacherName(work.teacherId)}</td>
+                  <td>{work.teacher}</td>
                 </tr>
               ))}
             </tbody>
@@ -236,4 +249,4 @@ function GradeTabel() {
   );
 }
 
-export default GradeTabel;
+export default GradeTable;

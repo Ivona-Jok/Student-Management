@@ -8,9 +8,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const storedUser = localStorage.getItem('user');
       const storedToken = localStorage.getItem('token');
-
       if (!storedUser || !storedToken) return null;
-
       return { ...JSON.parse(storedUser), token: storedToken };
     } catch (error) {
       console.error('Error parsing user data from localStorage:', error);
@@ -19,7 +17,6 @@ export const AuthProvider = ({ children }) => {
   });
 
   const navigate = useNavigate();
-
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));

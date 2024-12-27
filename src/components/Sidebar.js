@@ -37,7 +37,7 @@ function Sidebar() {
         <li>
           <Link to="/student" className={`nav-link link-${theme === "light" ? "dark" : "light"} ${activeTab === "/student" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/student")} >
             <i className="fa-solid fa-graduation-cap me-2"></i>
-            {t("student")}
+            {t("students")}
           </Link>
         </li>
         <li>

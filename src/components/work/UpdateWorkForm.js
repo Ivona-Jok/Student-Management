@@ -4,17 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../../theme/Theme';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "../../utils/auth";
-import { updateWork } from '../../utils/api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';  // Importujemo samo ikonicu za editovanje jer nam samo ona treba
+// import { updateWork } from '../../utils/api';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faEdit } from '@fortawesome/free-solid-svg-icons';  // Importujemo samo ikonicu za editovanje jer nam samo ona treba
 
 const UpdateWorkForm = () => {
-
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth(); 
-
   const [enteredTitle, setEnteredTitle] = useState('');
   const [enteredDescription, setEnteredDescription] = useState('');
   const [enteredLink, setEnteredLink] = useState('');
@@ -23,11 +21,13 @@ const UpdateWorkForm = () => {
     description: false,
     link: false
   });
+
   const [errorMessages, setErrorMessages] = useState({
     title: "",
     description: "",
     link: ""
   });
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
 
   const enteredTitleIsValid = enteredTitle.length > 1; 
@@ -41,6 +41,7 @@ const UpdateWorkForm = () => {
   const enteredLinkIsInvalid = !enteredLinkIsValid && !enteredLinkIsUrl.test(enteredLink) && inputTouched.link;
 
   const formIsValid = enteredTitleIsValid && enteredDescriptionIsValid && enteredLinkIsValid;
+
 
   const titleInputChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
@@ -107,6 +108,7 @@ const UpdateWorkForm = () => {
       setIsLoading(false);
       return;
     }
+
 
     try {
         // Dodaj trenutni datum
@@ -176,7 +178,6 @@ const UpdateWorkForm = () => {
             {renderErrorMessage(enteredDescriptionIsInvalid, `${t("enterDescription")} ${errorMessages.description}`)}
 
           </div>
-
           <div className={`form-group ${theme} ${enteredLinkIsInvalid ? 'invalid' : ''}`}>
 
             <label htmlFor="link" className="label-text"> {t("link")} </label>
