@@ -36,11 +36,11 @@ function App() {
 
   return (
 <div className={`App bg-${theme}`}>
-      <div className="d-flex flex-column min-vh-100">
-        {!isRegisterPage && !isLoginPage  && <Header />}
-        <div className="d-flex flex-grow-1">
+      <div className="d-flex flex-row min-vh-100">
         {!isRegisterPage && !isLoginPage  && <Sidebar />}
-          <main className="flex-grow-1 p-4">
+        <div className="d-flex flex-column flex-grow-1">
+          {!isRegisterPage && !isLoginPage  && <Header />}
+          <main className="flex-grow-1 p-4 ">
             <Routes>
               <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
               <Route path="/grades" element={<PrivateRoute element={<Grades />} />} />
@@ -55,8 +55,8 @@ function App() {
               <Route path="*" element={<Error />} />
             </Routes>
           </main>
+          {!isRegisterPage && !isLoginPage && <Footer />}
         </div>
-        {!isRegisterPage && !isLoginPage && <Footer />}
       </div>
     </div>
   );

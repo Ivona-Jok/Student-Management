@@ -14,15 +14,6 @@
   background-color: #fff;
 }
 
-.title {
-  text-align: center;
-  margin-top: 20px;
-  padding-top: 10px;
-  color: rgb(5, 78, 246);
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
 .form {
   margin-bottom: 15px;
 }
@@ -175,14 +166,6 @@
     background-color: #222;
     color: #fff;
     box-shadow: 0 0 10px rgba(255, 255, 255, .7);
-  }
-
-  .title.light {
-    color: #0f65f0;
-  }
-
-  .title.dark {
-    color: #fff;
   }
 
   .form-group.light label{

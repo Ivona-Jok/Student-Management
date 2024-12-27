@@ -1,9 +1,9 @@
 
-.header.text-light{
+.text-dark{
     color: #222;
 }
 
-.header.text-dark{
+.text-light{
     color: #fff;
 }
 
@@ -13,48 +13,16 @@
     margin: 10px 15px 10px 0;
 }
 
-.link-light{
-    color: #222;
+.bg-comp-light{
+    background:   #6ea7fc;
 }
 
-.link-dark{
-    color: #fff;
-}
-
-.nav li{
-    margin: 2px;
-}
-
-.nav-link i{
-    text-align: center;
-    font-size: 12pt;
-    height: 25px;
-    width: 25px;
-    padding: 5px;
-}
-
-.nav-link:hover{
-    background-color: #d6e5ff;
+.bg-comp-dark{
+    background:  #2d6bc8;
 }
 
 p{
     font-size: 10pt;
-}
-
-.component{
-    padding: 20px;
-    padding-top: 0;
-}
-
-
-.component.dark{
-    background-color: #fff;
-    color: #222;
-}
-
-.component.light{
-    background-color: transparent;
-    color: #fff;
 }
 
 .select-user-role {

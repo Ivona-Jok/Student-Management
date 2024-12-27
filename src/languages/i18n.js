@@ -20,7 +20,7 @@ i18n
           admin: "Admin",
           grades: "Grades",
           works: "Works",
-          settings: "Setings",
+          settings: "Settings",
           year: "Year",
           login: "Log In",
           logout: "Log Out",

@@ -9,7 +9,7 @@ function Calendar() {
   const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
   const daysInMonth = lastDayOfMonth.getDate();
-  const startDay = firstDayOfMonth.getDay(); // Day index (0 = Sunday, 6 = Saturday)
+  const startDay = firstDayOfMonth.getDay();
 
   const changeMonth = (offset) => {
     setCurrentDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + offset, 1));

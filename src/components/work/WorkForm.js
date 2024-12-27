@@ -21,6 +21,7 @@ const WorkForm = () => {
     description: false,
     link: false
   });
+  
   const [errorMessages, setErrorMessages] = useState({
     title: "",
     description: "",
@@ -112,7 +113,7 @@ const WorkForm = () => {
           enteredTitle,
           enteredDescription,
           enteredLink,
-          Number(user.id),
+          user.id,
           currentDate
         );
     
