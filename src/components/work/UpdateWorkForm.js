@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../../theme/Theme';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "../../utils/auth";
-import { updateWork } from '../../utils/api';
+// import { updateWork } from '../../utils/api';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faEdit } from '@fortawesome/free-solid-svg-icons';  // Importujemo samo ikonicu za editovanje jer nam samo ona treba
 

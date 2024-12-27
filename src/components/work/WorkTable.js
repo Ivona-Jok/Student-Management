@@ -9,6 +9,7 @@ import UpdateWorkForm from "./UpdateWorkForm";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';  // Importujemo samo ikonice koje nam trebaju
 import { deleteWork } from '../../utils/api';
+
 function WorkTable() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
@@ -46,6 +47,7 @@ function WorkTable() {
         const studentWorks = data.works;
         const authors = data.users.filter((user) => user.role === "student");
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
+        
         const worksWithAuthors = studentWorks.map((work, index) => {
           const author = authors.find((author) => author.id === work.studentId);
           const teacher = teachers.find((teacher) => teacher.id === work.teacherId);
@@ -137,11 +139,13 @@ function WorkTable() {
       direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
     }));
   };
+
   const filteredWorks = works.filter((work) =>
     Object.keys(work).some((key) =>
       String(work[key]).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
   const sortedWorks = [...filteredWorks].sort((a, b) => {
     if (!sortConfig.key) return 0;
     const valueA = a[sortConfig.key];
@@ -216,7 +220,7 @@ function WorkTable() {
           <tbody>
             {currentStudents.map((work) => (
               <tr key={work.id}>
-                <td className="center">{work.id}</td>
+                <th className="center" scope="row">{work.id}</th>
                 <td>
                   <div className={`cell-content ${expandedRows.includes(work.id) ? 'expanded' : 'collapsed'}`} onClick={() => toggleExpand(work.id)} >
                     {work.title}
