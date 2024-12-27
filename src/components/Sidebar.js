@@ -30,34 +30,34 @@ function Sidebar() {
 
   return (
     <div className={`d-flex flex-column flex-shrink-0 p-3 bg-comp-${theme} height-100vh`} style={{ width: "250px" }}>
-      <h2 className={`me-4 page-name-${theme}`}>{t(pageName || "dashboard")}</h2>
+      <h2 className="me-4 page-name">{t(pageName || "dashboard")}</h2>
       <ul className="nav nav-pills flex-column mb-auto">
         <li>
-          <Link to="/" className={`nav-link link-${theme} ${activeTab === "/" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/")}>
+          <Link to="/" className={`nav-link link ${activeTab === "/" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/")}>
             <i className="fa-solid fa-gauge me-2"></i> 
             {t("dashboard")}
           </Link>
         </li>
         <li>
-          <Link to="/student" className={`nav-link link-${theme} ${activeTab === "/student" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/student")}>
+          <Link to="/student" className={`nav-link link ${activeTab === "/student" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/student")}>
             <i className="fa-solid fa-graduation-cap me-2"></i>
             {t("students")}
           </Link>
         </li>
         <li>
-          <Link to="/grades" className={`nav-link link-${theme} ${activeTab === "/grades" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/grades")}>
+          <Link to="/grades" className={`nav-link link ${activeTab === "/grades" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/grades")}>
             <i className="fa-solid fa-file me-2"></i>
             {t("grades")}
           </Link>
         </li>
         <li>
-          <Link to="/works" className={`nav-link link-${theme} ${activeTab === "/works" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/works")}>
+          <Link to="/works" className={`nav-link link ${activeTab === "/works" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/works")}>
             <i className="fa-solid fa-folder me-2"></i>
             {t("works")}
           </Link>
         </li>
         <li>
-          <Link to="/settings" className={`nav-link link-${theme} ${activeTab === "/settings" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/settings")}>
+          <Link to="/settings" className={`nav-link link ${activeTab === "/settings" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/settings")}>
             <i className="fa-solid fa-gear me-2"></i>
             {t("settings")}
           </Link>
@@ -65,21 +65,22 @@ function Sidebar() {
       </ul>
 
       <ul className="nav nav-pills flex-column mt-auto">
-        <hr className={`link-${theme}`} />
+        <hr className={`link`} />
         <li>
           {user ? (
-            <button className={`nav-link link-${theme} ${activeTab === "/logout" ? "active" : ""} d-flex align-items-center`} onClick={handleLogout}>
+            <button className={`nav-link link ${activeTab === "/logout" ? "active" : ""} d-flex align-items-center`} onClick={handleLogout}>
+              <i className="fa-solid fa-right-from-bracket me-2"></i>
               {t("logout")}
             </button>
           ) : (
-            <Link to="/login" className={`nav-link link-${theme} ${activeTab === "/login" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/login")}>
+            <Link to="/login" className={`nav-link link ${activeTab === "/login" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/login")}>
               {t("login")}
             </Link>
           )}
         </li>
         {!user && (
           <li>
-            <Link to="/register" className={`nav-link link-${theme === "light" ? "dark" : "light"} ${activeTab === "/register" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/register")}>
+            <Link to="/register" className={`nav-link link ${activeTab === "/register" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/register")}>
               {t("register")}
             </Link>
           </li>

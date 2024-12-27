@@ -1,16 +1,11 @@
 
 
-.page-name-dark{
-    margin-top: 20px;
-    margin-bottom: 50px;
-    color: #222;
-}
-
-.page-name-light{
+.page-name{
     margin-top: 20px;
     margin-bottom: 50px;
     color: #fff;
 }
+
 
 .nav li{
     margin: 2px;
@@ -32,10 +27,10 @@
     background-color: #d6e5ff;
 }
 
-.nav.link-dark{
-    color: #222;
+.nav-link.link{
+    color: #fff;
 }
 
-.nav.link-light{
+.link{
     color: #fff;
 }

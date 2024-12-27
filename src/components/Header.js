@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../styles/Components.css";
-import ThemeSwitcher from "../theme/ThemeSwitcher";
-import LanguageSwitcher from "../languages/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../theme/Theme";
 import { useAuth } from "../utils/auth"
@@ -37,10 +35,10 @@ function Header() {
   };
 
   return (
-    <div id="header" className={`header text-${theme}`}>
+    <div id="header" className="header text">
       <header className={`py-3 mb-2 bg-comp-${theme}`}>
         <div className="container d-flex flex-wrap justify-content-between align-items-center">
-          <form className="flex-grow-1 me-3">
+          <form className="flex-grow-1 me-3 input">
             <input
               type="search"
               className={`form-control ${theme}`}

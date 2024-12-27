@@ -68,22 +68,6 @@
   background: #f8f9fa;
 }
 
-.calendar td {
-  cursor: pointer;
-  width: 10px;
-}
-
-.calendar td.active {
-  background: #f1f1f1;
-}
-
-.calendar td.today {
-  background: #ffeb3b;
-  font-weight: bold;
-  border-radius: 50%;
-}
-
-
 .top-works-list{
   list-style: none;
   font-size: 10pt;
@@ -92,10 +76,17 @@
 }
 
 .top-works-list li{
-  background-color: #eef4ff;
-  padding: 5px;
+  padding: 5px 10px;
   margin: 5px;
   border-radius: 8px;
+}
+
+.top-works-list.light li{
+  background-color: #eef4ff;
+}
+
+.top-works-list.dark li{
+  background-color: #444;
 }
 
 .work-item {
@@ -122,11 +113,41 @@
   height: 30px;
   border-radius: 8px;
   font-size: 10pt;
-  padding: 5px;
+  font-weight: bold;
+  padding: 5px 8px;
   text-align: center;
   background-color: #0f65f0;
   border: none;
   color: white;
   cursor: pointer;
   margin-left: 10px;
+}
+
+
+.calendar td {
+  cursor: pointer;
+  width: 10px;
+}
+
+.calendar-table.light td{
+  background-color: #eef4ff;
+}
+
+.calendar-table.dark td{
+  background-color: #444;
+}
+
+.calendar-table.light th{
+  background-color: #ccc;
+}
+
+.calendar-table.dark th{
+  background-color: #333;
+}
+
+.calendar td.today {
+  background: #003aba;
+  font-weight: 800;
+  border-radius: 50%;
+  color: #fff;
 }

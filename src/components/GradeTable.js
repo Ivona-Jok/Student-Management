@@ -161,7 +161,7 @@ function GradeTable() {
             <div className="filter">
               <select
                 onChange={(e) => toggleSortDirection(e.target.value)}
-                className={`form-select ${theme}`}
+                className={`form-select ${theme === "light" ? "dark" : "light"}`}
               >
                 <option value="">{t("sort_by")}</option>
                 {['student', 'title', 'grade_descending', 'grade_ascending'].map((col) => (
@@ -220,11 +220,8 @@ function GradeTable() {
           </table>
           <div className="pagination-container">
             <div className="students-per-page">
-              <label>{t("display")}:</label>
-              <select
-                value={worksPerPage}
-                onChange={handleStudentsPerPageChange}
-                className={`form-select ${theme}`}
+              <label className={`display ${theme}`}>{t("display")}:</label>
+              <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme === "light" ? "dark" : "light"}`}
               >
                 <option value={10}>10</option>
                 <option value={25}>25</option>

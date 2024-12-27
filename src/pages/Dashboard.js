@@ -3,8 +3,8 @@ import "../styles/Main.css";
 import "../styles/Dashboard.css";
 import { ThemeContext } from "../theme/Theme";
 import { useTranslation } from "react-i18next";
-import ChartComponent from "../components/ChartComponent";
-import Calendar from "../components/Calendar";
+import ChartComponent from "../components/dashboard/ChartComponent";
+import Calendar from "../components/dashboard/Calendar";
 
 function Dashboard() {
   const { theme } = useContext(ThemeContext);
@@ -22,7 +22,6 @@ function Dashboard() {
       .then((data) => {
         console.log("Fetched data:", data);
 
-        // Sort works by grade and take the top 3
         const sortedWorks = data.works
           .sort((a, b) => parseInt(b.grade) - parseInt(a.grade))
           .slice(0, 3);
@@ -51,7 +50,7 @@ function Dashboard() {
           </div>
           <div className="container top-works-container">
             <h4>{t("topWorks")}</h4>
-            <ul className="top-works-list">
+            <ul className={`top-works-list ${theme}`}>
               {topWorks.map((work) => (
                 <li key={work.id} className="work-item">
                   <div className="work-title">

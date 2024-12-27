@@ -64,7 +64,7 @@ const StudentForm = () => {
 
         <form onSubmit={handleSubmit}>
           <div className={`form-group ${theme}`}>
-            <label htmlFor="firstName" className="label-text">{t("first_name")}</label>
+            <label htmlFor="firstName" className="label-text">{t("f_name")}</label>
             <input
               type="text"
               className={`form-control ${theme}`}
@@ -75,7 +75,7 @@ const StudentForm = () => {
           </div>
 
           <div className={`form-group ${theme}`}>
-            <label htmlFor="lastName" className="label-text">{t("last_name")}</label>
+            <label htmlFor="lastName" className="label-text">{t("l_name")}</label>
             <input
               type="text"
               className={`form-control ${theme}`}
@@ -97,7 +97,7 @@ const StudentForm = () => {
           </div>
 
           <div className={`form-group ${theme}`}>
-            <label htmlFor="index" className="label-text">{t("index")}</label>
+            <label htmlFor="index" className="label-text">Index</label>
             <input
               type="text"
               className={`form-control ${theme}`}

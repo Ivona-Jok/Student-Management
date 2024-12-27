@@ -2,10 +2,14 @@
   text-align: center;
 }
 
-.App.bg-dark{
-  background-color: #2e2e2e !important;
+.App.bg-dark {
+  /* background-color: #234d8b !important; */
+  background: linear-gradient(180deg, #0034b1, #771290) !important;
+  transition: background ease-in-out 0.4s;
 }
 
-.App.bg-light{
-  background-color: #fff !important;
+.App.bg-light {
+  /* background-color: #6ea7fc !important; */
+  background: linear-gradient(180deg, #0f65f0, #b04fc7) !important;
+  transition: background ease-in-out 0.4s;
 }

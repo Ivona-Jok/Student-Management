@@ -157,7 +157,7 @@ function StudentTable() {
                 const [key, direction] = e.target.value.split("-");
                 handleSort(key, direction);
               }}
-              className={`form-select ${theme}`}
+              className={`form-select ${theme === "light" ? "dark" : "light"}`}
             >
               <option value=""> {t("sort_by")} </option>
               <option value="first-asc">{t("f_name")} (A-Z)</option>
@@ -213,8 +213,8 @@ function StudentTable() {
         </table>
         <div className="pagination-container">
           <div className="students-per-page">
-            <label>{t("display")}:</label>
-            <select value={studentsPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme}`} >
+            <label className={`display ${theme}`}>{t("display")}:</label>
+            <select value={studentsPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme === "light" ? "dark" : "light"}`} >
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>

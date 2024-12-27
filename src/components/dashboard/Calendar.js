@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import "../styles/Dashboard.css";
+import React, { useState, useContext } from "react";
+import "../../styles/Dashboard.css";
+import { ThemeContext } from "../../theme/Theme";
 
 function Calendar() {
+  const { theme } = useContext(ThemeContext);
   const [currentDate, setCurrentDate] = useState(new Date());
   const today = new Date();
 
@@ -39,7 +41,7 @@ function Calendar() {
         <button onClick={() => changeYear(1)}>»</button>
       </div>
 
-      <table>
+      <table className={`calendar-table ${theme}`}>
         <thead>
           <tr>
             <th>Sun</th>

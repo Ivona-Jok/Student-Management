@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from "react";
+import "../../styles/Dashboard.css";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const CombinedChartComponent = () => {
@@ -41,7 +42,7 @@ const CombinedChartComponent = () => {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '350px' }}>
+    <div className="chart" style={{ width: '100%', height: '350px' }}>
       <h4>Combined Grades and Students Chart</h4>
       <ResponsiveContainer>
         <AreaChart data={chartData}>
@@ -49,7 +50,7 @@ const CombinedChartComponent = () => {
           <XAxis dataKey="grade" label={{ value: 'Grades', position: 'insideBottom', offset: -5 }} />
           <YAxis allowDecimals={false} label={{ value: 'Students', angle: -90, position: 'insideLeft' }} />
           <Tooltip />
-          <Legend />
+          <Legend wrapperStyle={{marginTop: "20px"}} />
 
           <Area
             type="monotone"
