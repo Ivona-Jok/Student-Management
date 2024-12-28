@@ -2,24 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import "../styles/Components.css";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../theme/Theme";
-import { useAuth } from "../utils/auth"
-import { Link } from "react-router-dom";
+import { useAuth } from "../utils/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
-
+  const { user } = useAuth();
   const [works, setWorks] = useState([]);
-  const [filteredWorks, setFilteredWorks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const { user } = useAuth(); 
+  const navigate = useNavigate(); // Use navigate hook to programmatically navigate to pages
 
   useEffect(() => {
     fetch("/db.json")
       .then((response) => response.json())
       .then((data) => {
         setWorks(data.works || []);
-        setFilteredWorks(data.works || []);
       })
       .catch((error) => console.error("Error fetching works:", error));
   }, []);
@@ -28,10 +26,20 @@ function Header() {
     const query = e.target.value;
     setSearchQuery(query);
 
-    const filtered = works.filter((work) =>
-      work.title.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredWorks(filtered);
+    // Navigate to the corresponding page if a match is found
+    if (query.toLowerCase() === "dashboard") {
+      navigate("/");  // Dashboard
+    } else if (query.toLowerCase() === "students") {
+      navigate("/student");  // Student page
+    } else if (query.toLowerCase() === "grades") {
+      navigate("/grades");  // Grades page
+    } else if (query.toLowerCase() === "works") {
+      navigate("/works");  // Works page
+    } else if (query.toLowerCase() === "settings") {
+      navigate("/settings");  // Settings page
+    } else if (query.toLowerCase() === "logout" && user) {
+      navigate("/login");  // Logout page
+    }
   };
 
   return (
@@ -46,7 +54,7 @@ function Header() {
               value={searchQuery}
               onChange={handleSearch}
               aria-label="Search"
-            />    
+            />
           </form>
           {user ? (
             <div className={`user-info text-${theme}`}>
@@ -60,7 +68,7 @@ function Header() {
           )}
         </div>
       </header>
-    </div> 
+    </div>
   );
 }
 

@@ -1,3 +1,11 @@
+.main-container{
+  padding:  30px;
+}
+
+h2{
+  padding-bottom: 20px;
+}
+
 .right {
   width: 300px;
   display: flex;
@@ -66,6 +74,15 @@
 
 .calendar th {
   background: #f8f9fa;
+}
+
+.top-works-container{
+  display: flex;
+  flex-direction: column;
+  padding: auto;
+  justify-content: center;
+  align-items: center;
+  color: #444;
 }
 
 .top-works-list{

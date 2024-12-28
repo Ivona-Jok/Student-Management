@@ -2,23 +2,19 @@ import { useContext, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import "../styles/Components.css";
 import "../styles/Sidebar.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../theme/Theme";
 import { useTranslation } from "react-i18next";
 import { useAuth } from '../utils/auth';
-import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
   const [activeTab, setActiveTab] = useState("/");
   const [showModal, setShowModal] = useState(false);
-
   const location = useLocation();
-
   const pageName = location.pathname.split("/").pop(); 
 
   const handleTabClick = (tab) => {
