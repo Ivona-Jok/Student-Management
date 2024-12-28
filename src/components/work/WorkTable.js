@@ -70,6 +70,7 @@ function WorkTable() {
       })
       .catch((error) => console.error("Error fetching student research papers: ", error));
   }, []);
+
   const handleGradeChange = (e, workId) => {
     //console.log('workId:', workId);  // Provjera da li je ovo trazeni ID
     if (!user?.role.includes("teacher")) {
@@ -110,6 +111,7 @@ function WorkTable() {
         );
       });
   };
+  
   const handleGradeEdit = (workId) => {
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can edit grades.');
@@ -163,10 +165,12 @@ function WorkTable() {
       ? String(valueA).localeCompare(String(valueB))
       : String(valueB).localeCompare(String(valueA));
   });
+  
   const indexOfLastStudent = currentPage * worksPerPage;
   const indexOfFirstStudent = indexOfLastStudent - worksPerPage;
   const currentStudents = sortedWorks.slice(indexOfFirstStudent, indexOfLastStudent);
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
+  
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
   const handleStudentsPerPageChange = (e) => {
     setWorksPerPage(Number(e.target.value));
@@ -217,11 +221,6 @@ function WorkTable() {
             </select>
           </div>
         </div>
-
-        {/* <button className="button-link" onClick={toggleForm}>{showForm ? `${t("closeForm")}` : `${t("addForm")}`}</button>
-          {showForm && <WorkForm/>}
-          {showUpdateForm && <UpdateWorkForm/>} */}
-
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
