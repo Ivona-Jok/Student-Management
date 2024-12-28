@@ -4,6 +4,7 @@ import { ThemeContext } from '../../theme/Theme';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "../../utils/auth";
 import { addStudent } from '../../utils/api';
+import YearSelect from './YearSelect';
 
 const StudentForm = () => {
   const { theme } = useContext(ThemeContext);
@@ -27,6 +28,13 @@ const StudentForm = () => {
     setFormData((prevState) => ({
       ...prevState,
       [id]: value
+    }));
+  };
+
+  const handleYearChange = (year) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      year: year  // Update year in formData when it's selected from YearSelect
     }));
   };
 
@@ -64,7 +72,7 @@ const StudentForm = () => {
 
         <form onSubmit={handleSubmit}>
           <div className={`form-group ${theme}`}>
-            <label htmlFor="firstName" className="label-text">{t("first_name")}</label>
+            <label htmlFor="firstName" className="label-text">{t("f_name")}</label>
             <input
               type="text"
               className={`form-control ${theme}`}
@@ -75,7 +83,7 @@ const StudentForm = () => {
           </div>
 
           <div className={`form-group ${theme}`}>
-            <label htmlFor="lastName" className="label-text">{t("last_name")}</label>
+            <label htmlFor="lastName" className="label-text">{t("l_name")}</label>
             <input
               type="text"
               className={`form-control ${theme}`}
@@ -86,7 +94,7 @@ const StudentForm = () => {
           </div>
 
           <div className={`form-group ${theme}`}>
-            <label htmlFor="email" className="label-text">{t("email")}</label>
+            <label htmlFor="email" className="label-text">{t("E-mail")}</label>
             <input
               type="email"
               className={`form-control ${theme}`}
@@ -97,7 +105,7 @@ const StudentForm = () => {
           </div>
 
           <div className={`form-group ${theme}`}>
-            <label htmlFor="index" className="label-text">{t("index")}</label>
+            <label htmlFor="index" className="label-text">Index</label>
             <input
               type="text"
               className={`form-control ${theme}`}
@@ -108,19 +116,14 @@ const StudentForm = () => {
           </div>
 
           <div className={`form-group ${theme}`}>
-            <label htmlFor="year" className="label-text">{t("year")}</label>
-            <input
-              type="number"
-              className={`form-control ${theme}`}
-              id="year"
-              value={formData.year}
-              onChange={handleInputChange}
-            />
+            <label htmlFor="year" className="label-text">{t("enrollmentYear")}</label>
+            <YearSelect startYear={2000} endYear={2024} onChange={handleYearChange}/>
           </div>
 
           <button type="submit" className="btn-submit" disabled={loading}>
-            {loading ? t("loading") : t("submit")}
+            {loading ? t("loading") : t("add")}
           </button>
+
         </form>
 
         {error && <p className="error-message">{error}</p>}

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import "../../styles/Components.css";
 import "../../styles/Table.css";
 import { ThemeContext } from "../../theme/Theme";
@@ -23,20 +23,13 @@ function WorkTable() {
   const [worksPerPage, setWorksPerPage] = useState(10);  
   const [showForm, setShowForm] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [workToUpdate, setWorkToUpdate] = useState(null);
+  const [updatedWork, setUpdatedWork] = useState(null);
+  const [work, setWork] = useState(null); // Držimo specifičan rad
+  const [isLoading, setIsLoading] = useState(true);
+  const [workId, setWorkId] = useState(null); // Držimo workId
+  const cacheRef = useRef({});  // Ref objekat za cache radova
+  
 
- // Funkcija koja formu za dodavanje rada cini vidljivom
-  const toggleForm = () => {
-    setShowForm(prevState => !prevState);
-  };
-
-
-  const toggleUpdateForm = (work = null) => {
-    setWorkToUpdate(work);
-    setShowUpdateForm(prevState => !prevState);
-  };
-
-  const handleSearchChange = (e) => setSearchTerm(e.target.value);
   useEffect(() => {
     fetch("/db.json")
       .then((response) => {
@@ -46,14 +39,17 @@ function WorkTable() {
         return response.json();
       })
       .then((data) => {
-
-        const studentWorks = data.works;
+        const works = data.works;
         const authors = data.users.filter((user) => user.role === "student");
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
-        
-        const worksWithAuthors = studentWorks.map((work, index) => {
+  
+        const worksWithAuthors = works.map((work, index) => {
           const author = authors.find((author) => author.id === work.studentId);
           const teacher = teachers.find((teacher) => teacher.id === work.teacherId);
+  
+          // Provera da li je author i teacher pronađen
+          console.log(`Work ${work.id}:`, author, teacher);
+  
           return {
             id: index + 1,
             title: work.title,
@@ -66,10 +62,63 @@ function WorkTable() {
             date: work.date,
           };
         });
-        setWorks(worksWithAuthors);
+        setWorks(worksWithAuthors); // Postavljanje radova sa autorima i učiteljima
       })
       .catch((error) => console.error("Error fetching student research papers: ", error));
   }, []);
+
+  useEffect(() => {
+    const fetchWork = async () => {
+      if (workId != null) {
+        // Proveri da li je već u cache-u (cacheRef je stable kroz render)
+        if (cacheRef.current[workId]) {
+          // Ako postoji u cache-u, samo postavi work iz cache-a
+          console.log('Work found in cache:', cacheRef.current[workId]);
+          setWork(cacheRef.current[workId]);
+        } else {
+          try {
+            const response = await fetch(`http://localhost:5000/works/${workId}`);
+            if (!response.ok) {
+              throw new Error('Work not found');
+            }
+            const data = await response.json();
+
+            // Spremi u cache (cacheRef.current) i postavi work
+            cacheRef.current[workId] = data;
+            setWork(data);
+            console.log('Work fetched from API:', data);
+          } catch (error) {
+            console.error('Error fetching work:', error);
+            setWork(null);  // U slučaju greške, postavi work na null
+          }
+        }
+      }
+    };
+
+    fetchWork();
+  }, [workId]); // useEffect zavisi samo od workId
+
+  
+ 
+
+ 
+  
+ // Funkcija koja formu za dodavanje rada cini vidljivom
+  const toggleForm = () => {
+    setShowForm(prevState => !prevState);
+  };
+
+
+  const toggleUpdateForm = (work = null) => {
+    setUpdatedWork(work);
+    setShowUpdateForm(prevState => !prevState);
+  };
+
+  const handleSearchChange = (e) => setSearchTerm(e.target.value);
+  
+  
+
+
   const handleGradeChange = (e, workId) => {
     //console.log('workId:', workId);  // Provjera da li je ovo trazeni ID
     if (!user?.role.includes("teacher")) {
@@ -110,6 +159,8 @@ function WorkTable() {
         );
       });
   };
+
+
   const handleGradeEdit = (workId) => {
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can edit grades.');
@@ -122,8 +173,9 @@ function WorkTable() {
   const handleDeleteWork = async (workId) => {
     
     try {
+      const userId = localStorage.getItem('userId');  // Uzmimo userId iz localStorage
       // Briše se work preko api funkcije deleteWork
-      const response = await deleteWork(workId);
+      const response = await deleteWork(workId, userId);
       if (response.ok) {
         // Na uspješno brisanje koriguje se state
         setWorks((prevWorks) => prevWorks.filter((work) => work.id !== workId));
@@ -137,11 +189,15 @@ function WorkTable() {
     }
   };
 
+
+
   const toggleExpand = (id) => {
     setExpandedRows((prev) =>
       prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]
     );
   };
+
+
   const toggleSortDirection = (key) => {
     setSortConfig((prev) => ({
       key,
@@ -149,11 +205,13 @@ function WorkTable() {
     }));
   };
 
+
   const filteredWorks = works.filter((work) =>
     Object.keys(work).some((key) =>
       String(work[key]).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
 
   const sortedWorks = [...filteredWorks].sort((a, b) => {
     if (!sortConfig.key) return 0;
@@ -163,11 +221,15 @@ function WorkTable() {
       ? String(valueA).localeCompare(String(valueB))
       : String(valueB).localeCompare(String(valueA));
   });
+
+
   const indexOfLastStudent = currentPage * worksPerPage;
   const indexOfFirstStudent = indexOfLastStudent - worksPerPage;
   const currentStudents = sortedWorks.slice(indexOfFirstStudent, indexOfLastStudent);
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
+
   const handleStudentsPerPageChange = (e) => {
     setWorksPerPage(Number(e.target.value));
     setCurrentPage(1);
@@ -184,16 +246,31 @@ function WorkTable() {
     );
   }
 
-  if (showUpdateForm && workToUpdate) {
+  
+
+  if (showUpdateForm && updatedWork) {
+    /* const workId = works.find((work) => workId === work.id); */
     return (
       <div className={`component ${theme === "light" ? "dark" : "light"}`}>
-        <UpdateWorkForm work={workToUpdate} />
-        <button className="button-link" onClick={toggleUpdateForm}>
+            
+            <UpdateWorkForm 
+            
+              work={updatedWork} 
+              workId={
+                updatedWork?.id
+              }
+            />
+         
+        
+         <button className="button-link" onClick={() => {
+            toggleUpdateForm();   // Pozivanje funkcije za prikazivanje forme
+          }}>
           {t("closeForm")} 
         </button>
       </div>
     );
   }
+
 
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
@@ -217,10 +294,6 @@ function WorkTable() {
             </select>
           </div>
         </div>
-
-        {/* <button className="button-link" onClick={toggleForm}>{showForm ? `${t("closeForm")}` : `${t("addForm")}`}</button>
-          {showForm && <WorkForm/>}
-          {showUpdateForm && <UpdateWorkForm/>} */}
 
         <table className={`table table-${theme} table-striped`}>
           <thead>
@@ -260,7 +333,10 @@ function WorkTable() {
                 <td>
                   <FontAwesomeIcon
                     icon={faEdit}
-                    onClick={toggleUpdateForm} 
+                    onClick={() => {
+                      toggleUpdateForm(work);  // This toggles the update form
+                      setWorkId(work.id);  // This sets the work ID
+                    }}
                     style={{ cursor: 'pointer', color: 'orange' }}
                   />
                 </td>
@@ -295,9 +371,9 @@ function WorkTable() {
             <button className="button-link" onClick={toggleForm}>
               Add Work
             </button>
-            <button className="button-link" onClick={toggleUpdateForm}>
+            {/* <button className="button-link" onClick={toggleUpdateForm}>
               Update Work
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

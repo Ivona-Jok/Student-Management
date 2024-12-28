@@ -112,7 +112,7 @@ const WorkForm = () => {
           enteredTitle,
           enteredDescription,
           enteredLink,
-          Number(user.id),
+          user.id,
           currentDate
         );
     

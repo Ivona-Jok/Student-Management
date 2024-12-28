@@ -75,7 +75,9 @@ i18n
           roleUpdatedSuccessfully: "Role successfully changed!",
           update: "Update",
           updateWork: "Update work",
-          action: "Action"
+          action: "Action",
+          index: "Index number",
+          enrollmentYear: "Year of enrollment"
         }
       },
       sr: {
@@ -146,7 +148,9 @@ i18n
           roleUpdatedSuccessfully: "Uloga je uspješno promijenjena.",
           update: "Ažuriraj",
           updateWork: "Ažuriraj rad",
-          action: "Akcija"
+          action: "Akcija",
+          index: "Broj indeksa",
+          enrollmentYear: "Godina upisa na studije"
         }
       }
     },
