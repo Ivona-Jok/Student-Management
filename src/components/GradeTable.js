@@ -38,6 +38,7 @@ function GradeTable() {
         const authors = data.users.filter((user) => user.role.includes("student"));
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
 
+        // Assume the logged-in user is the first teacher found (adjust accordingly)
         const loggedInUser = data.users.find((user) => user.role.includes("teacher"));
 
         setWorks(
@@ -59,40 +60,45 @@ function GradeTable() {
           })
         );
         setUsers(data.users);
-        setUser(loggedInUser);
+        setUser(loggedInUser);  // Store the logged-in user
       })
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
 
   const handleGradeChange = (e, workId) => {
-    if (user.role !== "teacher") {
-      console.log('Access denied: Only teachers can update grades.');
+    if (!user || !user.role.includes("teacher")) {
+      console.log("Access denied: Only teachers can update grades.");
       return;
     }
+  
     const newGrade = e.target.value;
     const teacherId = user.id;
+  
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
+        work.id === workId
+          ? { ...work, grade: newGrade, teacherId: teacherId }
+          : work
       )
     );
+  
     fetch(`http://localhost:5000/works/${workId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`, 
+        'Authorization': `Bearer ${user.token}`,
       },
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log('Grade updated successfully:', data);
-        setEditGradeId(null); 
+        setEditGradeId(null);
       })
       .catch((error) => {
         console.error('Error updating grade:', error);
@@ -104,9 +110,10 @@ function GradeTable() {
       });
   };
   
+  
   const handleGradeEdit = (workId) => {
     if (!user?.role.includes("teacher")) {
-      console.log('Access denied: Only teachers can edit grades.');
+      console.log("Access denied: Only teachers can edit grades.");
       return;
     }
     setEditGradeId(workId);
@@ -209,17 +216,27 @@ function GradeTable() {
                     <div className="cell-content">{work.title}</div>
                   </td>
                   <td className="grade-button-container center">
-                    <button onClick={() => handleGradeEdit(work.id)} className="grade-button" disabled={user?.role !== "teacher"} >{work.grade || '-'} </button>
-                    {editGradeId === work.id && user?.role === "teacher" && (
-                      <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)}>
-                        <option value="">-</option>
-                        {[...Array(6).keys()].map(i => (
-                          <option key={i + 6} value={i + 6}>{i + 6}</option>
-                        ))}
-                      </select>
+                    {user?.role.includes("teacher") ? (
+                      <>
+                        <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
+                          {work.grade || '-'}
+                        </button>
+                        {editGradeId === work.id && (
+                          <select
+                            value={work.grade || ''}
+                            onChange={(e) => handleGradeChange(e, work.id)}
+                          >
+                            <option value="">-</option>
+                            {[...Array(6).keys()].map(i => (
+                              <option key={i + 6} value={i + 6}>{i + 6}</option>
+                            ))}
+                          </select>
+                        )}
+                      </>
+                    ) : (
+                      <span>{work.grade || '-'}</span>
                     )}
                   </td>
-
                   <td>{work.teacher}</td>
                 </tr>
               ))}

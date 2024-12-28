@@ -163,10 +163,7 @@
       "email": "ivona.jokic@gmail.com",
       "password": "12345678.i",
       "token": "fake-jwt-token-for-15",
-      "role": [
-        "admin",
-        "teacher"
-      ],
+      "role": "teacher",
       "year": "2020"
     },
     {
@@ -262,7 +259,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000",
       "studentId": 1,
       "date": "28.12.2024.",
-      "grade": "7",
+      "grade": "9",
       "teacherId": 14,
       "id": 2
     },
