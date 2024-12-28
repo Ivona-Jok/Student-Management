@@ -13,6 +13,7 @@ import Error from "./pages/Error";
 import React, { useContext } from "react";
 import { ThemeContext } from "./theme/Theme"; 
 import './styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from './utils/auth';
  
 

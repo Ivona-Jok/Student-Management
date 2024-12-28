@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 import "../styles/Components.css";
 import "../styles/Sidebar.css";
 import { Link, useLocation } from "react-router-dom";
@@ -14,6 +15,7 @@ function Sidebar() {
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState("/");
+  const [showModal, setShowModal] = useState(false);
 
   const location = useLocation();
 
@@ -24,8 +26,17 @@ function Sidebar() {
   };
 
   const handleLogout = () => {
+    setShowModal(true); 
+  };
+
+  const confirmLogout = () => {
     logout();
     navigate("/login");
+    setShowModal(false);
+  };
+
+  const cancelLogout = () => {
+    setShowModal(false);
   };
 
   return (
@@ -86,6 +97,17 @@ function Sidebar() {
           </li>
         )}
       </ul>
+      <Modal show={showModal} onHide={cancelLogout}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t("confirm_logout")}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{t("are_you_sure_logout")}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={confirmLogout}>
+            {t("logout")}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
