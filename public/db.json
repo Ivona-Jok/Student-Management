@@ -8,7 +8,8 @@
       "email": "milica.milic@gmail.com",
       "password": "123456.c",
       "token": "fake-jwt-token-for-ef98",
-      "role": "student"
+      "role": "student",
+      "year": "2008"
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "email": "ana.ivanovic@gmail.com",
       "password": "123456.a",
       "token": "fake-jwt-token-for-dd23",
-      "role": "student"
+      "role": "student",
+      "year": "2009"
     },
     {
       "id": 3,
@@ -28,7 +30,8 @@
       "email": "ivana.mit@gmail.com",
       "password": "123456.i",
       "token": "fake-jwt-token-for-77c3",
-      "role": "student"
+      "role": "student",
+      "year": "2010"
     },
     {
       "id": 4,
@@ -38,7 +41,8 @@
       "email": "marko.markovic@gmail.com",
       "password": "123456.mm",
       "token": "fake-jwt-token-for-baa1",
-      "role": "student"
+      "role": "student",
+      "year": "2011"
     },
     {
       "id": 5,
@@ -48,7 +52,8 @@
       "email": "ivan.ivanovic@gmail.com",
       "password": "123456.b",
       "token": "fake-jwt-token-for-5fd1",
-      "role": "student"
+      "role": "student",
+      "year": "2012"
     },
     {
       "id": 6,
@@ -58,7 +63,8 @@
       "email": "petar.petrovic@gmail.com",
       "password": "123123.x",
       "token": "fake-jwt-token-for-2aa6",
-      "role": "student"
+      "role": "student",
+      "year": "2001"
     },
     {
       "id": 7,
@@ -68,7 +74,8 @@
       "email": "nikola.nikolic@yahoo.com",
       "password": "123123.c",
       "token": "fake-jwt-token-for-2989",
-      "role": "student"
+      "role": "student",
+      "year": "2020"
     },
     {
       "id": 8,
@@ -78,7 +85,8 @@
       "email": "jovan.jovan@t-com.me",
       "password": "123456y.",
       "token": "fake-jwt-token-for-8c39",
-      "role": "student"
+      "role": "student",
+      "year": "2016"
     },
     {
       "id": 9,
@@ -88,7 +96,8 @@
       "email": "aleksandar.bojanic@yahoo.com",
       "password": "123123.m",
       "token": "fake-jwt-token-for-05e0",
-      "role": "student"
+      "role": "student",
+      "year": "2019"
     },
     {
       "id": 10,
@@ -98,7 +107,8 @@
       "email": "jelena.jeca@t-com.me",
       "password": "11111111.m",
       "token": "fake-jwt-token-for-10",
-      "role": "student"
+      "role": "student",
+      "year": "2018"
     },
     {
       "id": 11,
@@ -108,7 +118,8 @@
       "email": "oliver.smith@outlook.com",
       "password": "111111m1.",
       "token": "fake-jwt-token-for-6a26",
-      "role": "student"
+      "role": "student",
+      "year": "2021"
     },
     {
       "id": 12,
@@ -118,7 +129,8 @@
       "email": "bojana-bojanic@hotmail.com",
       "password": "111111m.",
       "token": "fake-jwt-token-for-2533",
-      "role": "student"
+      "role": "student",
+      "year": "2011"
     },
     {
       "id": 13,
@@ -128,7 +140,8 @@
       "email": "tomadams@gmail.com",
       "password": "123123.n",
       "token": "fake-jwt-token-for-d14c",
-      "role": "student"
+      "role": "student",
+      "year": "2022"
     },
     {
       "id": 14,
@@ -140,7 +153,8 @@
       "role": [
         "admin",
         "teacher"
-      ]
+      ],
+      "year": "2011"
     },
     {
       "id": 15,
@@ -152,7 +166,8 @@
       "role": [
         "admin",
         "teacher"
-      ]
+      ],
+      "year": "2020"
     },
     {
       "id": 16,
@@ -162,7 +177,8 @@
       "email": "henry.tom@gmail.com",
       "password": "123456.h",
       "role": "student",
-      "token": "fake-jwt-token-for-16"
+      "token": "fake-jwt-token-for-16",
+      "year": "2012"
     },
     {
       "id": 17,
@@ -171,7 +187,8 @@
       "email": "miljan@gmail.com",
       "password": "123456.mm",
       "role": "student",
-      "token": "fake-jwt-token-for-17"
+      "token": "fake-jwt-token-for-17",
+      "year": "2015"
     },
     {
       "id": 18,
@@ -179,8 +196,8 @@
       "lastName": "Doe",
       "email": "random.email@gmail.com",
       "index": "3/20",
-      "year": "4",
-      "role": "student"
+      "role": "student",
+      "year": "2013"
     },
     {
       "id": 19,
@@ -188,15 +205,15 @@
       "lastName": "Miller",
       "email": "jo.miller@gmail.com",
       "index": "55/24",
-      "year": "1",
-      "role": "student"
+      "role": "student",
+      "year": "2008"
     },
     {
       "firstName": "Derek",
       "lastName": "Storm",
       "email": "emailrandom@gmail.com",
       "index": "65/23",
-      "year": "2",
+      "year": "2013",
       "role": "student",
       "id": 20
     },
@@ -205,31 +222,49 @@
       "lastName": "Young",
       "email": "random.email@gmail.com",
       "index": "12/20",
-      "year": "4",
+      "year": "2007",
       "role": "student",
       "id": 21
+    },
+    {
+      "firstName": "Milivoje",
+      "lastName": "Milic",
+      "email": "milivoje-milic@hotmail.com",
+      "index": "123/12",
+      "year": "2009",
+      "role": "student",
+      "id": 22
+    },
+    {
+      "firstName": "Oliver",
+      "lastName": "Henks",
+      "email": "oliver.henks@gmail.com",
+      "index": "111/20",
+      "year": "2009",
+      "role": "student",
+      "id": 23
     }
   ],
   "works": [
     {
-      "id": 1,
-      "grade": "10",
-      "studentId": 1,
-      "teacherId": 14,
-      "date": "01.01.2024.",
       "title": "Creativity in Computer Science and Fiction Writing",
       "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000",
+      "studentId": 1,
+      "date": "28.12.2024.",
+      "grade": "",
+      "teacherId": 14,
+      "id": 1
     },
     {
-      "id": 2,
-      "grade": "9",
-      "studentId": 2,
-      "teacherId": 14,
-      "date": "23.01.2024.",
-      "title": "Effective Manipulation Through Music",
+      "title": "Effective Manipulation Through Music12",
       "description": "The paper discusses how music effectively manipulates others in various contexts such as the workplace, advertising, and torture, while also offering counter-arguments for a balanced view.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000"
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000",
+      "studentId": 1,
+      "date": "28.12.2024.",
+      "grade": "7",
+      "teacherId": 14,
+      "id": 2
     },
     {
       "id": 3,
@@ -254,7 +289,7 @@
     {
       "id": 5,
       "grade": "6",
-      "studentId": 5,
+      "studentId": 12,
       "teacherId": 14,
       "date": "09.09.2024.",
       "title": "The Ethics of Accountability in Factory Farming",
@@ -263,8 +298,8 @@
     },
     {
       "id": 6,
-      "grade": "6",
-      "studentId": 6,
+      "grade": "8",
+      "studentId": 11,
       "teacherId": 15,
       "date": "19.11.2024.",
       "title": "Vintage: Wearing the Present in the Past",
@@ -273,7 +308,7 @@
     },
     {
       "id": 7,
-      "grade": "9",
+      "grade": "8",
       "studentId": 7,
       "teacherId": 14,
       "date": "05.08.2024.",
@@ -284,7 +319,7 @@
     {
       "id": 8,
       "grade": "9",
-      "studentId": 8,
+      "studentId": 11,
       "teacherId": 15,
       "date": "07.05.2024.",
       "title": "Taboo the Taboos: The Ethics of Food Waste",
@@ -302,17 +337,17 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=143&Itemid=1000000000000"
     },
     {
-      "id": 10,
-      "grade": "7",
-      "studentId": 10,
-      "teacherId": 14,
-      "date": "12.03.2024.",
-      "title": "Hip Hop's Masked Authenticity",
+      "id": 11,
+      "title": "Hip Hop's Masked Authenticity22",
       "description": "This paper explores the complex concept of authenticity in hip hop, examining how race, gender, and cultural ties influence the perception of 'realness' in rap music.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=138&Itemid=1000000000000"
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=138&Itemid=1000000000000",
+      "grade": "7",
+      "teacherId": 14,
+      "studentId": 11,
+      "date": "12.03.2024."
     },
     {
-      "id": 11,
+      "id": 12,
       "grade": "5",
       "studentId": 11,
       "teacherId": 14,
@@ -322,7 +357,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=133&Itemid=1000000000000"
     },
     {
-      "id": 12,
+      "id": 13,
       "grade": "6",
       "studentId": 12,
       "teacherId": 14,
@@ -332,8 +367,8 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=139&Itemid=1000000000000"
     },
     {
-      "id": 13,
-      "grade": "",
+      "id": 14,
+      "grade": "9",
       "studentId": 13,
       "teacherId": 14,
       "date": "12.02.2024.",
@@ -342,9 +377,9 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=130&Itemid=1000000000000"
     },
     {
-      "id": 14,
+      "id": 15,
       "grade": "8",
-      "studentId": 13,
+      "studentId": 20,
       "teacherId": 14,
       "date": "03.03.2024.",
       "title": "Exploring the Role of Teachers in Child Development",
@@ -352,44 +387,108 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=140&Itemid=1000000000000"
     },
     {
-      "studentId": 12,
-      "date": "27.12.2024.",
-      "grade": "6",
-      "teacherId": 14,
-      "title": "The Autism Epidemic",
+      "id": 16,
+      "title": "The Autism Epidemic12",
       "description": "This paper challenges the use of the term 'epidemic' to describe the rise in autism spectrum disorder cases, attributing the increase to better diagnosis, awareness, and expanded criteria.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000",
-      "id": 15
+      "grade": "10",
+      "teacherId": 14,
+      "studentId": 12,
+      "date": "27.12.2024."
+    }
+  ],
+  "historyWorks": [
+    {
+      "workId": 1,
+      "changeType": "update",
+      "changedBy": null,
+      "previousState": {
+        "grade": "10",
+        "studentId": 1,
+        "teacherId": 14,
+        "title": "Creativity in Computer Science and Fiction Writing1",
+        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+      },
+      "currentState": {
+        "grade": "10",
+        "studentId": 1,
+        "teacherId": 14,
+        "title": "Creativity in Computer Science and Fiction Writing",
+        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+      },
+      "dateChanged": "2024-12-28T12:18:26.212Z",
+      "id": 1
     },
     {
-      "title": "gvhgvhgg",
-      "description": "cn jfnl  jknjnkcj kjjj",
-      "link": "https://google.com/",
-      "studentId": 10,
-      "date": "27.12.2024.",
-      "grade": "7",
-      "teacherId": 15,
-      "id": 16
+      "workId": 1,
+      "changeType": "update",
+      "changedBy": null,
+      "previousState": {
+        "grade": "10",
+        "studentId": 1,
+        "teacherId": 14,
+        "title": "Creativity in Computer Science and Fiction Writing",
+        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+      },
+      "currentState": {
+        "grade": "10",
+        "studentId": 1,
+        "teacherId": 14,
+        "title": "Creativity in Computer Science and Fiction Writing22",
+        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+      },
+      "dateChanged": "2024-12-28T12:20:48.774Z",
+      "id": 2
     },
     {
-      "title": "ggggggggggggggg",
-      "description": "gggggggggggggggggggggggggg",
-      "link": "https://google.com/",
-      "studentId": 14,
-      "date": "27.12.2024.",
-      "grade": "",
-      "teacherId": "",
-      "id": 17
+      "workId": 1,
+      "changeType": "update",
+      "changedBy": null,
+      "previousState": {
+        "grade": "9",
+        "studentId": 1,
+        "teacherId": 14,
+        "title": "Creativity in Computer Science and Fiction Writing22",
+        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+      },
+      "currentState": {
+        "grade": "9",
+        "studentId": 1,
+        "teacherId": 14,
+        "title": "Creativity in Computer Science and Fiction Writing",
+        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+      },
+      "dateChanged": "2024-12-28T12:35:49.715Z",
+      "id": 3
     },
     {
-      "title": "hjbhhjbb",
-      "description": "bujvhvjvvgvv",
-      "link": "https://google.com/",
-      "studentId": 15,
-      "date": "27.12.2024.",
-      "grade": "",
-      "teacherId": "",
-      "id": 18
+      "workId": 2,
+      "changeType": "update",
+      "changedBy": null,
+      "previousState": {
+        "grade": "9",
+        "studentId": 2,
+        "teacherId": 14,
+        "title": "Effective Manipulation Through Music",
+        "description": "The paper discusses how music effectively manipulates others in various contexts such as the workplace, advertising, and torture, while also offering counter-arguments for a balanced view.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000"
+      },
+      "currentState": {
+        "grade": "9",
+        "studentId": 2,
+        "teacherId": 14,
+        "title": "Effective Manipulation Through Music12",
+        "description": "The paper discusses how music effectively manipulates others in various contexts such as the workplace, advertising, and torture, while also offering counter-arguments for a balanced view.",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000"
+      },
+      "dateChanged": "2024-12-28T13:07:04.242Z",
+      "id": 4
     }
   ]
 }
