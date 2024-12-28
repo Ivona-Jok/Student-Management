@@ -2,6 +2,14 @@
   padding:  30px;
 }
 
+.main-container.light h4{
+  color: #222;
+}
+
+.main-container.dark h4{
+  color: #fff;
+}
+
 h2{
   padding-bottom: 20px;
 }
@@ -100,10 +108,12 @@ h2{
 
 .top-works-list.light li{
   background-color: #eef4ff;
+  color: #444;
 }
 
 .top-works-list.dark li{
   background-color: #444;
+  color: #fff;
 }
 
 .work-item {
@@ -167,4 +177,17 @@ h2{
   font-weight: 800;
   border-radius: 50%;
   color: #fff;
+}
+
+.chart {
+  width: 100%; 
+  height: 350px; 
+  max-width: 600px;
+  display: flex; 
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.chart h4{
+  width: 600px;
 }

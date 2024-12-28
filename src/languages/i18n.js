@@ -21,6 +21,7 @@ i18n
           grades: "Grades",
           works: "Works",
           settings: "Settings",
+          profile: "Profile",
           topWorks: "Top Works",
           year: "Year",
           login: "Log In",
@@ -78,7 +79,8 @@ i18n
           roleUpdatedSuccessfully: "Role successfully changed!",
           update: "Update",
           updateWork: "Update work",
-          action: "Action"
+          action: "Action",
+          chart: "Combined Grades and Students Chart"
         }
       },
       sr: {
@@ -96,6 +98,7 @@ i18n
           grade_descending: "Opadajuce ocjene",
           works: "Radovi",
           settings: "Podešavanja",
+          profile: "Profil",
           topWorks: "Najbolji radovi",
           year: "Godina",
           login: "Prijava",
@@ -152,7 +155,8 @@ i18n
           roleUpdatedSuccessfully: "Uloga je uspješno promijenjena.",
           update: "Ažuriraj",
           updateWork: "Ažuriraj rad",
-          action: "Akcija"
+          action: "Akcija",
+          chart: "Prikaz Studenata i Ocjena"
         }
       }
     },

@@ -1,6 +1,6 @@
 
 .dashboard.text-light, .student.text-light, .grades.text-light, .works.text-light, .settings.text-light, .login.text-light, .register.text-light, .error.text-light{
-    color: #222;
+    color: #007bff;
 }
 
 .dashboard.text-dark, .student.text-dark, .grades.text-dark, .works.text-dark, .settings.text-dark, .login.text-dark, .register.text-dark, .error.text-dark{

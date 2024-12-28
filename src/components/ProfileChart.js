@@ -1,10 +1,10 @@
 'use client';
 import { useEffect, useState } from "react";
-import "../../styles/Dashboard.css";
+import "../styles/Dashboard.css";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useTranslation } from "react-i18next";
 
-const CombinedChartComponent = () => {
+const ProfileChart = () => {
   const { t } = useTranslation();
   const [chartData, setChartData] = useState([]);
 
@@ -19,21 +19,28 @@ const CombinedChartComponent = () => {
       .then((data) => {
         console.log("Fetched data:", data);
 
-        const grades = data.works.map(work => parseInt(work.grade));
-        const gradeCounts = [];
-        for (let i = 6; i <= 10; i++) {
-          const count = grades.filter(grade => grade === i).length;
-          gradeCounts.push({ grade: i, gradeCount: count });
-        }
+        const gradeCounts = {}; // To count total works for each grade
+        const studentCounts = {}; // To count distinct students for each grade
 
-        const students = data.users.filter(user => user.role === "student");
-        const studentIdsWithWorks = new Set(data.works.map(work => work.studentId));
-        const studentsWithWorksCount = students.filter(student => studentIdsWithWorks.has(student.id)).length;
+        // Iterate over works to build data for chart
+        data.works.forEach((work) => {
+          const grade = parseInt(work.grade);
+          
+          // Count total works for each grade
+          if (!gradeCounts[grade]) {
+            gradeCounts[grade] = 0;
+            studentCounts[grade] = new Set(); // Set to track distinct students for each grade
+          }
 
-        const formattedData = gradeCounts.map(item => ({
-          grade: item.grade,
-          gradeCount: item.gradeCount,
-          studentsWithWorks: studentsWithWorksCount,
+          gradeCounts[grade]++; // Increment total works for the grade
+          studentCounts[grade].add(work.studentId); // Add student to the set (ensuring distinct students)
+        });
+
+        // Prepare formatted data for the chart
+        const formattedData = Object.keys(gradeCounts).map((grade) => ({
+          grade: grade,
+          gradeCount: gradeCounts[grade], // Total number of works for this grade
+          studentsWithWorks: studentCounts[grade].size, // Number of distinct students for this grade
         }));
 
         setChartData(formattedData);
@@ -57,7 +64,7 @@ const CombinedChartComponent = () => {
           <Area
             type="monotone"
             dataKey="studentsWithWorks"
-            name="Students with Works"
+            name={t("works")}
             stroke="#8884d8"
             fill="#8884d8"
             fillOpacity={0.4}
@@ -66,7 +73,7 @@ const CombinedChartComponent = () => {
           <Area
             type="monotone"
             dataKey="gradeCount"
-            name="Students per Grade"
+            name={t("grades")}
             stroke="#0f65f0"
             fill="#0f65f0"
             fillOpacity={0.4}
@@ -77,4 +84,4 @@ const CombinedChartComponent = () => {
   );
 };
 
-export default CombinedChartComponent;
+export default ProfileChart;

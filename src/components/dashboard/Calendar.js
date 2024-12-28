@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import "../../styles/Dashboard.css";
 import { ThemeContext } from "../../theme/Theme";
+import { useTranslation } from "react-i18next";
 
 function Calendar() {
   const { theme } = useContext(ThemeContext);
+  const { t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date());
   const today = new Date();
 

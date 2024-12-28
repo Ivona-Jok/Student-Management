@@ -75,10 +75,20 @@ function Sidebar() {
         <hr className={`link`} />
         <li>
           {user ? (
-            <button className={`nav-link link ${activeTab === "/logout" ? "active" : ""} d-flex align-items-center`} onClick={handleLogout}>
-              <i className="fa-solid fa-right-from-bracket me-2"></i>
-              {t("logout")}
-            </button>
+            <>
+              <Link to="/profile" className={`nav-link link ${activeTab === "/profile" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/profile")}>
+                <i className="fa fa-user-circle me-2"></i>
+                {t("profile")}
+               </Link>
+      
+              <button
+                className={`nav-link link ${activeTab === "/logout" ? "active" : ""} d-flex align-items-center`}
+                onClick={handleLogout}
+              >
+                <i className="fa-solid fa-right-from-bracket me-2"></i>
+                {t("logout")}
+              </button>
+            </>
           ) : (
             <Link to="/login" className={`nav-link link ${activeTab === "/login" ? "active" : ""} d-flex align-items-center`} onClick={() => handleTabClick("/login")}>
               {t("login")}
