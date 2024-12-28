@@ -9,7 +9,7 @@ function GradeTable() {
   const { t } = useTranslation();
   const [works, setWorks] = useState([]);
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState(null);  // Store the user data
+  const [user, setUser] = useState(null);
   const [editGradeId, setEditGradeId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
@@ -22,13 +22,6 @@ function GradeTable() {
       user.id === studentId && user.role.includes("student")
     );
     return student ? `${student.firstName} ${student.lastName}` : "Unknown Student";
-  };
-
-  const getTeacherName = (teacherId) => {
-    const teacher = users.find((user) =>
-      user.id === teacherId && user.role.includes("teacher")
-    );
-    return teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown Teacher";
   };
 
   useEffect(() => {
@@ -71,11 +64,8 @@ function GradeTable() {
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
 
-  // Check if the current user is a teacher before allowing grade changes
-  const isTeacher = user?.role.includes("teacher");
-
   const handleGradeChange = (e, workId) => {
-    if (!isTeacher) {
+    if (user.role !== "teacher") {
       console.log('Access denied: Only teachers can update grades.');
       return;
     }
@@ -100,22 +90,22 @@ function GradeTable() {
       }
       return response.json();
     })
-    .then((data) => {
-      console.log('Grade updated successfully:', data);
-      setEditGradeId(null); 
-    })
-    .catch((error) => {
-      console.error('Error updating grade:', error);
-      setWorks((prevWorks) =>
-        prevWorks.map((work) =>
-          work.id === workId ? { ...work, grade: null } : work
-        )
-      );
-    });
+      .then((data) => {
+        console.log('Grade updated successfully:', data);
+        setEditGradeId(null); 
+      })
+      .catch((error) => {
+        console.error('Error updating grade:', error);
+        setWorks((prevWorks) =>
+          prevWorks.map((work) =>
+            work.id === workId ? { ...work, grade: null } : work
+          )
+        );
+      });
   };
-
+  
   const handleGradeEdit = (workId) => {
-    if (!isTeacher) {
+    if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can edit grades.');
       return;
     }
@@ -219,16 +209,17 @@ function GradeTable() {
                     <div className="cell-content">{work.title}</div>
                   </td>
                   <td className="grade-button-container center">
-                    <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
-                      {work.grade || '-'}
-                    </button>
-                    {editGradeId === work.id && isTeacher && (
+                    <button onClick={() => handleGradeEdit(work.id)} className="grade-button" disabled={user?.role !== "teacher"} >{work.grade || '-'} </button>
+                    {editGradeId === work.id && user?.role === "teacher" && (
                       <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)}>
                         <option value="">-</option>
-                        {[...Array(6).keys()].map(i => <option key={i+6} value={i+6}>{i+6}</option>)}
+                        {[...Array(6).keys()].map(i => (
+                          <option key={i + 6} value={i + 6}>{i + 6}</option>
+                        ))}
                       </select>
                     )}
                   </td>
+
                   <td>{work.teacher}</td>
                 </tr>
               ))}

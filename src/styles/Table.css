@@ -192,10 +192,15 @@
   }
   
   .grade-button:disabled {
-    background-color: #d6d6d6; 
-    border-color: #d6d6d6; 
-    color: #aaa; 
-    cursor: not-allowed; 
+    background-color: #0f65f0; 
+    border-color: #0f65f0; 
+    color: #fff; 
+    cursor: pointer !important;
+  }
+
+  .grade-button:disabled:hover {
+    background-color: #0d4fb9;
+    color: #fff; 
   }
 
   
