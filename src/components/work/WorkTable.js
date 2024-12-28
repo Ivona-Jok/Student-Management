@@ -67,7 +67,6 @@ function WorkTable() {
       .catch((error) => console.error("Error fetching student research papers: ", error));
   }, []);
 
-<<<<<<< HEAD
   useEffect(() => {
     const fetchWork = async () => {
       if (workId != null) {
