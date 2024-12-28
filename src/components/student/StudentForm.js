@@ -98,7 +98,7 @@ const StudentForm = () => {
           </div>
 
           <div className={`form-group ${theme}`}>
-            <label htmlFor="index" className="label-text">{t("index")}</label>
+            <label htmlFor="index" className="label-text">Index</label>
             <input
               type="text"
               className={`form-control ${theme}`}

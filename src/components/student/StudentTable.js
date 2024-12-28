@@ -256,7 +256,7 @@ function StudentTable({ students: initialStudents, works: initialWorks }) {
                 const [key, direction] = e.target.value.split("-");
                 handleSort(key, direction);
               }}
-              className={`form-select ${theme}`}
+              className={`form-select ${theme === "light" ? "dark" : "light"}`}
             >
               <option value="">{t("sort_by")}</option>
               <option value="first-asc">{t("f_name")} (A-Z)</option>
@@ -278,12 +278,14 @@ function StudentTable({ students: initialStudents, works: initialWorks }) {
               <th scope="col" onClick={() => toggleSortDirection("last")}>
                 {t("l_name")} {renderSortArrow("last")}
               </th>
-              <th scope="col" onClick={() => toggleSortDirection("index")}>
+
+              <th scope="col" className="center" onClick={() => toggleSortDirection("index")} >
+
                 Index {renderSortArrow("index")}
               </th>
               <th scope="col">{t("email")}</th>
-              <th scope="col">{t("year")}</th>
-              <th scope="col">GPA</th>
+              <th scope="col" className="center">{t("year")}</th>
+              <th scope="col" className="center">GPA</th>
               <th scope="col">{t("works")}</th>
             </tr>
           </thead>
@@ -312,8 +314,10 @@ function StudentTable({ students: initialStudents, works: initialWorks }) {
         </table>
         <div className="pagination-container">
           <div className="students-per-page">
-            <label>{t("display")}:</label>
-            <select value={studentsPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme}`}>
+
+            <label className={`display ${theme}`}>{t("display")}:</label>
+            <select value={studentsPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme === "light" ? "dark" : "light"}`} >
+
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>

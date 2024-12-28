@@ -1,7 +1,6 @@
 
-
 .dashboard.text-light, .student.text-light, .grades.text-light, .works.text-light, .settings.text-light, .login.text-light, .register.text-light, .error.text-light{
-    color: #222;
+    color: #007bff;
 }
 
 .dashboard.text-dark, .student.text-dark, .grades.text-dark, .works.text-dark, .settings.text-dark, .login.text-dark, .register.text-dark, .error.text-dark{
@@ -9,21 +8,26 @@
 }
 
 .main-container{
-    position: relative;
     min-height: 700px;
-    padding: 10px;
-    padding-top: 30px;
+    padding: 20px;
     text-align: center;
     height: 100%;
     width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
     font-size: 15pt;
     font-weight: 600;
+    border-radius: 10px;
+    padding-top: 30px;
+    margin: 0 20px 0 0;
 }
 
 .main-container h2{
     text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-container.light{
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    background-color: #fff;
 }
 
 .main-container.dark{

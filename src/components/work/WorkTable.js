@@ -67,6 +67,7 @@ function WorkTable() {
       .catch((error) => console.error("Error fetching student research papers: ", error));
   }, []);
 
+<<<<<<< HEAD
   useEffect(() => {
     const fetchWork = async () => {
       if (workId != null) {
@@ -161,6 +162,8 @@ function WorkTable() {
   };
 
 
+
+
   const handleGradeEdit = (workId) => {
     if (!user?.role.includes("teacher")) {
       console.log('Access denied: Only teachers can edit grades.');
@@ -222,11 +225,11 @@ function WorkTable() {
       : String(valueB).localeCompare(String(valueA));
   });
 
-
   const indexOfLastStudent = currentPage * worksPerPage;
   const indexOfFirstStudent = indexOfLastStudent - worksPerPage;
   const currentStudents = sortedWorks.slice(indexOfFirstStudent, indexOfLastStudent);
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
+  
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
 
@@ -286,7 +289,7 @@ function WorkTable() {
             />
           </div>
           <div className="filter">
-            <select onChange={(e) => toggleSortDirection(e.target.value)} className={`form-select ${theme}`}>
+            <select onChange={(e) => toggleSortDirection(e.target.value)} className={`form-select ${theme === "light" ? "dark" : "light"}`}>
               <option value="">{t("sort_by")}</option>
               {['title', 'author', 'date', 'grade'].map((col) => (
                 <option key={col} value={col}>{t(col)}</option>
@@ -353,8 +356,8 @@ function WorkTable() {
         </table>
         <div className="pagination-container">
           <div className="students-per-page">
-            <label>{t("display")}:</label>
-            <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme}`} >
+            <label className={`display ${theme}`}>{t("display")}:</label>
+            <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme === "light" ? "dark" : "light"}`} >
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>

@@ -36,7 +36,7 @@ function Settings() {
 
       <div className="setting-item">
         <label htmlFor="role-switcher">{t("changeRole")}</label>
-        {user.role.includes("admin") ? <SettingsRole/> : <p className="info">Uloge može mijenjati samo admin.</p>}
+        {user.role.includes("admin") ? <SettingsRole /> : <p className="info">Uloge može mijenjati samo admin.</p>}
       </div>
 
       <div className="setting-item">

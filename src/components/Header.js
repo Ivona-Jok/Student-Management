@@ -1,30 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../styles/Components.css";
-import ThemeSwitcher from "../theme/ThemeSwitcher";
-import LanguageSwitcher from "../languages/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../theme/Theme";
-import { useAuth } from "../utils/auth"
-import { useLocation, Link } from "react-router-dom";
+import { useAuth } from "../utils/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
-
+  const { user } = useAuth();
   const [works, setWorks] = useState([]);
-  const [filteredWorks, setFilteredWorks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const { user } = useAuth(); 
-  const location = useLocation();
-
-  const pageName = location.pathname.split("/").pop();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetch("/db.json")
       .then((response) => response.json())
       .then((data) => {
         setWorks(data.works || []);
-        setFilteredWorks(data.works || []);
       })
       .catch((error) => console.error("Error fetching works:", error));
   }, []);
@@ -33,18 +26,26 @@ function Header() {
     const query = e.target.value;
     setSearchQuery(query);
 
-    const filtered = works.filter((work) =>
-      work.title.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredWorks(filtered);
+    if (query.toLowerCase() === "dashboard") {
+      navigate("/");
+    } else if (query.toLowerCase() === "students") {
+      navigate("/student");
+    } else if (query.toLowerCase() === "grades") {
+      navigate("/grades");
+    } else if (query.toLowerCase() === "works") {
+      navigate("/works");
+    } else if (query.toLowerCase() === "settings") {
+      navigate("/settings");
+    } else if (query.toLowerCase() === "logout" && user) {
+      navigate("/login"); 
+    }
   };
 
   return (
-    <div id="header" className={`header text-${theme === "light" ? "dark" : "light"}`}>
-      <header className={`py-3 mb-2 border-bottom bg-${theme}`}>
+    <div id="header" className="header text">
+      <header className={`py-3 mb-2 bg-comp-${theme}`}>
         <div className="container d-flex flex-wrap justify-content-between align-items-center">
-          <h2 className="me-4">{t(pageName || "dashboard")}</h2>
-          <form className="flex-grow-1 me-3">
+          <form className="flex-grow-1 me-3 input">
             <input
               type="search"
               className={`form-control ${theme}`}
@@ -52,12 +53,14 @@ function Header() {
               value={searchQuery}
               onChange={handleSearch}
               aria-label="Search"
-            />    
+            />
           </form>
           {user ? (
-            <div className={`user-info text-${theme === "light" ? "dark" : "light"}`}>
-              <i className="fa fa-user-circle me-2"></i>
-              <span>{`Hello, ${user.firstName}`}</span>
+            <div className={`user-info text-${theme}`}>
+              <Link to="/profile" className="d-flex align-items-center">
+                <i className="fa fa-user-circle me-2"></i>
+                <span>{`Hello, ${user.firstName}`}</span>
+              </Link>
             </div>
           ) : (
             <Link to="/login" className={`btn btn-${theme === "light" ? "dark" : "light"}`}>
@@ -66,7 +69,7 @@ function Header() {
           )}
         </div>
       </header>
-    </div> 
+    </div>
   );
 }
 

@@ -9,7 +9,7 @@ function Grades() {
   const { t } = useTranslation();
 
   return (
-    <div className={`main-container grades text-${theme === "light" ? "dark" : "light"}`}>
+    <div className={`main-container ${theme} grades text-${theme === "light" ? "dark" : "light"}`}>
         <h2>{t("grades")}</h2>
         <GradeTable />
     </div>

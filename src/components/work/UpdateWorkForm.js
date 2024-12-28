@@ -6,6 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from "../../utils/auth";
 import { updateWork } from '../../utils/api';
 
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faEdit } from '@fortawesome/free-solid-svg-icons';  // Importujemo samo ikonicu za editovanje jer nam samo ona treba
+
+
 const UpdateWorkForm = ({workId}) => {
   const { theme } = useContext(ThemeContext);
   const { t } = useTranslation();
@@ -37,7 +41,7 @@ const UpdateWorkForm = ({workId}) => {
   const enteredDescriptionIsValid = enteredDescription.length > 1; 
   const enteredDescriptionIsInvalid = !enteredDescriptionIsValid && inputTouched.description;
 
-  const enteredLinkIsUrl = /^(https?:\/\/)/;
+  const enteredLinkIsUrl = "/^(https?:\/\/)/";
   const enteredLinkIsValid = enteredLink.length > 1 && enteredLinkIsUrl.test(enteredLink) ; 
   const enteredLinkIsInvalid = !enteredLinkIsValid && !enteredLinkIsUrl.test(enteredLink) && inputTouched.link;
 

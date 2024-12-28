@@ -116,6 +116,16 @@
     height: 40px;
 }
 
+.form-select.light{
+    background-color: #fff;
+    color: #222;
+}
+
+.form-select.light{
+    background-color: #333;
+    color: #fff;
+}
+
 .pagination{
     margin: 0 3px;
 }
@@ -142,6 +152,14 @@
     color: #fff;
     border: 1px solid #0f65f0;
     font-weight: bold;
+}
+
+.display.light{
+    color: #222;
+}
+
+.display.dark{
+    color: #fff;
 }
 
 .grade-button-container{
@@ -174,10 +192,15 @@
   }
   
   .grade-button:disabled {
-    background-color: #d6d6d6; 
-    border-color: #d6d6d6; 
-    color: #aaa; 
-    cursor: not-allowed; 
+    background-color: #0f65f0; 
+    border-color: #0f65f0; 
+    color: #fff; 
+    cursor: pointer !important;
+  }
+
+  .grade-button:disabled:hover {
+    background-color: #0d4fb9;
+    color: #fff; 
   }
 
   
