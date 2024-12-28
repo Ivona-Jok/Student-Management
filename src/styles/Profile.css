@@ -64,3 +64,24 @@ h4{
 .profile-chart {
     margin: 40px 0;
 }
+
+.title-container{
+    max-width: 400px;
+}
+
+.description-container {
+    width: 250px;
+    max-width: 250px;
+    height: 100px; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .description-container.expanded {
+    white-space: normal;
+    height: auto; 
+  }
+  

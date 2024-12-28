@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import "../styles/Main.css";
 import "../styles/Profile.css";
+import "../styles/Table.css";
 import { ThemeContext } from "../theme/Theme";
 import { useTranslation } from "react-i18next";
 import { useAuth } from '../utils/auth'; 
@@ -13,6 +14,8 @@ function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [worksData, setWorksData] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     if (user && user.token) {
@@ -22,6 +25,8 @@ function Profile() {
           const loggedInUser = data.users.find((userData) => userData.token === user.token);
           if (loggedInUser) {
             setProfileData(loggedInUser);
+            const studentWorks = data.works.filter((work) => work.studentId === loggedInUser.id);
+            setWorksData(studentWorks);
           } else {
             setError("User not found");
           }
@@ -50,6 +55,10 @@ function Profile() {
   const isAdminOrTeacher = userRole === "admin" || userRole === "teacher";
 
   const isStudent = userRole === "student";
+
+  const handleDescriptionClick = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <div className={`main-container ${theme} grades text-${theme === "light" ? "dark" : "light"}`}>
@@ -87,6 +96,34 @@ function Profile() {
       </div>
       <div className="profile-chart">
         {isStudent && <ProfileChart />}
+      </div>
+      <div className="profile-assigments">
+        <div className="table-container">
+            <table className={`table table-${theme} table-striped`}>
+            <thead>
+              <tr>
+                <th className="center" scope="row">{t("ID")}</th>
+                <th>{t("title")}</th>
+                <th>{t("description")}</th>
+                <th className="center">{t("link")}</th>
+                <th className="center">{t("grade")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {worksData.map((work) => (
+                <tr key={work.id}>
+                  <td className="center">{work.id}</td>
+                  <td className="title-container">{work.title}</td>
+                  <td className={`description-container ${isExpanded ? 'expanded' : ''}`} onClick={handleDescriptionClick}>{work.description}</td>
+                  <td className="center"><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
+                  <td className="grade-button-container center">
+                    <button className="grade-button">{work.grade}</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
