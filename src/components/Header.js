@@ -11,7 +11,7 @@ function Header() {
   const { user } = useAuth();
   const [works, setWorks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate(); // Use navigate hook to programmatically navigate to pages
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetch("/db.json")
@@ -26,19 +26,18 @@ function Header() {
     const query = e.target.value;
     setSearchQuery(query);
 
-    // Navigate to the corresponding page if a match is found
     if (query.toLowerCase() === "dashboard") {
-      navigate("/");  // Dashboard
+      navigate("/");
     } else if (query.toLowerCase() === "students") {
-      navigate("/student");  // Student page
+      navigate("/student");
     } else if (query.toLowerCase() === "grades") {
-      navigate("/grades");  // Grades page
+      navigate("/grades");
     } else if (query.toLowerCase() === "works") {
-      navigate("/works");  // Works page
+      navigate("/works");
     } else if (query.toLowerCase() === "settings") {
-      navigate("/settings");  // Settings page
+      navigate("/settings");
     } else if (query.toLowerCase() === "logout" && user) {
-      navigate("/login");  // Logout page
+      navigate("/login"); 
     }
   };
 
@@ -58,8 +57,10 @@ function Header() {
           </form>
           {user ? (
             <div className={`user-info text-${theme}`}>
-              <i className="fa fa-user-circle me-2"></i>
-              <span>{`Hello, ${user.firstName}`}</span>
+              <Link to="/profile" className="d-flex align-items-center">
+                <i className="fa fa-user-circle me-2"></i>
+                <span>{`Hello, ${user.firstName}`}</span>
+              </Link>
             </div>
           ) : (
             <Link to="/login" className={`btn btn-${theme === "light" ? "dark" : "light"}`}>

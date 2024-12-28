@@ -179,12 +179,12 @@ function StudentTable() {
               <th scope="col" onClick={() => toggleSortDirection("last")} >
                 {t("l_name")} {renderSortArrow("last")}
               </th>
-              <th scope="col" onClick={() => toggleSortDirection("index")} >
+              <th scope="col" className="center" onClick={() => toggleSortDirection("index")} >
                 Index {renderSortArrow("index")}
               </th>
               <th scope="col">{t("email")}</th>
-              <th scope="col">{t("year")}</th>
-              <th scope="col">GPA</th>
+              <th scope="col" className="center">{t("year")}</th>
+              <th scope="col" className="center">GPA</th>
               <th scope="col">{t("works")}</th>
             </tr>
           </thead>
