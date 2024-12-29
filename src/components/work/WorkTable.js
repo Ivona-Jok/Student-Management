@@ -25,10 +25,8 @@ function WorkTable() {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updatedWork, setUpdatedWork] = useState(null);
   const [work, setWork] = useState(null); // Držimo specifičan rad
-  const [isLoading, setIsLoading] = useState(true);
   const [workId, setWorkId] = useState(null); // Držimo workId
   const cacheRef = useRef({});  // Ref objekat za cache radova
-  
 
   useEffect(() => {
     fetch("/db.json")
@@ -96,18 +94,12 @@ function WorkTable() {
     };
 
     fetchWork();
-  }, [workId]); // useEffect zavisi samo od workId
-
-  
- 
-
- 
+  }, [workId]); // useEffect zavisi samo od workId 
   
  // Funkcija koja formu za dodavanje rada cini vidljivom
   const toggleForm = () => {
     setShowForm(prevState => !prevState);
   };
-
 
   const toggleUpdateForm = (work = null) => {
     setUpdatedWork(work);
@@ -116,39 +108,40 @@ function WorkTable() {
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
   
-  
-
-
   const handleGradeChange = (e, workId) => {
-    //console.log('workId:', workId);  // Provjera da li je ovo trazeni ID
-    if (!user?.role.includes("teacher")) {
-      console.log('Access denied: Only teachers can update grades.');
+    if (!user || !user.role.includes("teacher")) {
+      console.log("Access denied: Only teachers can update grades.");
       return;
     }
+  
     const newGrade = e.target.value;
     const teacherId = user.id;
+  
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
+        work.id === workId
+          ? { ...work, grade: newGrade, teacherId: teacherId }
+          : work
       )
     );
+  
     fetch(`http://localhost:5000/works/${workId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`, 
+        'Authorization': `Bearer ${user.token}`,
       },
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log('Grade updated successfully:', data);
-        setEditGradeId(null); 
+        setEditGradeId(null);
       })
       .catch((error) => {
         console.error('Error updating grade:', error);
@@ -159,18 +152,14 @@ function WorkTable() {
         );
       });
   };
-
-
-
-
+  
   const handleGradeEdit = (workId) => {
     if (!user?.role.includes("teacher")) {
-      console.log('Access denied: Only teachers can edit grades.');
+      console.log("Access denied: Only teachers can edit grades.");
       return;
     }
     setEditGradeId(workId);
-  };
-
+  }; 
 
   const handleDeleteWork = async (workId) => {
     
@@ -191,14 +180,11 @@ function WorkTable() {
     }
   };
 
-
-
   const toggleExpand = (id) => {
     setExpandedRows((prev) =>
       prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]
     );
   };
-
 
   const toggleSortDirection = (key) => {
     setSortConfig((prev) => ({
@@ -207,13 +193,11 @@ function WorkTable() {
     }));
   };
 
-
   const filteredWorks = works.filter((work) =>
     Object.keys(work).some((key) =>
       String(work[key]).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
 
   const sortedWorks = [...filteredWorks].sort((a, b) => {
     if (!sortConfig.key) return 0;
@@ -231,7 +215,6 @@ function WorkTable() {
   
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
-
   const handleStudentsPerPageChange = (e) => {
     setWorksPerPage(Number(e.target.value));
     setCurrentPage(1);
@@ -248,22 +231,16 @@ function WorkTable() {
     );
   }
 
-  
-
   if (showUpdateForm && updatedWork) {
     /* const workId = works.find((work) => workId === work.id); */
     return (
       <div className={`component ${theme === "light" ? "dark" : "light"}`}>
-            
             <UpdateWorkForm 
-            
               work={updatedWork} 
               workId={
                 updatedWork?.id
               }
             />
-         
-        
          <button className="button-link" onClick={() => {
             toggleUpdateForm();   // Pozivanje funkcije za prikazivanje forme
           }}>
@@ -272,7 +249,6 @@ function WorkTable() {
       </div>
     );
   }
-
 
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
@@ -296,7 +272,6 @@ function WorkTable() {
             </select>
           </div>
         </div>
-
         <table className={`table table-${theme} table-striped`}>
           <thead>
             <tr>
@@ -324,20 +299,33 @@ function WorkTable() {
                 <td className="center"><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
                 <td className="center">{work.date}</td>
                 <td className="grade-button-container center">
-                  <button onClick={() => handleGradeEdit(work.id)} className="grade-button">{work.grade || '-'}</button>
-                  {editGradeId === work.id && (
-                      <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)} >
-                        <option value="">-</option>
-                        {[...Array(6).keys()].map(i => <option key={i+6} value={i+6}>{i+6}</option>)}
-                      </select>)}
-                </td>
+                    {user.role === "teacher" ? (
+                      <>
+                        <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
+                          {work.grade || '-'}
+                        </button>
+                        {editGradeId === work.id && (
+                          <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)} >
+                            <option value="">-</option>
+                            {[...Array(6).keys()].map(i => (
+                              <option key={i + 6} value={i + 6}>{i + 6}</option>
+                            ))}
+                          </select>
+                        )}
+                      </>
+                    ) : (
+                      <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
+                        {work.grade || '-'}
+                      </button>
+                    )}
+                  </td>
                 <td>{work.teacher}</td>
                 <td>
                   <FontAwesomeIcon
                     icon={faEdit}
                     onClick={() => {
-                      toggleUpdateForm(work);  // This toggles the update form
-                      setWorkId(work.id);  // This sets the work ID
+                      toggleUpdateForm(work); 
+                      setWorkId(work.id);
                     }}
                     style={{ cursor: 'pointer', color: 'orange' }}
                   />

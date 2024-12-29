@@ -24,14 +24,11 @@ function StudentTable({ students: initialStudents, works: initialWorks }) {
     setShowForm((prevState) => !prevState);
   };
 
-  // Fetching student data (assuming this is an example and we use local json data)
   useEffect(() => {
     if (!initialStudents || initialStudents.length === 0) {
       fetch("/db.json")
         .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
+          if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
           return response.json();
         })
         .then((data) => {
@@ -39,20 +36,20 @@ function StudentTable({ students: initialStudents, works: initialWorks }) {
           setStudents(
             studentUsers.map((user, index) => ({
               id: index + 1,
-              first: user.firstName,
-              last: user.lastName,
-              email: user.email,
-              index: user.index,
-              year: user.year,
-              gpa: user.gpa,
-              assignments: user.assignments,
+              first: user.firstName || "-",
+              last: user.lastName || "-",
+              email: user.email || "-",
+              index: user.index || "-",
+              year: user.year || "-",
+              gpa: user.gpa || "-",
+              assignments: user.assignments || [],
             }))
           );
         })
-        .catch((error) => console.error("Error fetching students: ", error));
+        .catch((error) => console.error("Error fetching students:", error));
     }
   }, [initialStudents]);
-
+  
   const fetchWorks = async () => {
     try {
       const response = await fetch("http://localhost:5000/works");
