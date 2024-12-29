@@ -59,7 +59,7 @@ function Header() {
             <div className={`user-info text-${theme}`}>
               <Link to="/profile" className="d-flex align-items-center">
                 <i className="fa fa-user-circle me-2"></i>
-                <span>{`Hello, ${user.firstName}`}</span>
+                <span>{`${t("hello")}, ${user.firstName}`}</span>
               </Link>
             </div>
           ) : (

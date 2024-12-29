@@ -11,6 +11,7 @@ i18n
       en: {
         translation: {
           welcome: "Welcome to our website!",
+          hello: "Hello",
           language: "Language",
           greeting: "Hello, User!",
           search: "Search...",
@@ -82,12 +83,16 @@ i18n
           action: "Action",
           index: "Index number",
           enrollmentYear: "Year of enrollment",
-          chart: "Combined Grades and Students Chart"
+          chart: "Combined Grades and Students Chart",
+          searchWork: "Search for a work history:",
+          searchSelect: "Search and select user:",
+          searchWorkPlaceholder: "Search by name or index"
         }
       },
       sr: {
         translation: {
           welcome: "Dobrodošli na našu web stranicu!",
+          hello: "Zdravo",
           language: "Jezik",
           greeting: "Zdravo, Korisniče!",
           search: "Pretraga...",
@@ -160,7 +165,10 @@ i18n
           action: "Akcija",
           index: "Broj indeksa",
           enrollmentYear: "Godina upisa na studije",
-          chart: "Prikaz Studenata i Ocjena"
+          chart: "Prikaz Studenata i Ocjena",
+          searchWork: "Pretraga za istoriju radova:",
+          searchSelect: "Pretraga i odabir role:",
+          searchWorkPlaceholder: "Pretraga po imenu ili indexu..."
         }
       }
     },

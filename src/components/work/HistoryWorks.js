@@ -1,9 +1,13 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { getWorkHistory} from "../../utils/api";  // Funkcija za uzimanje istorije radova
 import styles from "../../styles/HistoryWorks.module.css";  // Importuj CSS module
 import { format } from 'date-fns';
+import { ThemeContext } from "../../theme/Theme";
+import { useTranslation } from "react-i18next";
 
 function HistoryWorks({ workId, setWorkId }) {
+  const { theme } = useContext(ThemeContext);
+  const { t } = useTranslation();
   const [works, setWorks] = useState([]);  // Popis svih radova
   const [history, setHistory] = useState([]);  // Istorija za selektovani rad
   const [searchQuery, setSearchQuery] = useState('');  // Upit za pretragu
@@ -59,12 +63,13 @@ return (
 
     <div>
       <div>
-        <div className="select-user-role">
-          <label htmlFor="role-switcher">Search for a work history:</label>
+        <div className={`select-user-role box ${theme}`}>
+          <label htmlFor="role-switcher" className={`selectBox ${theme}`}>{t("searchWork")}</label>
           <input
             type="text"
             id="work-search"
-            placeholder="Search by name or index"
+            className={`searchBox ${theme}`}
+            placeholder={t("searchWorkPlaceholder")}
             value={searchQuery}
             onChange={(e) => {
               handleSearch(e.target.value);
@@ -76,7 +81,7 @@ return (
       </div>
 
       {/* Prikazivanje filtriranih radova */}
-      <ul className={styles.workList}>
+      <ul className={`styles.workList box ${theme}`}>
         {filteredWorks.map((work) => (
           <li
             key={work.id}  // Koristimo work.id kao ključ

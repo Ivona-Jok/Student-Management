@@ -285,7 +285,7 @@ function WorkTable() {
             />
           </div>
           <div className="filter">
-            <select onChange={(e) => toggleSortDirection(e.target.value)} className={`form-select ${theme}`}>
+            <select onChange={(e) => toggleSortDirection(e.target.value)} className={`form-select ${theme === "light" ? "dark" : "light"}`}>
               <option value="">{t("sort_by")}</option>
               {['title', 'author', 'date', 'grade'].map((col) => (
                 <option key={col} value={col}>{t(col)}</option>
@@ -352,8 +352,8 @@ function WorkTable() {
         </table>
         <div className="pagination-container">
           <div className="students-per-page">
-            <label>{t("display")}:</label>
-            <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme}`} >
+            <label className={`display ${theme}`}>{t("display")}:</label>
+            <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme === "light" ? "dark" : "light"}`} >
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>

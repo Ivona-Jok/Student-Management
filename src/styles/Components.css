@@ -187,3 +187,47 @@ p{
     background-color: #f0f0f0;
   }
   
+
+  .box.light{
+    background-color: #f5f8ff;
+  }
+  
+  .box.dark{
+    background-color: #333;
+  }
+
+  .selectBox.light{
+    color: #333;
+  }
+
+  .selectBox.dark{
+    color: #fff;
+  }
+
+  .searchBox.light{
+    background-color: #fff;
+    color: #222;
+  }
+
+  .searchBox.light::placeholder {
+    color: #333; 
+  }
+
+  .searchBox.dark{
+    background-color: #444;
+    color: #fff;
+  }
+
+  .searchBox.dark::placeholder {
+    color: #ccc; 
+  }
+
+  .searchResult.light{
+    background-color: #f5f8ff;
+    color: #333;
+  }
+
+  .searchResult.dark{
+    background-color: #333;
+    color: #fff;
+  }

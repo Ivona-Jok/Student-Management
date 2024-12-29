@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from "react-i18next";
+import { ThemeContext } from "../../theme/Theme";
 import "../../styles/Components.css";
 import "../../styles/Popup.css";
 import Popup from "../settings/Popup"
 
 const SettingsRole = () => {
     console.log("Component re-rendered");
+    const { theme } = useContext(ThemeContext);
     const [role, setRole] = useState(''); // Uloga za odabranog korisnika
     const [users, setUsers] = useState([]); // Niz za čuvanje podataka o svim korisnicima
     const [selectedUser, setSelectedUser] = useState(null); // Za potrebe editovanja jednog korisnika
@@ -106,11 +108,12 @@ const SettingsRole = () => {
 return (
     <div>
         {/* Input polje za pretragu */}
-        <div className="select-user-role">
-            <label htmlFor="userSelect">{t("searchAndChooseUser")}</label>
+        <div className={`select-user-role box ${theme}`}>
+            <label htmlFor="userSelect" className={`selectBox ${theme}`}>{t("searchSelect")}</label>
             <input
                 type="text"
                 id="userSelect"
+                className={`searchBox ${theme}`}
                 value={searchTerm}
                 onChange={handleSearchChange}
                 placeholder={t("searchUser")} 
@@ -120,7 +123,7 @@ return (
             {searchTerm && filteredUsers.length > 0 && (
                 <ul>
                     {filteredUsers.map(user => (
-                        <li key={user.id} onClick={() => handleUserSelect(user)}>
+                        <li key={user.id} onClick={() => handleUserSelect(user)} className={`searchResult ${theme}`}>
                             {user.firstName} {user.lastName} ({user.email})
                         </li>
                     ))}
@@ -135,15 +138,15 @@ return (
 
         {/* Select polje za odabir uloge korisnika se pojavljuje samo kada je izabran korisnik */}
         {shouldShowRoleSelect && !roleChanged && (
-            <div className='select-user-role'>
+            <div className={`select-user-role box ${theme}`}>
                 <p>{t("currentRole")} {selectedUser.firstName} {selectedUser.lastName} {t("is")} <span>{selectedUser.role}</span></p>
 
                 {/* Padajući medi za uloge */}
-                <label htmlFor="roleSelect">{t("selectRole")}</label>
-                <select id="roleSelect" value={role} onChange={handleRoleChange}>
-                    <option value="student">{t("student")} </option>
-                    <option value="teacher">{t("teacher")} </option>
-                    <option value="admin">{t("admin")} </option>
+                <label htmlFor="roleSelect" className={`selectBox ${theme}`}>{t("selectRole")}</label>
+                <select id="roleSelect" value={role} onChange={handleRoleChange} className={`searchBox ${theme}`}>
+                    <option value="student" className={`searchBox ${theme}`}>{t("student")} </option>
+                    <option value="teacher" className={`searchBox ${theme}`}>{t("teacher")} </option>
+                    <option value="admin" className={`searchBox ${theme}`}>{t("admin")} </option>
                 </select>
             </div>
             
