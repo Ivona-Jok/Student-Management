@@ -8,7 +8,7 @@ import SettingsRole from "../components/settings/SettingsRole";
 import { useAuth } from '../utils/auth';
 import "../styles/Components.css";
 import HistoryWorks from "../components/work/HistoryWorks";
-
+import "../styles/HistoryWorks.module.css";
 
 function Settings() {
   const { theme } = useContext(ThemeContext);
@@ -22,7 +22,6 @@ function Settings() {
 
   return (
     <div className={`main-container ${theme} settings text-${theme === "light" ? "dark" : "light"}`}>
-      <h2 className="page-title">{t("settings")}</h2>
 
       <div className="setting-item">
         <label htmlFor="theme-switcher">{t("changeTheme")}</label>
@@ -39,9 +38,12 @@ function Settings() {
         {user.role.includes("admin") ? <SettingsRole /> : <p className="info">Uloge može mijenjati samo admin.</p>}
       </div>
 
-      <div className="setting-item">
-        <label htmlFor="role-switcher">Show works history</label>
-        {user.role.includes("admin") ? <HistoryWorks workId={workId} setWorkId={setWorkId} /> : <p className="info">Istoriju promjena može vidjeti samo admin.</p>}
+      <div className="container">
+          {user.role.includes("admin") ? (
+            <HistoryWorks workId={workId} setWorkId={setWorkId} />
+          ) : (
+            <p className="info">Istoriju promjena može vidjeti samo admin.</p>
+          )}
       </div>
 
     </div>

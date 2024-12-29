@@ -44,7 +44,6 @@ function Student() {
 
   return (
     <div className={`main-container ${theme} student text-${theme === "light" ? "dark" : "light"}`}>
-      <h2>{t("students")}</h2>
       {/* Prosleđivanje trenutnih studenata i radova kao props */}
       <StudentTable students={students} works={works} />
     </div>

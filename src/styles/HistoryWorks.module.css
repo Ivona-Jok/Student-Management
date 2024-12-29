@@ -1,104 +1,107 @@
-/* HistoryWorks.module.css */
+/* Tabela za Previous State i Current State */
+.historyTable {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #f5f8ff; /* Svijetloplava boja pozadine */
+  border: 1px solid #007bff; /* Plavi okvir */
+  table-layout: fixed;
+  overflow-x: auto;
+}
 
-.mainContainer {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .pageTitle {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .workSearchInput {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-    outline: none;
-  }
-  
-  .workSearchInput:focus {
-    border-color: #0056b3;
-  }
-  
-  .workList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .workListItem {
-    background-color: #fff;
-    padding: 12px;
-    margin-bottom: 8px;
-    border-radius: 5px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .workListItem:hover {
-    background-color: #e1e1e1;
-  }
-  
-  .historyList {
-    margin-top: 20px;
-  }
-  
-  .historyListItem {
-    background-color: #fff;
-    padding: 16px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  .historyListItem strong {
-    font-weight: bold;
-  }
-  
-  .historyListItem ul {
-    padding-left: 20px;
-    margin-top: 10px;
-    list-style-type: none;
-  }
-  
-  .historyListItem ul li {
-    padding: 5px;
-    font-size: 14px;
-  }
-  
-  .historyInfo {
-    font-style: italic;
-    color: #888;
-  }
-  
-  @media (max-width: 600px) {
-    .mainContainer {
-      padding: 15px;
-    }
-  
-    .workSearchInput {
-      padding: 8px;
-      font-size: 14px;
-    }
-  
-    .workListItem {
-      padding: 10px;
-      font-size: 14px;
-    }
-  
-    .historyListItem {
-      padding: 12px;
-    }
-  }
-  
+.historyTable th, .historyTable td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #007bff; /* Plavi obrub za ćelije */
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.historyTable th {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.historyTable tr:nth-child(even) {
+  background-color: #e6f0ff; /* Svijetloplava pozadina za parne redove */
+}
+
+.historyTable tr:nth-child(odd) {
+  background-color: #f5f8ff; /* Svijetloplava pozadina za neparne redove */
+}
+
+.historyTable tr:hover {
+  background-color: #d0e5ff; /* Plava pozadina pri hover-u */
+}
+
+.historyTable ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.historyTable ul li {
+  margin: 5px 0;
+}
+
+.historyTableRow {
+  cursor: pointer;
+}
+
+.historyTableRow:hover {
+  background-color: #d0e5ff; /* Boja reda kad se pređe mišem */
+}
+
+/* Detalji izvan tabele */
+/* Poravnanje sadržaja u detaljima na lijevo */
+.historyDetails {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f8ff; /* Svijetlo plava pozadina */
+  border: 1px solid #007bff; /* Plavi okvir */
+  border-radius: 5px;
+  text-align: left; /* Poravnavanje na lijevo */
+}
+
+.historyDetails p {
+  margin: 5px 0;
+  font-size: 14px;
+  text-align: left; /* Osigurajte da je tekst unutar <p> također poravnat na lijevo */
+}
+
+/* Ako želite poravnati centrirano samo za '.historyInfo' */
+.historyInfo {
+  text-align: left; /* Promijenjeno na lijevo poravnanje */
+  font-size: 16px;
+  color: #333;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between; /* Postavlja label i input sa razmakom između */
+  align-items: center; /* Vertikalno centriranje */
+  width: 100%; /* Osigurava da kontejner zauzima cijeli prostor */
+}
+
+.search-container label {
+  margin-right: 10px; /* Dodaje razmak između labela i inputa */
+}
+
+.search-container input {
+  width: 100%; /* Omogućava inputu da popuni preostali prostor */
+  max-width: 300px; /* Postavlja maksimalnu širinu za input, po potrebi */
+  padding: 8px;
+}
+.container {
+  display: grid;
+  justify-items: end;  /* Align items inside the grid to the right */
+  padding: 10px;       /* Optional: Add padding if needed */
+}
+
+.info {
+  margin-right: 20px;  /* Optional: Add space from the right edge */
+}
+
+

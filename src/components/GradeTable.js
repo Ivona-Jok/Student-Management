@@ -47,7 +47,7 @@ function GradeTable() {
             const teacher = teachers.find((teacher) => Number(teacher.id) === Number(work.teacherId));
 
             return {
-              id: index + 1,
+              id: work.id,
               title: work.title,
               description: work.description,
               link: work.link,
@@ -174,7 +174,7 @@ function GradeTable() {
   return (
     <div className={`text-${theme === "light" ? "dark" : "light"}`}>
       <div className={`component ${theme === "light" ? "dark" : "light"}`}>
-        <div className="table-container">
+        <div>
           <div className="filter-search-container">
             <div className="search">
               <input

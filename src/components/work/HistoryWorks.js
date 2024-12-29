@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { getWorkHistory} from "../../utils/api";  // Funkcija za uzimanje istorije radova
 import styles from "../../styles/HistoryWorks.module.css";  // Importuj CSS module
+import { format } from 'date-fns';
 
 function HistoryWorks({ workId, setWorkId }) {
   const [works, setWorks] = useState([]);  // Popis svih radova
@@ -11,7 +12,7 @@ function HistoryWorks({ workId, setWorkId }) {
   // Funkcija za dobijanje svih radova
   const fetchWorks = async () => {
     try {
-      const response = await fetch("http://localhost:5000/works");;  // Putanja do API-ja za radove
+      const response = await fetch("http://localhost:5000/works");  // Putanja do API-ja za radove
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -54,21 +55,26 @@ function HistoryWorks({ workId, setWorkId }) {
   work.currentState?.title && work.currentState.title.toLowerCase().includes(searchQuery.toLowerCase())
 );
 
-  return (
+return (
+
     <div>
-      
-      <input
-        type="text"
-        id="work-search"
-        placeholder="Search by name or index"
-        value={searchQuery}
-        onChange={(e) => {
-          handleSearch(e.target.value);
-          setSearchQuery(e.target.value)  // Prvo pozovi handleSearch da ažuriraš searchQuery
-          setWorkId(e.target.value);     // Zatim postavi workId
-        }}
-      />
-      
+      <div>
+        <div className="select-user-role">
+          <label htmlFor="role-switcher">Search for a work history:</label>
+          <input
+            type="text"
+            id="work-search"
+            placeholder="Search by name or index"
+            value={searchQuery}
+            onChange={(e) => {
+              handleSearch(e.target.value);
+              setSearchQuery(e.target.value);  // Prvo pozovi handleSearch da ažuriraš searchQuery
+              setWorkId(e.target.value);       // Zatim postavi workId
+            }}
+          />
+        </div>
+      </div>
+
       {/* Prikazivanje filtriranih radova */}
       <ul className={styles.workList}>
         {filteredWorks.map((work) => (
@@ -86,45 +92,60 @@ function HistoryWorks({ workId, setWorkId }) {
       {workId && (
         <div className={styles.historyList}>
           <h3 className={styles.pageTitle}>Work History for ID: {workId}</h3>
+
           {history.length > 0 ? (
-            <ul className={styles.historyList}>
+            <>
+              {/* Tabela za Previous State i Current State */}
+              <table className={styles.historyTable}>
+                <thead>
+                  <tr>
+                    <th>Previous State</th>
+                    <th>Current State</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {history.map((item, index) => (
+                    <tr key={index} className={styles.historyTableRow}>
+                      <td>
+                        {item.previousState && typeof item.previousState === 'object' ? (
+                          <ul>
+                            {Object.entries(item.previousState).map(([key, value], subIndex) => (
+                              <li key={subIndex}>
+                                <strong>{key}:</strong> {JSON.stringify(value)}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span>{item.previousState}</span>
+                        )}
+                      </td>
+                      <td>
+                        {item.currentState && typeof item.currentState === 'object' ? (
+                          <ul>
+                            {Object.entries(item.currentState).map(([key, value], subIndex) => (
+                              <li key={subIndex}>
+                                <strong>{key}:</strong> {JSON.stringify(value)}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span>{item.currentState}</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* Ostali podaci ispod tabele */}
               {history.map((item, index) => (
-                <li key={index} className={styles.historyListItem}>
-                  <strong>Change Type:</strong> {item.changeType} <br />
-                  {/* Prikazivanje prethodnog stanja */}
-                  <strong>Previous State:</strong>
-                  {item.previousState && typeof item.previousState === 'object' ? (
-                    <ul>
-                      {Object.entries(item.previousState).map(([key, value], subIndex) => (
-                        <li key={subIndex}>
-                          <strong>{key}:</strong> {JSON.stringify(value)}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <span>{item.previousState}</span>
-                  )}
-
-                  {/* Prikazivanje trenutnog stanja */}
-                  <strong>Current State:</strong>
-                  {item.currentState && typeof item.currentState === 'object' ? (
-                    <ul>
-                      {Object.entries(item.currentState).map(([key, value], subIndex) => (
-                        <li key={subIndex}>
-                          <strong>{key}:</strong> {JSON.stringify(value)}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <span>{item.currentState}</span>
-                  )}
-
-                  <br />
-                  <strong>Changed By:</strong> {item.changedBy || 'N/A'} <br />
-                  <strong>Date:</strong> {item.date || 'N/A'}
-                </li>
+                <div key={index} className={styles.historyDetails}>
+                  <p><strong>Change Type:</strong> {item.changeType}</p>
+                  <p><strong>Changed By:</strong> {item.changedBy || 'N/A'}</p>
+                  <p><strong>Date:</strong> {format(new Date(item.dateChanged), 'dd.MM.yyyy HH:mm:ss') || 'N/A'}</p>
+                </div>
               ))}
-            </ul>
+            </>
           ) : (
             <p className={styles.historyInfo}>No history available for this work.</p>
           )}

@@ -117,7 +117,7 @@
       "index": "55/24",
       "email": "oliver.smith@outlook.com",
       "password": "111111m1.",
-      "token": "fake-jwt-token-for-6a26",
+      "token": "fake-jwt-token-for-11",
       "role": "student",
       "year": "2021"
     },
@@ -247,28 +247,18 @@
   ],
   "works": [
     {
-      "title": "Creativity in Computer Science and Fiction Writing",
-      "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000",
-      "studentId": 1,
-      "date": "29.12.2024.",
-      "grade": "6",
-      "teacherId": 14,
-      "id": 1
-    },
-    {
       "title": "Effective Manipulation Through Music12",
       "description": "The paper discusses how music effectively manipulates others in various contexts such as the workplace, advertising, and torture, while also offering counter-arguments for a balanced view.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000",
       "studentId": 1,
       "date": "28.12.2024.",
-      "grade": "9",
+      "grade": "7",
       "teacherId": 14,
       "id": 2
     },
     {
       "id": 3,
-      "grade": "8",
+      "grade": "7",
       "studentId": 3,
       "teacherId": 14,
       "date": "13.05.2024.",
@@ -298,9 +288,9 @@
     },
     {
       "id": 6,
-      "grade": "8",
+      "grade": "10",
       "studentId": 11,
-      "teacherId": 15,
+      "teacherId": 14,
       "date": "19.11.2024.",
       "title": "Vintage: Wearing the Present in the Past",
       "description": "This paper explores how vintage clothing in modern fashion enables individuality, nostalgia, and creative expression, while allowing for innovative yet familiar styles.",
@@ -377,7 +367,6 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=130&Itemid=1000000000000"
     },
     {
-
       "id": 15,
       "grade": "8",
       "studentId": 20,
@@ -396,78 +385,19 @@
       "teacherId": 14,
       "studentId": 12,
       "date": "27.12.2024."
+    },
+    {
+      "title": "Creativity in Computer Science and Fiction Writing",
+      "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000",
+      "studentId": 1,
+      "date": "29.12.2024.",
+      "grade": "",
+      "teacherId": "",
+      "id": 17
     }
   ],
   "historyWorks": [
-    {
-      "workId": 1,
-      "changeType": "update",
-      "changedBy": null,
-      "previousState": {
-        "grade": "10",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing1",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "currentState": {
-        "grade": "10",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "dateChanged": "2024-12-28T12:18:26.212Z",
-      "id": 1
-    },
-    {
-      "workId": 1,
-      "changeType": "update",
-      "changedBy": null,
-      "previousState": {
-        "grade": "10",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "currentState": {
-        "grade": "10",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing22",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "dateChanged": "2024-12-28T12:20:48.774Z",
-      "id": 2
-    },
-    {
-      "workId": 1,
-      "changeType": "update",
-      "changedBy": null,
-      "previousState": {
-        "grade": "9",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing22",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "currentState": {
-        "grade": "9",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "dateChanged": "2024-12-28T12:35:49.715Z",
-      "id": 3
-    },
     {
       "workId": 2,
       "changeType": "update",
@@ -492,50 +422,20 @@
       "id": 4
     },
     {
-      "workId": 1,
-      "changeType": "update",
-      "changedBy": null,
+      "workId": 18,
+      "changeType": "delete",
+      "changedBy": 14,
       "previousState": {
         "grade": "",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
+        "studentId": 14,
+        "teacherId": "",
+        "title": "naslov 1",
+        "description": "opis 1",
+        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=129&Itemid=1000000000000"
       },
-      "currentState": {
-        "grade": "",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing33",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "dateChanged": "2024-12-29T00:01:11.269Z",
+      "currentState": null,
+      "dateChanged": "2024-12-29T03:23:39.699Z",
       "id": 5
-    },
-    {
-      "workId": 1,
-      "changeType": "update",
-      "changedBy": null,
-      "previousState": {
-        "grade": "6",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing33",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "currentState": {
-        "grade": "6",
-        "studentId": 1,
-        "teacherId": 14,
-        "title": "Creativity in Computer Science and Fiction Writing",
-        "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
-        "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
-      },
-      "dateChanged": "2024-12-29T00:02:25.395Z",
-      "id": 6
     }
   ]
 }

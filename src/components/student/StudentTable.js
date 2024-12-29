@@ -240,7 +240,7 @@ function StudentTable({ students: initialStudents, works: initialWorks }) {
 
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
-      <div className="table-container">
+      <div>
         <div className="filter-search-container">
           <div className={`search ${theme}`}>
             <input

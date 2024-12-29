@@ -38,7 +38,7 @@ const UpdateWorkForm = ({workId}) => {
   const enteredDescriptionIsValid = enteredDescription.length > 1; 
   const enteredDescriptionIsInvalid = !enteredDescriptionIsValid && inputTouched.description;
 
-  const enteredLinkIsUrl = "/^(https?:\/\/)/";
+  const enteredLinkIsUrl = /^(https?:\/\/)/;
   const enteredLinkIsValid = enteredLink.length > 1 && enteredLinkIsUrl.test(enteredLink) ; 
   const enteredLinkIsInvalid = !enteredLinkIsValid && !enteredLinkIsUrl.test(enteredLink) && inputTouched.link;
 
@@ -103,6 +103,8 @@ const UpdateWorkForm = ({workId}) => {
 
   const descriptionInputBlurHandler = () => {
     setInputTouched((prev) => ({ ...prev, description: true }));
+    const currentDate = new Date().toISOString();
+    console.log("Ovo je datum", currentDate)
     if (enteredDescription.length < 1) {
       setErrorMessages((prev) => ({
         ...prev,
@@ -134,39 +136,6 @@ const UpdateWorkForm = ({workId}) => {
     return isInvalid && <p className="error-text">{errorMessage}</p>;
   };  
 
- /*   const updateFormSubmissionHandler = async (event) => {
-     event.preventDefault();
-     setIsLoading(true);
- 
-     if (!enteredTitleIsValid || !enteredDescriptionIsValid || !enteredLinkIsValid ) {
-       setIsLoading(false);
-       return;
-     }
- 
-     try {
-         const currentDate = new Date().toISOString();
-         const { work: updatedWork } = await updateWork(
-           enteredTitle,
-           enteredDescription,
-           enteredLink,
-           user.id,
-           currentDate
-         );
-     
-       console.log('Work updated:', updatedWork);
-       navigate('/works');
-       
-       setEnteredTitle('');
-       setEnteredDescription('');
-       setEnteredLink('');
-       setInputTouched({ title: false, description: false, link: false });
-     } catch (error) {
-         console.error('Updating work failed:', error.message);
-         alert(error.message || 'Updating work failed.');
-       } finally {
-         setIsLoading(false);
-       }
-   }; */
 
   // Funkcija za ažuriranje rada
   const updateFormSubmissionHandler = async (e) => {
@@ -177,20 +146,24 @@ const UpdateWorkForm = ({workId}) => {
       setIsLoading(false);
       return;
     }
+    
 
     try {
-      const currentDate = new Date().toISOString();
-      const userId = localStorage.getItem('userId');
+      const currentDate = new Date();
+
+      //const formattedDate = formatDate(currentDate);
+      const user = JSON.parse(localStorage.getItem('user'));
+
       const updatedWork = await updateWork (
         work.id,
         enteredTitle,           
-        enteredDescription, 
+        enteredDescription,
         enteredLink, 
         work.studentId,
-        currentDate ,           
+        currentDate,           
         work.grade,
         work.teacherId,
-        userId
+        user.id
       );
 
       console.log('Work Added:', updatedWork);

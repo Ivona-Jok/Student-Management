@@ -27,6 +27,7 @@ function WorkTable() {
   const [work, setWork] = useState(null); // Držimo specifičan rad
   const [workId, setWorkId] = useState(null); // Držimo workId
   const cacheRef = useRef({});  // Ref objekat za cache radova
+  
 
   useEffect(() => {
     fetch("/db.json")
@@ -49,7 +50,7 @@ function WorkTable() {
           console.log(`Work ${work.id}:`, author, teacher);
   
           return {
-            id: index + 1,
+            id: work.id,
             title: work.title,
             description: work.description,
             link: work.link,
@@ -94,8 +95,12 @@ function WorkTable() {
     };
 
     fetchWork();
-
   }, [workId]); // useEffect zavisi samo od workId
+
+  
+ 
+
+ 
   
  // Funkcija koja formu za dodavanje rada cini vidljivom
   const toggleForm = () => {
@@ -110,40 +115,39 @@ function WorkTable() {
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
   
+  
+
+
   const handleGradeChange = (e, workId) => {
-    if (!user || !user.role.includes("teacher")) {
-      console.log("Access denied: Only teachers can update grades.");
+    //console.log('workId:', workId);  // Provjera da li je ovo trazeni ID
+    if (!user?.role.includes("teacher")) {
+      console.log('Access denied: Only teachers can update grades.');
       return;
     }
-  
     const newGrade = e.target.value;
     const teacherId = user.id;
-  
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === workId
-          ? { ...work, grade: newGrade, teacherId: teacherId }
-          : work
+        work.id === workId ? { ...work, grade: newGrade, teacherId: teacherId } : work
       )
     );
-  
     fetch(`http://localhost:5000/works/${workId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`,
+        'Authorization': `Bearer ${user.token}`, 
       },
       body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
       .then((data) => {
         console.log('Grade updated successfully:', data);
-        setEditGradeId(null);
+        setEditGradeId(null); 
       })
       .catch((error) => {
         console.error('Error updating grade:', error);
@@ -155,20 +159,22 @@ function WorkTable() {
       });
   };
 
+
   const handleGradeEdit = (workId) => {
     if (!user?.role.includes("teacher")) {
-      console.log("Access denied: Only teachers can edit grades.");
+      console.log('Access denied: Only teachers can edit grades.');
       return;
     }
     setEditGradeId(workId);
-  }; 
+  };
+
 
   const handleDeleteWork = async (workId) => {
     
     try {
-      const userId = localStorage.getItem('userId');  // Uzmimo userId iz localStorage
+      const user = JSON.parse(localStorage.getItem('user'));  // Uzmimo userId iz localStorage
       // Briše se work preko api funkcije deleteWork
-      const response = await deleteWork(workId, userId);
+      const response = await deleteWork(workId, user.id);
       if (response.ok) {
         // Na uspješno brisanje koriguje se state
         setWorks((prevWorks) => prevWorks.filter((work) => work.id !== workId));
@@ -220,7 +226,6 @@ function WorkTable() {
   const indexOfFirstStudent = indexOfLastStudent - worksPerPage;
   const currentStudents = sortedWorks.slice(indexOfFirstStudent, indexOfLastStudent);
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
-  
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
 
@@ -240,19 +245,22 @@ function WorkTable() {
     );
   }
 
+  
+
   if (showUpdateForm && updatedWork) {
     /* const workId = works.find((work) => workId === work.id); */
     return (
       <div className={`component ${theme === "light" ? "dark" : "light"}`}>
-
+            
             <UpdateWorkForm 
-
+            
               work={updatedWork} 
               workId={
                 updatedWork?.id
               }
             />
-
+         
+        
          <button className="button-link" onClick={() => {
             toggleUpdateForm();   // Pozivanje funkcije za prikazivanje forme
           }}>
@@ -265,7 +273,7 @@ function WorkTable() {
 
   return (
     <div className={`component ${theme === "light" ? "dark" : "light"}`}>
-      <div className="table-container">
+      <div>
         <div className="filter-search-container">
           <div className="search">
             <input
@@ -277,7 +285,7 @@ function WorkTable() {
             />
           </div>
           <div className="filter">
-            <select onChange={(e) => toggleSortDirection(e.target.value)} className={`form-select ${theme === "light" ? "dark" : "light"}`}>
+            <select onChange={(e) => toggleSortDirection(e.target.value)} className={`form-select ${theme}`}>
               <option value="">{t("sort_by")}</option>
               {['title', 'author', 'date', 'grade'].map((col) => (
                 <option key={col} value={col}>{t(col)}</option>
@@ -285,7 +293,6 @@ function WorkTable() {
             </select>
           </div>
         </div>
-
 
         <table className={`table table-${theme} table-striped`}>
           <thead>
@@ -314,35 +321,20 @@ function WorkTable() {
                 <td className="center"><a href={work.link} target="_blank" rel="noopener noreferrer" className="button-link">{t("view")}</a></td>
                 <td className="center">{work.date}</td>
                 <td className="grade-button-container center">
-                    {user.role === "teacher" ? (
-                      <>
-                        <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
-                          {work.grade || '-'}
-                        </button>
-                        {editGradeId === work.id && (
-                          <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)} >
-                            <option value="">-</option>
-                            {[...Array(6).keys()].map(i => (
-                              <option key={i + 6} value={i + 6}>{i + 6}</option>
-                            ))}
-                          </select>
-                        )}
-                      </>
-                    ) : (
-                      <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
-                        {work.grade || '-'}
-                      </button>
-                    )}
-                  </td>
+                  <button onClick={() => handleGradeEdit(work.id)} className="grade-button">{work.grade || '-'}</button>
+                  {editGradeId === work.id && (
+                      <select value={work.grade || ''} onChange={(e) => handleGradeChange(e, work.id)} >
+                        <option value="">-</option>
+                        {[...Array(6).keys()].map(i => <option key={i+6} value={i+6}>{i+6}</option>)}
+                      </select>)}
+                </td>
                 <td>{work.teacher}</td>
                 <td>
                   <FontAwesomeIcon
                     icon={faEdit}
                     onClick={() => {
-
-                      toggleUpdateForm(work); 
-                      setWorkId(work.id);
-
+                      toggleUpdateForm(work);  // This toggles the update form
+                      setWorkId(work.id);  // This sets the work ID
                     }}
                     style={{ cursor: 'pointer', color: 'orange' }}
                   />
@@ -360,8 +352,8 @@ function WorkTable() {
         </table>
         <div className="pagination-container">
           <div className="students-per-page">
-            <label className={`display ${theme}`}>{t("display")}:</label>
-            <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme === "light" ? "dark" : "light"}`} >
+            <label>{t("display")}:</label>
+            <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme}`} >
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>

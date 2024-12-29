@@ -35,7 +35,7 @@ function Dashboard() {
 
   return (
     <div className={`main-container ${theme} dashboard text-${theme === "light" ? "dark" : "light"}`}>
-      <h2>{t("dashboard")}</h2>
+    
 
       <div className="d-flex flex-row justify-content-between mt-5">
         <div className="d-flex flex-column left">

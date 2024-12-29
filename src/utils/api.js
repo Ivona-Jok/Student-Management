@@ -49,6 +49,8 @@ export const register = async (firstName, lastName, email, password, repeatedPas
   }
 };
  */
+
+
 const API_URL = 'http://localhost:5000'; // Lokalna json-server URL
 
 
@@ -246,17 +248,12 @@ export const addWork = async (title, description, link, studentId, date, grade, 
 // AŽURIRANJE RADA (NE RADI - OVO NAREDNO RADIM)
 export const updateWork = async (workId, title, description, link, studentId, date, grade, teacherId, userId) => {
   
-  // Pozivamo funkciju za formatiranje datuma da formatira trenutni datum
-  const formattedDate = formatDate(new Date());
-  console.log("Ovo je ID iz updateWork:", workId);
-
-
   try {
-
+    
     // Prvo, preuzimamo trenutne podatke o radu
     const currentWork = await fetch(`${API_URL}/works/${workId}`);
     const currentWorkData = await currentWork.json();
-
+    const date = formatDate(new Date());
     // Pripremamo prethodno stanje i novo stanje
     const previousState = {
       grade: currentWorkData.grade,
@@ -287,7 +284,7 @@ export const updateWork = async (workId, title, description, link, studentId, da
         description,
         link,
         studentId,
-        date: formattedDate,
+        date,
         grade,
         teacherId
       }),
