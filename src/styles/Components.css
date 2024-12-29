@@ -41,9 +41,14 @@ p{
     font-size: 10pt;
 }
 
+.select-user-role-search{ 
+width: 100%;
+max-width: 60%;
+}
+
 .select-user-role {
     width: 100%;
-    max-width: 400px;
+    max-width: 100%;
     margin: 20px auto; 
     padding: 10px;
     background-color: #f9f9f9;

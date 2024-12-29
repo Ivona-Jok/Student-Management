@@ -106,7 +106,7 @@ const SettingsRole = () => {
 
 
 return (
-    <div>
+    <div className='select-user-role-search'>
         {/* Input polje za pretragu */}
         <div className={`select-user-role box ${theme}`}>
             <label htmlFor="userSelect" className={`selectBox ${theme}`}>{t("searchSelect")}</label>
