@@ -8,6 +8,7 @@
   border: 1px solid #007bff; /* Plavi okvir */
   table-layout: fixed;
   overflow-x: auto;
+  color: #333;
 }
 
 .historyTable th, .historyTable td {
@@ -63,6 +64,7 @@
   border: 1px solid #007bff; /* Plavi okvir */
   border-radius: 5px;
   text-align: left; /* Poravnavanje na lijevo */
+  color: #333;
 }
 
 .historyDetails p {
