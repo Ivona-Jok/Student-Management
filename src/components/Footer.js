@@ -9,9 +9,9 @@ function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className={`footer py-5 bg-${theme} mt-2 border-top`}>
+    <footer className={`footer py-5 bg-comp-${theme} mt-2`}>
       <div className="container text-center">
-        <span className={`text text-${theme === "light" ? "dark" : "light"}`}> 
+        <span className="text"> 
           {t("footer_txt")} @ 2024.</span>
       </div>
     </footer>

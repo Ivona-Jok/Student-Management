@@ -166,8 +166,7 @@
       "role": [
         "admin",
         "teacher"
-      ],
-      "year": "2020"
+      ]
     },
     {
       "id": "16",
@@ -186,7 +185,7 @@
       "lastName": "Miljanic",
       "email": "miljan@gmail.com",
       "password": "123456.mm",
-      "role": "teacher",
+      "role": "student",
       "token": "fake-jwt-token-for-17",
       "year": "2015"
     },
@@ -283,7 +282,7 @@
   ],
   "works": [
     {
-      "title": "Creativity in Computer Science and Fiction Writing1",
+      "title": "Creativity in Computer Science and Fiction Writing",
       "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000",
       "studentId": 1,
@@ -298,9 +297,9 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=137&Itemid=1000000000000",
       "studentId": 1,
       "date": "28.12.2024.",
-      "grade": "7",
+      "grade": "9",
       "teacherId": 14,
-      "id": "2"
+      "id": 2
     },
     {
       "id": "3",
@@ -333,7 +332,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=142&Itemid=1000000000000"
     },
     {
-      "id": "6",
+      "id": 6,
       "grade": "8",
       "studentId": 11,
       "teacherId": 15,
@@ -343,7 +342,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=67&id=128&Itemid=1000000000000"
     },
     {
-      "id": "7",
+      "id": 7,
       "grade": "8",
       "studentId": 7,
       "teacherId": 14,
@@ -353,7 +352,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=66&id=123&Itemid=1000000000000"
     },
     {
-      "id": "8",
+      "id": 8,
       "grade": "9",
       "studentId": 11,
       "teacherId": 15,
@@ -363,7 +362,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=141&Itemid=1000000000000"
     },
     {
-      "id": "9",
+      "id": 9,
       "grade": "10",
       "studentId": 9,
       "teacherId": 15,
@@ -373,7 +372,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=143&Itemid=1000000000000"
     },
     {
-      "id": "11",
+      "id": 11,
       "title": "Hip Hop's Masked Authenticity22",
       "description": "This paper explores the complex concept of authenticity in hip hop, examining how race, gender, and cultural ties influence the perception of 'realness' in rap music.",
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=138&Itemid=1000000000000",
@@ -383,7 +382,8 @@
       "date": "12.03.2024."
     },
     {
-      "id": "12",
+
+      "id": 12,
       "grade": "5",
       "studentId": 11,
       "teacherId": 14,
@@ -393,7 +393,8 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=68&id=133&Itemid=1000000000000"
     },
     {
-      "id": "13",
+
+      "id": 13,
       "grade": "6",
       "studentId": 12,
       "teacherId": 14,
@@ -403,7 +404,7 @@
       "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=139&Itemid=1000000000000"
     },
     {
-      "id": "14",
+      "id": 14,
       "grade": "9",
       "studentId": 13,
       "teacherId": 14,
@@ -421,6 +422,26 @@
       "grade": "",
       "teacherId": "",
       "id": "17"
+    },
+    {
+      "id": 15,
+      "grade": "8",
+      "studentId": 20,
+      "teacherId": 14,
+      "date": "03.03.2024.",
+      "title": "Exploring the Role of Teachers in Child Development",
+      "description": "This paper looks at how the role of a teacher impacts the development of children, both academically and socially, and the importance of early education.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=71&id=140&Itemid=1000000000000"
+    },
+    {
+      "id": 16,
+      "title": "The Autism Epidemic12",
+      "description": "This paper challenges the use of the term 'epidemic' to describe the rise in autism spectrum disorder cases, attributing the increase to better diagnosis, awareness, and expanded criteria.",
+      "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=69&id=133&Itemid=1000000000000",
+      "grade": "10",
+      "teacherId": 14,
+      "studentId": 12,
+      "date": "27.12.2024."
     }
   ],
   "historyWorks": [
@@ -445,7 +466,7 @@
         "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
       },
       "dateChanged": "2024-12-28T12:18:26.212Z",
-      "id": "1"
+      "id": 1
     },
     {
       "workId": 1,
@@ -468,7 +489,7 @@
         "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
       },
       "dateChanged": "2024-12-28T12:20:48.774Z",
-      "id": "2"
+      "id": 2
     },
     {
       "workId": 1,
@@ -491,7 +512,7 @@
         "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
       },
       "dateChanged": "2024-12-28T12:35:49.715Z",
-      "id": "3"
+      "id": 3
     },
     {
       "workId": 2,
@@ -533,7 +554,6 @@
       "id": "5"
     },
     {
-      "id": "6f5c",
       "workId": "1",
       "changeType": "update",
       "changedBy": null,
@@ -553,7 +573,8 @@
         "description": "This paper compares the creative processes of fiction writers and computer scientists, highlighting that fiction offers more freedom, while computer science is more logic-driven. Despite differences, both fields involve creativity.",
         "link": "https://dialogues.rutgers.edu/index.php?preview=1&option=com_dropfiles&format=&task=frontfile.download&catid=70&id=136&Itemid=1000000000000"
       },
-      "dateChanged": "2024-12-28T22:57:53.586Z"
+      "dateChanged": "2024-12-28T22:57:53.586Z",
+      "id": 4
     }
   ]
 }

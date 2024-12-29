@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { getWorkHistory} from "../../utils/api";  // Funkcija za uzimanje istorije radova
-import styles from "./HistoryWorks.module.css";  // Importuj CSS module
+import styles from "../../styles/HistoryWorks.module.css";  // Importuj CSS module
 
 function HistoryWorks({ workId, setWorkId }) {
   const [works, setWorks] = useState([]);  // Popis svih radova

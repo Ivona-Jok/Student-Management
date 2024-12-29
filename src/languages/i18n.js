@@ -20,10 +20,14 @@ i18n
           admin: "Admin",
           grades: "Grades",
           works: "Works",
-          settings: "Setings",
+          settings: "Settings",
+          profile: "Profile",
+          topWorks: "Top Works",
           year: "Year",
           login: "Log In",
           logout: "Log Out",
+          confirm_logout: "Confirm Log Out",
+          are_you_sure_logout: "Are you sure you want to Log Out?",
           name: "Name",
           f_name: "First Name",
           l_name: "Last Name",
@@ -77,7 +81,8 @@ i18n
           updateWork: "Update work",
           action: "Action",
           index: "Index number",
-          enrollmentYear: "Year of enrollment"
+          enrollmentYear: "Year of enrollment",
+          chart: "Combined Grades and Students Chart"
         }
       },
       sr: {
@@ -95,9 +100,13 @@ i18n
           grade_descending: "Opadajuce ocjene",
           works: "Radovi",
           settings: "Podešavanja",
+          profile: "Profil",
+          topWorks: "Najbolji radovi",
           year: "Godina",
           login: "Prijava",
           logout: "Odjava",
+          confirm_logout: "Potvrda Odjave",
+          are_you_sure_logout: "Da li ste sigurni da zelite da se odjavite?",
           name: "Ime",
           f_name: "Ime",
           l_name: "Prezime",
@@ -150,7 +159,8 @@ i18n
           updateWork: "Ažuriraj rad",
           action: "Akcija",
           index: "Broj indeksa",
-          enrollmentYear: "Godina upisa na studije"
+          enrollmentYear: "Godina upisa na studije",
+          chart: "Prikaz Studenata i Ocjena"
         }
       }
     },

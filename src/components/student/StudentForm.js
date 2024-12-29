@@ -117,7 +117,9 @@ const StudentForm = () => {
 
           <div className={`form-group ${theme}`}>
             <label htmlFor="year" className="label-text">{t("enrollmentYear")}</label>
+
             <YearSelect startYear={2000} endYear={2024} onChange={handleYearChange}/>
+
           </div>
 
           <button type="submit" className="btn-submit" disabled={loading}>

@@ -9,7 +9,7 @@ function GradeTable() {
   const { t } = useTranslation();
   const [works, setWorks] = useState([]);
   const [users, setUsers] = useState([]);
-  const [expandedRows, setExpandedRows] = useState([]);
+  const [user, setUser] = useState(null);
   const [editGradeId, setEditGradeId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
@@ -22,13 +22,6 @@ function GradeTable() {
       user.id === studentId && user.role.includes("student")
     );
     return student ? `${student.firstName} ${student.lastName}` : "Unknown Student";
-  };
-
-  const getTeacherName = (teacherId) => {
-    const teacher = users.find((user) =>
-      user.id === teacherId && user.role.includes("teacher")
-    );
-    return teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown Teacher";
   };
 
   useEffect(() => {
@@ -45,50 +38,85 @@ function GradeTable() {
         const authors = data.users.filter((user) => user.role.includes("student"));
         const teachers = data.users.filter((user) => user.role.includes("teacher"));
 
-        const worksWithAuthors = studentWorks.map((work, index) => {
-          const author = authors.find((author) => Number(author.id) === Number(work.studentId));
-          const teacher = teachers.find((teacher) => Number(teacher.id) === Number(work.teacherId));
+        // Assume the logged-in user is the first teacher found (adjust accordingly)
+        const loggedInUser = data.users.find((user) => user.role.includes("teacher"));
 
-          return {
-            id: index + 1,
-            title: work.title,
-            description: work.description,
-            link: work.link,
-            studentId: work.studentId,
-            author: author ? `${author.firstName} ${author.lastName}` : "Unknown",
-            grade: work.grade,
-            teacher: teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown",
-            date: work.date,
-          };
-        });
+        setWorks(
+          studentWorks.map((work, index) => {
+            const author = authors.find((author) => Number(author.id) === Number(work.studentId));
+            const teacher = teachers.find((teacher) => Number(teacher.id) === Number(work.teacherId));
 
-        setWorks(worksWithAuthors);
+            return {
+              id: index + 1,
+              title: work.title,
+              description: work.description,
+              link: work.link,
+              studentId: work.studentId,
+              author: author ? `${author.firstName} ${author.lastName}` : "Unknown",
+              grade: work.grade,
+              teacher: teacher ? `${teacher.firstName} ${teacher.lastName}` : "Unknown",
+              date: work.date,
+            };
+          })
+        );
         setUsers(data.users);
+        setUser(loggedInUser);  // Store the logged-in user
       })
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
 
-  const toggleExpand = (id) => {
-    setExpandedRows((prevExpandedRows) => {
-      if (prevExpandedRows.includes(id)) {
-        return prevExpandedRows.filter((rowId) => rowId !== id);
-      } else {
-        return [...prevExpandedRows, id];
-      }
-    });
-  };
-
-  const handleGradeEdit = (id) => {
-    setEditGradeId((prevId) => (prevId === id ? null : id));
-  };
-
-  const handleGradeChange = (e, id) => {
-    const updatedGrade = e.target.value;
+  const handleGradeChange = (e, workId) => {
+    if (!user || !user.role.includes("teacher")) {
+      console.log("Access denied: Only teachers can update grades.");
+      return;
+    }
+  
+    const newGrade = e.target.value;
+    const teacherId = user.id;
+  
     setWorks((prevWorks) =>
       prevWorks.map((work) =>
-        work.id === id ? { ...work, grade: updatedGrade } : work
+        work.id === workId
+          ? { ...work, grade: newGrade, teacherId: teacherId }
+          : work
       )
     );
+  
+    fetch(`http://localhost:5000/works/${workId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ grade: newGrade, teacherId: teacherId }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Grade updated successfully:', data);
+        setEditGradeId(null);
+      })
+      .catch((error) => {
+        console.error('Error updating grade:', error);
+        setWorks((prevWorks) =>
+          prevWorks.map((work) =>
+            work.id === workId ? { ...work, grade: null } : work
+          )
+        );
+      });
+  };
+  
+  
+  const handleGradeEdit = (workId) => {
+    if (!user?.role.includes("teacher")) {
+      console.log("Access denied: Only teachers can edit grades.");
+      return;
+    }
+    setEditGradeId(workId);
   };
 
   const filteredWorks = works.filter((work) => {
@@ -100,28 +128,27 @@ function GradeTable() {
     );
   });
 
-    const toggleSortDirection = (value) => {
-      setSelectedFilter(value);
-      if (value === "grade_ascending") {
-        setGradeSortDirection("asc");
-      } else if (value === "grade_descending") {
-        setGradeSortDirection("desc");
-      }
-    };
-    
-    const sortedWorks = filteredWorks.sort((a, b) => {
-      if (selectedFilter === "student") {
-        return a.author.localeCompare(b.author); 
-      } else if (selectedFilter === "grade_ascending" || selectedFilter === "grade_descending") {
-        const gradeA = a.grade ? Number(a.grade) : -1;
-        const gradeB = b.grade ? Number(b.grade) : -1;
-        return gradeSortDirection === "asc" ? gradeA - gradeB : gradeB - gradeA;
-      } else if (selectedFilter === "title") {
-        return a.title.localeCompare(b.title);
-      }
-      return 0;
-    });
-    
+  const toggleSortDirection = (value) => {
+    setSelectedFilter(value);
+    if (value === "grade_ascending") {
+      setGradeSortDirection("asc");
+    } else if (value === "grade_descending") {
+      setGradeSortDirection("desc");
+    }
+  };
+  
+  const sortedWorks = filteredWorks.sort((a, b) => {
+    if (selectedFilter === "student") {
+      return a.author.localeCompare(b.author); 
+    } else if (selectedFilter === "grade_ascending" || selectedFilter === "grade_descending") {
+      const gradeA = a.grade ? Number(a.grade) : -1;
+      const gradeB = b.grade ? Number(b.grade) : -1;
+      return gradeSortDirection === "asc" ? gradeA - gradeB : gradeB - gradeA;
+    } else if (selectedFilter === "title") {
+      return a.title.localeCompare(b.title);
+    }
+    return 0;
+  });
 
   const totalPages = Math.ceil(sortedWorks.length / worksPerPage);
 
@@ -161,7 +188,7 @@ function GradeTable() {
             <div className="filter">
               <select
                 onChange={(e) => toggleSortDirection(e.target.value)}
-                className={`form-select ${theme}`}
+                className={`form-select ${theme === "light" ? "dark" : "light"}`}
               >
                 <option value="">{t("sort_by")}</option>
                 {['student', 'title', 'grade_descending', 'grade_ascending'].map((col) => (
@@ -186,31 +213,28 @@ function GradeTable() {
                   <th className="center" scope="row">{work.id}</th>
                   <td>{work.author}</td>
                   <td>
-                    <div
-                      className={`cell-content ${expandedRows.includes(work.id) ? "expanded" : "collapsed"}`}
-                      onClick={() => toggleExpand(work.id)}
-                    >
-                      {work.title}
-                    </div>
-                    {expandedRows.includes(work.id) && (
-                      <div className="work-description">
-                        {work.description}
-                      </div>
-                    )}
+                    <div className="cell-content">{work.title}</div>
                   </td>
-                  <td className="center">
-                    <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
-                      {work.grade || "-"}
-                    </button>
-                    {editGradeId === work.id && (
-                      <select value={work.grade || ""} onChange={(e) => handleGradeChange(e, work.id)}>
-                        <option value="">-</option>
-                        {[...Array(6).keys()].map((i) => (
-                          <option key={i + 6} value={i + 6}>
-                            {i + 6}
-                          </option>
-                        ))}
-                      </select>
+                  <td className="grade-button-container center">
+                    {user?.role.includes("teacher") ? (
+                      <>
+                        <button onClick={() => handleGradeEdit(work.id)} className="grade-button">
+                          {work.grade || '-'}
+                        </button>
+                        {editGradeId === work.id && (
+                          <select
+                            value={work.grade || ''}
+                            onChange={(e) => handleGradeChange(e, work.id)}
+                          >
+                            <option value="">-</option>
+                            {[...Array(6).keys()].map(i => (
+                              <option key={i + 6} value={i + 6}>{i + 6}</option>
+                            ))}
+                          </select>
+                        )}
+                      </>
+                    ) : (
+                      <span>{work.grade || '-'}</span>
                     )}
                   </td>
                   <td>{work.teacher}</td>
@@ -220,12 +244,8 @@ function GradeTable() {
           </table>
           <div className="pagination-container">
             <div className="students-per-page">
-              <label>{t("display")}:</label>
-              <select
-                value={worksPerPage}
-                onChange={handleStudentsPerPageChange}
-                className={`form-select ${theme}`}
-              >
+              <label className={`display ${theme}`}>{t("display")}:</label>
+              <select value={worksPerPage} onChange={handleStudentsPerPageChange} className={`form-select ${theme === "light" ? "dark" : "light"}`}>
                 <option value={10}>10</option>
                 <option value={25}>25</option>
                 <option value={50}>50</option>
